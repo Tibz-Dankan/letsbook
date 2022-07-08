@@ -18,6 +18,13 @@ CREATE TABLE user_image_urls (
     image_url VARCHAR(250) NOT NULL DEFAULT null
 );
 
--- Tables having chats here
+CREATE TABLE chat_messages (
+    message_id SERIAL PRIMARY KEY,
+    sender_id INTEGER NOT NULL, 
+    recipient_id INTEGER NOT NULL, 
+    chat_room_id VARCHAR(50) NOT NULL,
+    date VARCHAR(50) NOT NULL,
+    message VARCHAR(300) NOT NULL 
+);
 
  
