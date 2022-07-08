@@ -6,14 +6,13 @@ const User = {};
 User.createUser = (
   userName,
   email,
-  country,
   hashedPassword,
   isVerifiedEmail,
   userVerifyToken
 ) => {
   return db.query(
-    "INSERT INTO users(user_name, email, country, password, is_verified_email, user_verify_token) VALUES($1,$2,$3,$4,$5, $6)  RETURNING *",
-    [userName, email, country, hashedPassword, isVerifiedEmail, userVerifyToken]
+    "INSERT INTO users(user_name, email, password, is_verified_email, user_verify_token) VALUES($1,$2,$3,$4,$5)  RETURNING *",
+    [userName, email, hashedPassword, isVerifiedEmail, userVerifyToken]
   );
 };
 
@@ -29,6 +28,16 @@ User.getUserByEmail = (email) => {
 // Get user by verify_token
 User.getUserByToken = (token) => {
   return db.query("SELECT * FROM users WHERE user_verify_token =$1", [token]);
+};
+
+// Get all users
+User.getAllUsers = () => {
+  return db.query("SELECT * FROM users");
+};
+
+// Get all users
+User.getAllUsersExceptMe = (userId) => {
+  return db.query("SELECT * FROM users WHERE user_id !=$1", [userId]);
 };
 
 // update password

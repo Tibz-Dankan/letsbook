@@ -20,25 +20,32 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
+// const checkEmailExistence = (email, next) => {
+//   emailExistence.check(email, (error, response) => {
+//     if (error)
+//       return next(AppError("error occurred during email validation", 500));
+//     if (!response) return next(AppError("Invalid email validation", 403));
+//     console.log("Email Validation status: " + response);
+//   });
+// };
+
 const createUserSendResponse = async (
   res,
   name,
   email,
   password,
-  country,
   isVerified,
   token
 ) => {
   const user = await User.getUserByEmail(email);
   if (user.rows[0]) return res.json({ errorMessage: "Email already exists" });
-  await User.createUser(name, email, country, password, isVerified, token);
+  await User.createUser(name, email, password, isVerified, token);
   res.status(201).json({ status: "success" });
 };
 
 const signup = async (req, res, next) => {
   const userName = req.body.userName;
   const email = req.body.email;
-  const country = req.body.country;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const isVerifiedEmail = false;
   const token = crypto.randomBytes(16).toString("hex");
@@ -53,7 +60,6 @@ const signup = async (req, res, next) => {
       res,
       userName,
       email,
-      country,
       hashedPassword,
       isVerifiedEmail,
       token
