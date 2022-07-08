@@ -6,13 +6,14 @@ const User = {};
 User.createUser = (
   userName,
   email,
+  country,
   hashedPassword,
   isVerifiedEmail,
   userVerifyToken
 ) => {
   return db.query(
-    "INSERT INTO users(user_name, email, password, is_verified_email, user_verify_token) VALUES($1,$2,$3,$4,$5)  RETURNING *",
-    [userName, email, hashedPassword, isVerifiedEmail, userVerifyToken]
+    "INSERT INTO users(user_name, email, country, password, is_verified_email, user_verify_token) VALUES($1,$2,$3,$4,$5,$6)  RETURNING *",
+    [userName, email, country, hashedPassword, isVerifiedEmail, userVerifyToken]
   );
 };
 
