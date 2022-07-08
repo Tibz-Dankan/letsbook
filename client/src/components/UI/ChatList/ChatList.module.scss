@@ -1,0 +1,31 @@
+.chat__list__wrapper {
+  color: violet;
+  display: grid;
+  place-items: center;
+}
+
+.chat__list {
+  position: relative;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 1px 1px 5px hsl(0, 0%, 80%);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  margin: 1em 0em;
+  padding: 1em 0em 1em 1em;
+  width: 50%;
+}
+.image__icon__container {
+  margin-right: 1em;
+  .image__icon {
+    size: 2em;
+  }
+}
+.message__icon {
+  position: absolute;
+  color: violet;
+  top: 1.5em;
+  right: 1em;
+}

@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -9,6 +9,7 @@ import { disableEnableButton } from "../../../utils/disableEnableButton";
 import styles from "./SignUp.module.scss";
 import Select from "react-select";
 import countryList from "react-select-country-list";
+import Modal from "../Modal/Modal";
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
@@ -18,6 +19,10 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const showNotificationModal = useSelector(
+    (state) => state.notification.value
+  );
+  const [isError, setIsError] = useState(false);
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -56,13 +61,19 @@ const SignUp = () => {
     }
   };
 
+  // const showLoginForm = () => {
+  //   setTimeout(() => {
+  //     navigate("/", { replace: true });
+  //   }, 2000);
+  // };
+
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     if (!userName || !email || !password) return;
     try {
       setIsLoading(true);
       disableEnableButton("signup-button", true);
-      await dispatch(signup(userName, email, countrySelected, password));
+      await dispatch(signup(userName, email, countrySelected.label, password));
       setIsLoading(false);
       disableEnableButton("signup-button", false);
       // dispatch an alert msg here to tell user to login
@@ -70,15 +81,15 @@ const SignUp = () => {
     } catch (error) {
       setIsLoading(false);
       disableEnableButton("signup-button", false);
+      setIsError(true);
       console.log("error msg: ", error.message);
-      // throw new Error(error.message);
-      // console.log(new Error(error.message));
     }
   };
 
   return (
     <Fragment>
       <div className={styles["signup__container"]}>
+        {showNotificationModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader size={5} />}
         </div>

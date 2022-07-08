@@ -1,0 +1,105 @@
+.chat__Message__container {
+  background-color: pink;
+  min-height: 100vh;
+  max-height: auto;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.chat__message__header {
+  background-color: purple;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 60%;
+  position: relative;
+}
+
+.user__image__container {
+  margin-left: 2em;
+}
+.chat__with__user__name {
+  margin-left: 1em;
+}
+
+.chat__with__calls__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  right: 2em;
+  .video__call {
+    margin-right: 2em;
+  }
+}
+.message__container {
+  background-color: hsl(0, 0%, 98%);
+  display: flex;
+  flex-direction: column;
+  #message {
+    position: relative;
+    width: 30%;
+    background-color: hsl(0, 0%, 85%);
+    display: inherit;
+    flex-direction: column;
+    border: 1px solid hsl(0, 0%, 85%);
+    border-radius: 50px;
+    margin: 0.5em;
+    padding: 1em;
+  }
+  .msg {
+    margin-bottom: 1.5em;
+  }
+  .my__message {
+    background-color: green;
+    margin-left: 1em;
+  }
+  .other__message {
+    background-color: lightblue;
+    margin-left: 4em;
+  }
+  .date__time__container {
+    position: absolute;
+    left: 0.05em;
+    bottom: 0em;
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+  }
+  .date {
+    background-color: hsl(0, 0%, 70%);
+    display: inline-block;
+    border-radius: 4px;
+    padding: 0em 0.3em;
+  }
+  .time {
+    background-color: hsl(0, 0%, 70%);
+    display: inline-block;
+    border-radius: 4px;
+  }
+}
+
+.form__input {
+  //   background-color: seagreen;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 60%;
+  &__field {
+    width: 100%;
+    background-color: hsl(0, 0%, 90%);
+    border: 1px solid hsl(0, 0%, 87%);
+    border-radius: 40px;
+    font-size: medium;
+  }
+  &__field:focus {
+    border: none;
+  }
+  .button__icon__container {
+    color: purple;
+  }
+}

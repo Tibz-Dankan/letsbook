@@ -1,0 +1,61 @@
+.chat__room__container {
+  background-color: pink;
+  min-height: 100vh;
+  max-height: auto;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.chat__room__header {
+  background-color: purple;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 60%;
+  position: relative;
+}
+
+.chat__with__user__image {
+  margin-left: 2em;
+}
+.chat__with__user__name {
+  margin-left: 1em;
+}
+
+.chat__with__calls__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  right: 2em;
+  .video__call {
+    margin-right: 2em;
+  }
+}
+.message__container {
+  background-color: yellow;
+}
+.form__input {
+  //   background-color: seagreen;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 60%;
+  &__field {
+    width: 100%;
+    background-color: hsl(0, 0%, 90%);
+    border: 1px solid hsl(0, 0%, 87%);
+    border-radius: 40px;
+    font-size: medium;
+  }
+  &__field:focus {
+    border: none;
+  }
+  .button__icon__container {
+    color: purple;
+  }
+}

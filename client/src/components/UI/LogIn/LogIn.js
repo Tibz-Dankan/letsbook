@@ -1,12 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FadeLoader } from "react-spinners";
 import { login } from "../../../store/actions/auth";
 import { disableEnableButton } from "../../../utils/disableEnableButton";
+import { log } from "../../../utils/consoleLog";
+import Modal from "../Modal/Modal";
 import styles from "./LogIn.module.scss";
 
 const LogIn = () => {
@@ -16,6 +17,10 @@ const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const showNotificationModal = useSelector(
+    (state) => state.notification.value
+  );
+  const [isError, setIsError] = useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -42,21 +47,23 @@ const LogIn = () => {
     if (!email || !password) return;
     try {
       setIsLoading(true);
-      disableEnableButton("login-button", true);
+      disableEnableButton("button", true);
       await dispatch(login(email, password));
       setIsLoading(false);
-      disableEnableButton("login-button", false);
+      disableEnableButton("button", false);
       navigate("/chat", { replace: true });
     } catch (error) {
       setIsLoading(false);
-      disableEnableButton("login-button", false);
-      console.log("error msg: ", error.message);
+      disableEnableButton("button", false);
+      setIsError(true);
+      log("error msg: " + error.message);
     }
   };
 
   return (
     <Fragment>
       <div className={styles["login__container"]}>
+        {showNotificationModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader />}
         </div>
@@ -104,10 +111,9 @@ const LogIn = () => {
             )}
           </div>
           <button
-            id="login-button"
+            id="button"
             type="submit"
             className={styles["login__form__btn"]}
-            // disabled="disabled" //some testing here
           >
             Log In
           </button>
