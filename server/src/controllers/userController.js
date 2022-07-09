@@ -36,11 +36,20 @@ const createUserSendResponse = async (
   country,
   password,
   isVerified,
-  token
+  token,
+  userRole
 ) => {
   const user = await User.getUserByEmail(email);
   if (user.rows[0]) return res.json({ errorMessage: "Email already exists" });
-  await User.createUser(name, email, country, password, isVerified, token);
+  await User.createUser(
+    name,
+    email,
+    country,
+    password,
+    isVerified,
+    token,
+    userRole
+  );
   res.status(201).json({ status: "success" });
 };
 
@@ -49,6 +58,7 @@ const signup = async (req, res, next) => {
   const email = req.body.email;
   const country = req.body.countrySelected;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const userRole = req.body.userRole;
   const isVerifiedEmail = false;
   const token = crypto.randomBytes(16).toString("hex");
   // check email existence
@@ -65,7 +75,8 @@ const signup = async (req, res, next) => {
       country,
       hashedPassword,
       isVerifiedEmail,
-      token
+      token,
+      userRole
     );
     console.log("Email Validation status: " + response);
   });

@@ -9,11 +9,20 @@ User.createUser = (
   country,
   hashedPassword,
   isVerifiedEmail,
-  userVerifyToken
+  userVerifyToken,
+  userRole
 ) => {
   return db.query(
-    "INSERT INTO users(user_name, email, country, password, is_verified_email, user_verify_token) VALUES($1,$2,$3,$4,$5,$6)  RETURNING *",
-    [userName, email, country, hashedPassword, isVerifiedEmail, userVerifyToken]
+    "INSERT INTO users(user_name, email, country, password, is_verified_email, user_verify_token, user_role) VALUES($1,$2,$3,$4,$5,$6,$7)  RETURNING *",
+    [
+      userName,
+      email,
+      country,
+      hashedPassword,
+      isVerifiedEmail,
+      userVerifyToken,
+      userRole,
+    ]
   );
 };
 
@@ -36,7 +45,7 @@ User.getAllUsers = () => {
   return db.query("SELECT * FROM users");
 };
 
-// Get all users
+// Get all users except the current logged in user
 User.getAllUsersExceptMe = (userId) => {
   return db.query("SELECT * FROM users WHERE user_id !=$1", [userId]);
 };

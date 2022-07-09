@@ -63,7 +63,7 @@ const SignUp = () => {
   };
 
   const showLoginForm = () => {
-    setTimeout(() => {
+    setTimeout(async () => {
       await dispatch(hideSignUpForm()); //Hiding signup and showing login form
     }, 2000);
   };
