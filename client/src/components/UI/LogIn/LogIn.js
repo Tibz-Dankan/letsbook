@@ -9,6 +9,7 @@ import { disableEnableButton } from "../../../utils/disableEnableButton";
 import { log } from "../../../utils/consoleLog";
 import Modal from "../Modal/Modal";
 import styles from "./LogIn.module.scss";
+import { hideLogInForm } from "../../../store/actions/signUpLogInForm";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -123,7 +124,10 @@ const LogIn = () => {
         </div>
         <div className={styles["dont__have___account__container"]}>
           <p className={styles["dont__have__account"]}>
-            Don't have account <Link to="/signup">SignUp</Link>
+            Don't have account{" "}
+            <Link onClick={() => dispatch(hideLogInForm())} to="/">
+              SignUp
+            </Link>
           </p>
         </div>
       </div>

@@ -10,6 +10,7 @@ import styles from "./SignUp.module.scss";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 import Modal from "../Modal/Modal";
+import { hideSignUpForm } from "../../../store/actions/signUpLogInForm";
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
@@ -195,7 +196,10 @@ const SignUp = () => {
         </form>
         <div className={styles["have___account__container"]}>
           <p className={styles["have__account"]}>
-            Already have account <Link to="/">Login</Link>
+            Already have account{" "}
+            <Link to="/" onClick={() => dispatch(hideSignUpForm())}>
+              Login
+            </Link>
           </p>
         </div>
       </div>
