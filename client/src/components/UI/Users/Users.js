@@ -10,15 +10,16 @@ import { log } from "../../../utils/consoleLog";
 const Users = ({ socket }) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const user_id = useSelector((state) => state.auth.user.userId);
+  const userId = useSelector((state) => state.auth.user.userId);
+  const userRole = useSelector((state) => state.auth.user.userRole);
   const authToken = useSelector((state) => state.auth.token);
   const effectRan = useRef(false);
 
-  const getRegisteredUsers = async () => {
-    if (!user_id) return;
+  const getUsersToChatWith = async () => {
+    if (!userId) return;
     try {
       setIsLoading(true);
-      await dispatch(getUsers(user_id, authToken));
+      await dispatch(getUsers(userId, userRole, authToken));
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -28,7 +29,7 @@ const Users = ({ socket }) => {
 
   useEffect(() => {
     if (effectRan.current === false) {
-      getRegisteredUsers();
+      getUsersToChatWith();
       return () => {
         effectRan.current = true;
       };

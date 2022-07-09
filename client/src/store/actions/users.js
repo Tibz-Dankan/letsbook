@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { baseUrl } from "../appStore";
 import axios from "axios";
 import { usersActions } from "../reducers/users";
 import { log } from "../../utils/consoleLog";
 
-export const getUsers = (user_id, token) => {
+export const getUsers = (userId, userRole, token) => {
   return async (dispatch) => {
-    const response = await axios.get(`${baseUrl}/chat/${user_id}`, {
+    const response = await axios.get(`${baseUrl}/chat/${userId}/${userRole}`, {
       headers: {
         Authorization: "Bearer " + token,
       },
