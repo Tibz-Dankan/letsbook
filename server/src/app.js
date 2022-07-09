@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+const { chatTextMessages } = require("./controllers/chatController");
 
 const app = express();
 
@@ -14,11 +16,6 @@ if (process.env.NODE_ENV === "production") {
   url = "http://localhost:3000";
 }
 
-app.use(express.json());
-
-// user routes
-app.use("/", userRoutes);
-
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -29,10 +26,19 @@ const io = new Server(server, {
   },
 });
 
+app.use(express.json());
+
+// user routes
+app.use("/", userRoutes);
+
+// chat routes
+app.use("/", chatRoutes);
+
+// chats
+chatTextMessages(io);
+
 const PORT = process.env.PORT || 8000;
 
 server.listen(PORT, () =>
   console.log(`server started and running on port ${PORT}...`)
 );
-
-module.exports = io;

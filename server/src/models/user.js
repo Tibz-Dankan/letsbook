@@ -46,8 +46,8 @@ User.getAllUsers = () => {
 };
 
 // Get all users except the current logged in user
-User.getAllUsersExceptMe = (userId) => {
-  return db.query("SELECT * FROM users WHERE user_id !=$1", [userId]);
+User.getSupportTeam = () => {
+  return db.query("SELECT * FROM users WHERE user_role = 'support personnel'");
 };
 
 // update password

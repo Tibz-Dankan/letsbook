@@ -95,6 +95,7 @@ const login = async (req, res, next) => {
     userId: user.rows[0].user_id,
     userName: user.rows[0].user_name,
     email: user.rows[0].email,
+    userRole: user.rows[0].user_role,
   };
   createSendToken(userObject, 200, res);
 };
