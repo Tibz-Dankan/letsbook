@@ -62,23 +62,25 @@ const SignUp = () => {
     }
   };
 
-  // const showLoginForm = () => {
-  //   setTimeout(() => {
-  //     navigate("/", { replace: true });
-  //   }, 2000);
-  // };
+  const showLoginForm = () => {
+    setTimeout(() => {
+      await dispatch(hideSignUpForm()); //Hiding signup and showing login form
+    }, 2000);
+  };
 
+  // Handling signup of a user with role "user"
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     if (!userName || !email || !password) return;
     try {
       setIsLoading(true);
       disableEnableButton("signup-button", true);
-      await dispatch(signup(userName, email, countrySelected.label, password));
+      await dispatch(
+        signup(userName, email, countrySelected.label, password, "user")
+      );
       setIsLoading(false);
       disableEnableButton("signup-button", false);
-      // dispatch an alert msg here to tell user to login
-      navigate("/", { replace: true }); //Instead hide signup form show login form
+      showLoginForm();
     } catch (error) {
       setIsLoading(false);
       disableEnableButton("signup-button", false);

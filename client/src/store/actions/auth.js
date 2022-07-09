@@ -45,13 +45,14 @@ export const login = (email, password) => {
   };
 };
 
-export const signup = (userName, email, countrySelected, password) => {
+export const signup = (userName, email, countrySelected, password, role) => {
   return async (dispatch) => {
     const response = await axios.post(`${baseUrl}/signup`, {
       userName: userName,
       email: email,
       countrySelected: countrySelected,
       password: password,
+      userRole: role,
     });
     log(response);
     if (response.data.errorMessage) {
@@ -64,7 +65,7 @@ export const signup = (userName, email, countrySelected, password) => {
     }
     await dispatch(
       notificationActions.showNotification({
-        notificationMsg: "Sign up successful",
+        notificationMsg: "Sign up successful, you can now log in",
       })
     );
   };
