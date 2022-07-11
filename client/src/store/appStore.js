@@ -4,6 +4,7 @@ import usersSlice from "./reducers/users";
 import chatSlice from "./reducers/chat";
 import notificationSlice from "./reducers/notification";
 import signUpLogInFormSlice from "./reducers/signUpLogInForm";
+import bookingSlice from "./reducers/booking";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     chat: chatSlice.reducer,
     notification: notificationSlice.reducer,
     signUpLogInForm: signUpLogInFormSlice.reducer,
+    booking: bookingSlice.reducer,
   },
 });
 

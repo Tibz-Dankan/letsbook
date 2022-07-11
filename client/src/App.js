@@ -8,6 +8,8 @@ import Home from "./pages/Home/Home";
 import Chat from "./pages/Chat/Chat";
 import About from "./pages/About/About";
 import ChatRoom from "./pages/ChatRoom/ChatRoom";
+import Booking from "./pages/Booking/Booking";
+import AdminDashBoard from "./pages/AdminDashBoard/AdminDashBoard";
 import styles from "./App.module.scss";
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
           <Route path="chat" element={<Chat socket={socket} />} />
           <Route path="chat-room" element={<ChatRoom socket={socket} />} />
           <Route path="about" element={<About />} />
+          <Route path="booking" element={<Booking />} />
+          <Route path="admin" element={<AdminDashBoard />} />
         </Routes>
       </BrowserRouter>
     </div>
