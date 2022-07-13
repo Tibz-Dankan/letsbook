@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import axios from "axios";
 import { baseUrl } from "../../../store/appStore";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { notificationActions } from "../../../store/reducers/notification";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { bookingRoom } from "../../../store/actions/booking";
 import { FadeLoader } from "react-spinners";
@@ -17,13 +16,13 @@ const BookRoom = () => {
   const [isError, setIsError] = useState(false);
   const effectRan = useRef(false);
   const dispatch = useDispatch();
-  const showModal = useSelector((state) => state.notification.value);
+  const showAlertModal = useSelector((state) => state.notification.value);
   const token = useSelector((state) => state.auth.token);
   const bookingId = useSelector((state) => state.booking.bookingStep.bookingId);
-  console.log(bookingId);
 
+  // TODO: perfect the algorithm for fetching the rooms on the backend
   const getUnbookedRooms = () => {
-    return async (dispatch) => {
+    return async () => {
       const response = await axios.get(
         `${baseUrl}/get-unbooked-rooms/${bookingId}`,
         {
@@ -64,11 +63,11 @@ const BookRoom = () => {
   }, [rooms]);
 
   const bookRoom = async (roomId) => {
-    if (!bookingId) return;
+    if (!bookingId || !token) return;
     try {
       setIsLoading(true);
       disableEnableButton("booking-btn", true);
-      await dispatch(bookingRoom(bookingId, roomId, token));
+      await dispatch(bookingRoom(bookingId, token, roomId));
       setIsLoading(false);
       disableEnableButton("booking-btn", false);
     } catch (error) {
@@ -82,17 +81,25 @@ const BookRoom = () => {
   return (
     <Fragment>
       <div className={styles["rooms__container"]}>
-        {showModal && <Modal isErrorMessage={isError} />}
+        {showAlertModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader />}
         </div>
         <div className={styles["rooms"]}>
-          {rooms.map((room) => {
+          {rooms.map((room, index) => {
             return (
-              <div key={room.room_id}>
-                <div className={styles["rooms__number"]}>No.{room.room_id}</div>
+              <div key={index}>
+                <div className={styles["rooms__number"]}>
+                  Room No.{room.room_id}
+                </div>
                 {/* image icon incase of no image */}
-                <div className={styles["rooms__image"]}>{room.image_url}</div>
+                <div className={styles["rooms__image__container"]}>
+                  <img
+                    src={room.image_url}
+                    alt="Room Image"
+                    className={styles["rooms__image"]}
+                  />
+                </div>
                 <div className={styles["rooms__description"]}>
                   {room.room_description}
                 </div>

@@ -29,11 +29,9 @@ const Booking = () => {
   return (
     <Fragment>
       <div className={styles["booking__container"]}>
-        <BookingDates />
-        {/* {bookingStep === 1 && <BookingDates />} */}
-        <BookRoom />
-        {/* {bookingStep === 2 && <BookRoom />} */}
-        {/* {bookingStep === 3 && <MyBooking />} */}
+        {bookingStep === 1 && <BookingDates />}
+        {bookingStep === 2 && <BookRoom />}
+        {bookingStep === 3 && <MyBooking />}
       </div>
     </Fragment>
   );

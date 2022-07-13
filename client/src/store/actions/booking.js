@@ -1,7 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../appStore";
 import { bookingActions } from "../reducers/booking";
-import { notificationActions } from "../reducers/notification";
 import { log } from "../../utils/consoleLog";
 
 export const saveBookingProcessToStorage = (stepNumber, bookingId) => {
@@ -50,10 +49,13 @@ export const submitBookingDates = (
   };
 };
 
-export const bookingRoom = (bookingId, roomId, token) => {
+export const bookingRoom = (bookingId, token, roomId) => {
   return async (dispatch) => {
     const response = await axios.post(
-      `${baseUrl}/book-room/${bookingId}/${roomId}`,
+      `${baseUrl}/book-room/${bookingId}`,
+      {
+        roomId: roomId,
+      },
       {
         headers: {
           Authorization: "Bearer " + token,

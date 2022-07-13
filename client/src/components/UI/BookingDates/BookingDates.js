@@ -14,8 +14,9 @@ const BookingDates = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user.userId);
+  console.log(userId);
   const authToken = useSelector((state) => state.auth.token);
-  const showModal = useSelector((state) => state.notification.value);
+  const showAlertModal = useSelector((state) => state.notification.value);
 
   const handleCheckInDate = (event) => {
     setCheckInDate(event.target.value);
@@ -38,16 +39,16 @@ const BookingDates = () => {
       disableEnableButton("date-btn", false);
     } catch (error) {
       setIsLoading(false);
+      disableEnableButton("date-btn", false);
       setIsError(true);
       await dispatch(showNotificationModal(error.message));
-      disableEnableButton("date-btn", false);
     }
   };
 
   return (
     <Fragment>
       <div className={styles["booking__dates__container"]}>
-        {showModal && <Modal isErrorMessage={isError} />}
+        {showAlertModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader />}
         </div>
