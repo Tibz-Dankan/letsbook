@@ -7,6 +7,7 @@ import { log } from "../../../utils/consoleLog";
 import Modal from "../Modal/Modal";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { FadeLoader } from "react-spinners";
+import Payment from "../Payment/Payment";
 
 const MyBooking = () => {
   // TODO: list all my booking with their details
@@ -121,7 +122,12 @@ const MyBooking = () => {
                     <span className={styles["not__paid"]}>Not Paid</span>
                   )}
                 </div>
-                <div className="payment__container">Payment component here</div>
+                <br /> {/*to be removed*/}
+                <br /> {/*to be removed*/}
+                <br /> {/*to be removed*/}
+                <div className="payment__container">
+                  <Payment />
+                </div>
               </div>
             );
           })}
