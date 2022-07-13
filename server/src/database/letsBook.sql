@@ -47,17 +47,17 @@ CREATE TABLE receipt (
     amount_paid INTEGER NOT NULL
 );
 
--- TODO: consider adding a room name
+-- TODO: consider adding a column  room_name(Agreed column name)
 CREATE TABLE room (
     room_id SERIAL PRIMARY KEY, 
     room_description VARCHAR(300) NOT NULL,
     no_of_beds INTEGER NOT NULL,
     price INTEGER NOT NULL,
-    image_url VARCHAR(250) NOT NULL DEFAULT null,
-    booking_id INTEGER DEFAULT null
+    image_url VARCHAR(250) NOT NULL DEFAULT null
 );
 
 -- ALTER TABLE room ADD COLUMN booking_id INTEGER DEFAULT null; -- DONE(NO ACTION)
+-- ALTER TABLE room DROP booking_id; -- DONE(NO ACTION)
 
 
  

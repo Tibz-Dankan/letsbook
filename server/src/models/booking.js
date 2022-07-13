@@ -20,4 +20,8 @@ Booking.getAllBookings = () => {
   return db.query("SELECT * FROM booking");
 };
 
+Booking.getBookingByUserId = (userId) => {
+  return db.query("SELECT * FROM booking WHERE user_id = $1", [userId]);
+};
+
 module.exports = Booking;
