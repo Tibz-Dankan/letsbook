@@ -100,9 +100,19 @@ const login = async (req, res, next) => {
   createSendToken(userObject, 200, res);
 };
 
+const verifyStaffToken = async (req, res, next) => {
+  const staffToken = req.body.staffToken;
+  // validate the token
+
+  // Return response and successful response should contain the token id
+};
+
+// TODO: generate staff token
+
 // TODO: forgot password, update password
 
 module.exports = {
   signup,
   login,
+  verifyStaffToken,
 };
