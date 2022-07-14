@@ -38,7 +38,7 @@ CREATE TABLE booking (
     is_Cancelled BOOLEAN DEFAULT 'false'
 );
 
-CREATE TABLE receipt (
+CREATE TABLE receipt (  --TODO: change the table name to payment
     receipt_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL, 
     room_id INTEGER NOT NULL, 
@@ -54,6 +54,16 @@ CREATE TABLE room (
     no_of_beds INTEGER NOT NULL,
     price INTEGER NOT NULL,
     image_url VARCHAR(250) NOT NULL DEFAULT null
+);
+
+CREATE TABLE staff_token (
+    token_id SERIAL PRIMARY KEY, 
+    token VARCHAR(50) NOT NULL,
+    date_of_generation  VARCHAR(50) NOT NULL,
+    used_on  VARCHAR(50) NOT NULL,
+    generated_by INTEGER NOT NULL,
+    used_by INTEGER NOT NULL,
+    is_valid BOOLEAN DEFAULT 'true'
 );
 
 -- ALTER TABLE room ADD COLUMN booking_id INTEGER DEFAULT null; -- DONE(NO ACTION)
