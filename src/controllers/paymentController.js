@@ -1,4 +1,4 @@
-// TODO: get public key and secrete keys from flutter wave dashboard
+// TODO: get public key and secrete keys from flutter wave dashboard (DONE)
 // TODO:  consider capturing the date on thr frontend when making payment
 // MTN UGANDA MOBILE MONEY FLUTTER WAVE
 
