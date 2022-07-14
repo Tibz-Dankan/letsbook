@@ -2,9 +2,8 @@ const User = require("../models/user");
 const Chat = require("../models/chat");
 require("dotenv").config();
 const NodeCache = require("node-cache");
-const cache = new NodeCache();
 
-const sortUserInfoSendResponse = (usersArray, res) => {
+const sortUserDataSendResponse = (usersArray, res) => {
   const users = [];
   usersArray.forEach(({ user_id, user_name, email, user_role }) => {
     users.push({
@@ -17,24 +16,25 @@ const sortUserInfoSendResponse = (usersArray, res) => {
   return res.status(200).json(users);
 };
 
-const saveUserDataInCache = async (userId) => {
+const saveUserDataInCache = async (userId, cache) => {
   const user = await User.getUserById(userId);
   if (!user.rows[0]) return res.json({ errorMessage: "User does not exist" });
-  let users = [];
-  // if "userData" key exists in the cache
-  // if (cache.get("userData") !== undefined) {
-  //   users = cache.get("userData"); //update users array with cached data
-  //   // cache.take("userData"); // clear the cache
-  // }
-  // add new user to the users array
-  const usersArray = users.push({
+  const userObject = {
     user_id: user.rows[0].user_id,
     user_name: user.rows[0].user_name,
     email: user.rows[0].email,
     user_role: user.rows[0].user_role,
-  });
-  cache.set("userData", usersArray, 1200); // save user in the cache for 20 minutes
-  console.log(cache.get("userData")); // to be removed
+  };
+  if (cache.get("userDataObject")) {
+    //TODO: to changed to cache.has("key") from cache.get("...")
+    const userDataArray = cache.get("userDataObject").userDataArray;
+    userDataArray.push(userObject); // save new user to the cache
+  } else {
+    const userDataObject = {
+      userDataArray: [userObject],
+    };
+    cache.set("userDataObject", userDataObject, 1200); // save user in the cache for 20 minutes
+  }
 };
 
 const getUsers = async (req, res, next) => {
@@ -43,19 +43,21 @@ const getUsers = async (req, res, next) => {
   if (!userId || userId === undefined)
     return res.json({ errorMessage: "No users id is provided" });
 
-  if (userRole === "user") {
-    saveUserDataInCache(userId);
-    console.log("cached user data: "); // to be removed
-    console.log(cache.get("userData")); // to be removed
-    const supportTeam = await User.getSupportTeam();
-    const supportTeamArray = supportTeam.rows;
-    console.log("Getting support Team to chat with");
-    return sortUserInfoSendResponse(supportTeamArray, res);
-  }
-  if (cache.get("userData") == undefined) {
-    return res.json({ errorMessage: "No active clients" });
-  }
-  res.status(200).json(cache.get("userData"));
+  [true].forEach(async (useClones) => {
+    const cache = new NodeCache({ useClones: useClones });
+
+    if (userRole === "user") {
+      saveUserDataInCache(userId, cache);
+      const supportTeam = await User.getSupportTeam();
+      console.log(cache.get("userDataObject").userDataArray); // to be removed
+      return sortUserDataSendResponse(supportTeam.rows, res);
+    }
+    // TODO: consider using cache.has("key") instead of cache.get("key")
+    if (cache.get("userDataObject") == undefined) {
+      return res.json({ errorMessage: "No active clients" });
+    }
+    res.status(200).json(cache.get("userDataObject").userDataArray);
+  });
 };
 
 const getChatMessages = async (req, res, next) => {
@@ -66,20 +68,14 @@ const getChatMessages = async (req, res, next) => {
   console.log("User getting chat messages");
 };
 
-const storeChatMessagesInDatabase = async (
+const saveChatMessagesInDatabase = async (
   senderId,
   recipientId,
   chatRoomId,
   date,
   message
 ) => {
-  await Chat.storeChatMessages(
-    senderId,
-    recipientId,
-    chatRoomId,
-    date,
-    message
-  );
+  await Chat.saveChatMessages(senderId, recipientId, chatRoomId, date, message);
   console.log("chat message stored in the database");
 };
 
@@ -97,8 +93,8 @@ const receiveSendMessages = (socket) => {
     console.log("Message sent: ");
     console.log(data);
     socket.to(data.chatRoomId).emit("receiveMessage", data);
-    // store chat message in the in the database
-    storeChatMessagesInDatabase(
+    // save chat message in the in the database
+    saveChatMessagesInDatabase(
       data.senderId,
       data.recipientId,
       data.chatRoomId,
