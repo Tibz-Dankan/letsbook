@@ -6,6 +6,7 @@ import { showNotificationModal } from "../../../store/actions/notification";
 import axios from "axios";
 import { baseUrl } from "../../../store/appStore";
 import { log } from "../../../utils/consoleLog";
+import { disableEnableButton } from "../../../utils/disableEnableButton";
 import styles from "./VerifyStaffToken.module.scss";
 
 const VerifyStaffToken = () => {
@@ -36,20 +37,28 @@ const VerifyStaffToken = () => {
     event.preventDefault();
     try {
       setIsLoading(true);
+      disableEnableButton("verify-token-btn", true);
       await dispatch(verifyStaffToken());
       setIsLoading(false);
+      disableEnableButton("verify-token-btn", false);
     } catch (error) {
       setIsLoading(false);
       setIsError(true);
+      console.log("isError: " + isError);
+      disableEnableButton("verify-token-btn", false);
       await dispatch(showNotificationModal(error.message));
     }
   };
 
+  // TODO: fix bug (show show error notifications in red color not green)
+
   return (
     <Fragment>
-      <div className={styles["verify__staff_token__container"]}>
+      <div className={styles["verify__staff__token__container"]}>
         {showAlertModal && <Modal isErrorMessage={isError} />}
-        <div>{isLoading && <FadeLoader />}</div>
+        <div className="fade__loader__wrapper">
+          {isLoading && <FadeLoader />}
+        </div>
         <div className={styles["form__container"]}>
           <form
             className={styles["form"]}
@@ -66,7 +75,11 @@ const VerifyStaffToken = () => {
               />
             </div>
             <div className={styles["btn__container"]}>
-              <button type="submit" className={styles["btn"]}>
+              <button
+                type="submit"
+                id="verify-token-btn"
+                className={styles["btn"]}
+              >
                 Verify Token
               </button>
             </div>
