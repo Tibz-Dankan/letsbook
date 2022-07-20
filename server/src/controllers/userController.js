@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const emailExistence = require("email-existence");
 const crypto = require("crypto");
 const { AppError } = require("../utils/error");
+const { json } = require("express");
 require("dotenv").config();
 
 const assignToken = (userId) => {
@@ -102,12 +103,46 @@ const login = async (req, res, next) => {
 
 const verifyStaffToken = async (req, res, next) => {
   const staffToken = req.body.staffToken;
-  // validate the token
 
-  // Return response and successful response should contain the token id
+  if (!staffToken) return res.json({ errorMessage: "Please provide token" });
+  if (staffToken === process.env.STAFF_VERIFICATION_TOKEN) {
+    return res.status(200).json({ status: "success" });
+  }
+  const token = await User.getStaffToken(staffToken);
+  console.log(token.rows);
+  if (!token.rows[0]) {
+    return res.json({ errorMessage: "No token found" });
+  }
+  if (!token.rows[0].token) {
+    return res.json({ errorMessage: "Incorrect token" });
+  }
+  if (token.rows[0].is_valid === false) {
+    // if (!token.rows[0].is_valid) { // TODO: to be tested
+    return res.json({ errorMessage: "Token already used" });
+  }
+  await User.invalidateToken(token);
+  return res.status(200).json({ status: "success" });
 };
 
-// TODO: generate staff token
+const generateStaffToken = async (req, res, next) => {
+  const token = crypto.randomBytes(16).toString("hex");
+  const dateOfGeneration = req.body.dateOfGeneration;
+  const generatedByUserId = req.params.generatedByUserId;
+
+  const user = await User.getUserById(generatedByUserId);
+
+  if (user.rows[0].user_role !== "manager") {
+    return res.json({ errorMessage: "Not authorized to generate token" });
+  }
+  await User.createStaffToken(token, generatedByUserId, dateOfGeneration);
+  res.status(200).json({ status: "success" });
+};
+
+const getAllStaffTokens = async (req, res, next) => {
+  const tokens = await User.getAllStaffTokens();
+  if (!tokens.rows[0]) return res.json({ errorMessage: "No tokens found" });
+  res.status(200).json(tokens.rows);
+};
 
 // TODO: forgot password, update password
 
@@ -115,4 +150,6 @@ module.exports = {
   signup,
   login,
   verifyStaffToken,
+  generateStaffToken,
+  getAllStaffTokens,
 };
