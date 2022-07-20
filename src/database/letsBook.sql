@@ -60,9 +60,9 @@ CREATE TABLE staff_token (
     token_id SERIAL PRIMARY KEY, 
     token VARCHAR(50) NOT NULL,
     date_of_generation  VARCHAR(50) NOT NULL,
-    used_on  VARCHAR(50) NOT NULL,
+    used_on  VARCHAR(50) DEFAULT null,
     generated_by INTEGER NOT NULL,
-    used_by INTEGER NOT NULL,
+    used_by INTEGER DEFAULT null,
     is_valid BOOLEAN DEFAULT 'true'
 );
 

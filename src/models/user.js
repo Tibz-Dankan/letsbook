@@ -66,4 +66,28 @@ User.updateVerifyToken = (userId, verifyToken) => {
   );
 };
 
+// create staff token
+User.createStaffToken = (token, generatedBy, dateOfGeneration) => {
+  "INSERT INTO staff_token(token, staff_token, generated_by) VALUES($1,$2,$3)  RETURNING *",
+    [token, generatedBy, dateOfGeneration];
+};
+
+// get staff token
+User.getAllStaffTokens = () => {
+  return db.query("SELECT * FROM staff_token");
+};
+
+// get staff token
+User.getStaffToken = (token) => {
+  return db.query("SELECT * FROM staff_token WHERE token = $1", [token]);
+};
+
+// invalidate token
+User.invalidateToken = (token) => {
+  return db.query(
+    "UPDATE staff_token SET is_valid = false WHERE token = $2 RETURNING *",
+    [token]
+  );
+};
+
 module.exports = User;
