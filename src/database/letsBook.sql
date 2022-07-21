@@ -35,7 +35,7 @@ CREATE TABLE booking (
     booking_date VARCHAR(50) NOT NULL,
     room_id INTEGER DEFAULT null,
     has_paid BOOLEAN DEFAULT 'false',
-    is_Cancelled BOOLEAN DEFAULT 'false'
+    is_cancelled BOOLEAN DEFAULT 'false'
 );
 
 CREATE TABLE receipt (  --TODO: change the table name to payment

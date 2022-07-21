@@ -24,6 +24,7 @@ const saveUserDataInCache = async (userId, cache) => {
     user_name: user.rows[0].user_name,
     email: user.rows[0].email,
     user_role: user.rows[0].user_role,
+    // TODO: consider adding user country here
   };
   if (cache.get("userDataObject")) {
     //TODO: to changed to cache.has("key") from cache.get("...")
