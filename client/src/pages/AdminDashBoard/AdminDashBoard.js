@@ -12,6 +12,8 @@ const AdminDashBoard = () => {
         <br /> {/*To be removed*/}
         <br /> {/*To be removed*/}
         <GetStaffTokens />
+        {/* TODO: Component get all the current bookings */}
+        {/* TODO: Component to upload image */}
       </div>
     </Fragment>
   );

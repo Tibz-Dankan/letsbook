@@ -53,6 +53,7 @@ export const signup = (userName, email, countrySelected, password, role) => {
       countrySelected: countrySelected,
       password: password,
       userRole: role,
+      // TODO: add sign up date here
     });
     log(response);
     if (response.data.errorMessage) {

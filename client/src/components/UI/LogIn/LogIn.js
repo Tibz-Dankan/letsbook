@@ -52,7 +52,7 @@ const LogIn = () => {
       await dispatch(login(email, password));
       setIsLoading(false);
       disableEnableButton("button", false);
-      navigate("/chat", { replace: true });
+      navigate("/chat", { replace: true }); //TODO: navigate according user role (create function to handle the task)
     } catch (error) {
       setIsLoading(false);
       disableEnableButton("button", false);

@@ -15,6 +15,7 @@ const StaffSignUp = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [countrySelected, setCountrySelected] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -28,9 +29,18 @@ const StaffSignUp = () => {
   const dispatch = useDispatch();
 
   const options = useMemo(() => countryList().getData(), []);
+  const roleOptions = [
+    { label: "Select Role...", value: "" },
+    { label: "Manager", value: "manager" },
+    { label: "Support personnel", value: "support personnel" },
+  ];
 
   const handleSelectedCountryChange = (value) => {
     setCountrySelected(value);
+  };
+
+  const handleUserRoleChange = (event) => {
+    setUserRole(event.target.value);
   };
 
   const handleUserNameChange = (event) => {
@@ -70,12 +80,12 @@ const StaffSignUp = () => {
   // Handling signup of a user with role "user"
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
-    if (!userName || !email || !password) return;
+    if (!userName || !email || !password || !userRole) return;
     try {
       setIsLoading(true);
       disableEnableButton("signup-button", true);
       await dispatch(
-        signup(userName, email, countrySelected.label, password, "user")
+        signup(userName, email, countrySelected.label, password, userRole)
       );
       setIsLoading(false);
       disableEnableButton("signup-button", false);
@@ -129,6 +139,25 @@ const StaffSignUp = () => {
               placeholder="Select Your Country"
               className={styles["signup__form__select__country"]}
             />
+          </div>
+          <div className={styles["signup__form__input__container"]}>
+            <select
+              name="user-role"
+              id="user-role"
+              className={styles["select__user__role"]}
+              value={userRole}
+              onChange={(event) => handleUserRoleChange(event)}
+            >
+              {roleOptions.map((option, index) => (
+                <option
+                  key={index}
+                  className={styles["select__option"]}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div className={styles["signup__form__input__container"]}>
             <input
