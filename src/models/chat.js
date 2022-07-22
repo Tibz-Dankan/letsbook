@@ -17,4 +17,35 @@ Chat.getChatMessagesByChatRoomId = (chatRoomId) => {
   ]);
 };
 
+// create active client
+Chat.createActiveClient = (userId, date) => {
+  return db.query(
+    "INSERT INTO active_clients(user_id, date) VALUES($1,$2)  RETURNING *",
+    [userId, date]
+  );
+};
+
+// get active client
+Chat.getActiveClient = (userId) => {
+  return db.query("SELECT * FROM active_clients WHERE user_id =$1", [userId]);
+};
+
+// get all active clients
+Chat.getAllActiveClients = () => {
+  return db.query("SELECT * FROM active_clients");
+};
+
+// update active client date
+Chat.updateActiveClientDate = (userId, date) => {
+  return db.query(
+    "UPDATE active_clients SET date = $1 WHERE user_id = $2 RETURNING *",
+    [date, userId]
+  );
+};
+
+// delete active client
+Chat.deleteActiveClient = (userId) => {
+  return db.query("DELETE FROM active_clients WHERE user_id = $1", [userId]);
+};
+
 module.exports = Chat;
