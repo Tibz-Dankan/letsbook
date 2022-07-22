@@ -27,6 +27,13 @@ CREATE TABLE chat_messages (
     message VARCHAR(300) NOT NULL 
 );
 
+
+CREATE TABLE active_clients (
+    active_client_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL, 
+    date VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE booking (
     booking_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,  
