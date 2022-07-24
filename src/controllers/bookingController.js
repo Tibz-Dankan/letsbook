@@ -63,8 +63,16 @@ const sortRoomsSendResponse = (roomsArray, sortedRoomIdArray, res) => {
       if (!sortedRoomIdArray[0]) {
         room.push(roomObject);
       } else {
-        sortedRoomIdArray.map((roomId) => {
-          if (roomId !== room_id) {
+        sortedRoomIdArray.map((roomId, index) => {
+          let previousIndexRoomId;
+          if (index === 0) {
+            previousIndexRoomId = null;
+            console.log("previous room array: " + previousIndexRoomId);
+          } else {
+            previousIndexRoomId = sortedRoomIdArray[index - 1];
+            console.log("previous room array: " + previousIndexRoomId);
+          }
+          if (roomId !== room_id && room_id !== previousIndexRoomId) {
             room.push(roomObject);
           }
         });
