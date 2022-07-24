@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { FadeLoader } from "react-spinners";
 import Modal from "../Modal/Modal";
+import UploadImage from "../UploadImage/UploadImage";
 import styles from "./AddRoom.module.scss";
 import { log } from "../../../utils/consoleLog";
 import { disableEnableButton } from "../../../utils/disableEnableButton";
@@ -140,6 +141,7 @@ const AddRoom = () => {
               </button>
             </div>
           </form>
+          <UploadImage />
         </div>
       </div>
     </Fragment>
