@@ -12,10 +12,10 @@ let url;
 
 if (process.env.NODE_ENV === "production") {
   app.use(cors({ origin: process.env.PRODUCTION_URL }));
-  url = PRODUCTION_URL;
+  url = PRODUCTION_URL; // production url
 } else {
   app.use(cors());
-  url = "http://localhost:3000";
+  url = "http://localhost:3000"; //local dev url
 }
 
 const http = require("http");
