@@ -50,3 +50,5 @@ const PORT = process.env.PORT || 8000;
 server.listen(PORT, () =>
   console.log(`server started and running on port ${PORT}...`)
 );
+
+// git subtree push --prefix server heroku master
