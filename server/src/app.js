@@ -20,13 +20,13 @@ if (process.env.NODE_ENV === "production") {
 
 const http = require("http");
 const server = http.createServer(app);
-// const { Server } = require("socket.io");
-// const io = new Server(server, {
-//   cors: {
-//     origin: url,
-//     methods: ["GET", "POST"],
-//   },
-// });
+const { Server } = require("socket.io");
+const io = new Server(server, {
+  cors: {
+    origin: url,
+    methods: ["GET", "POST"],
+  },
+});
 
 app.use(express.json());
 
@@ -37,7 +37,7 @@ app.use("/", userRoutes);
 app.use("/", chatRoutes);
 
 // chats
-// chatTextMessages(io);
+chatTextMessages(io);
 
 // booking routes
 app.use("/", bookingRoutes);
