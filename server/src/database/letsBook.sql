@@ -40,12 +40,13 @@ CREATE TABLE booking (
     check_in_date VARCHAR(50) NOT NULL,
     check_out_date VARCHAR(50) NOT NULL,
     booking_date VARCHAR(50) NOT NULL,
+    no_of_clients INTEGER DEFAULT NOT NULL,
     room_id INTEGER DEFAULT null,
     has_paid BOOLEAN DEFAULT 'false',
     is_cancelled BOOLEAN DEFAULT 'false'
 );
 
-CREATE TABLE receipt (  --TODO: change the table name to payment
+CREATE TABLE payment (  
     receipt_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL, 
     room_id INTEGER NOT NULL, 
@@ -54,9 +55,9 @@ CREATE TABLE receipt (  --TODO: change the table name to payment
     amount_paid INTEGER NOT NULL
 );
 
--- TODO: consider adding a column  room_name(Agreed column name)
 CREATE TABLE room (
     room_id SERIAL PRIMARY KEY, 
+    room_name VARCHAR(50) NOT NULL,
     room_description VARCHAR(300) NOT NULL,
     no_of_beds INTEGER NOT NULL,
     price INTEGER NOT NULL,
@@ -75,6 +76,8 @@ CREATE TABLE staff_token (
 
 -- ALTER TABLE room ADD COLUMN booking_id INTEGER DEFAULT null; -- DONE(NO ACTION)
 -- ALTER TABLE room DROP booking_id; -- DONE(NO ACTION)
+-- ALTER TABLE booking ADD COLUMN no_of_clients INTEGER DEFAULT null; --DONE(NO ACTION)
+-- ALTER TABLE room ADD COLUMN room_name VARCHAR(50) DEFAULT 'Not provided'; --DONE(NO ACTION)
 
 
  

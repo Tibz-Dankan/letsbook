@@ -1,5 +1,6 @@
 const Booking = require("../models/booking");
 const Room = require("../models/room");
+const User = require("../models/user");
 
 const bookingDates = async (req, res, next) => {
   if (!req.body) return res.json({ errorMessage: "No date provided" });
@@ -90,6 +91,10 @@ const getUnbookedRooms = async (req, res, next) => {
   const bookings = await Booking.getAllBookings();
   const rooms = await Room.getAllRooms();
 
+  // TODO: perfect this algorithm
+  if (!rooms.rows[0]) return res.json({ errorMessage: "No rooms avialable" });
+  return res.status(200).json(rooms.rows);
+
   const myBookingData = currentBookingData(bookings.rows, currentBookingId);
   const myCheckInDaysFromNow = numberOfDays(myBookingData.check_in_date);
   const myCheckOutDaysFromNow = numberOfDays(myBookingData.check_out_date);
@@ -112,30 +117,30 @@ const bookRoom = async (req, res, next) => {
   res.status(200).json({ status: "success" });
 };
 
-const matchBookingToRoomSendResponse = (bookingsArray, res) => {
-  const bookingData = [];
-  bookingsArray.map(async (booking, index) => {
-    if (booking.room_id !== null) {
-      const room = await Room.getRoomByRoomId(booking.room_id);
-      bookingData.push({
-        booking_id: booking.booking_id,
-        check_in_date: booking.check_in_date,
-        check_out_date: booking.check_out_date,
-        booking_date: booking.booking_date,
-        room_id: booking.room_id,
-        room_id: booking.room_id,
-        room_name: room.rows[0].room_name,
-        price: room.rows[0].price,
-        no_of_beds: room.rows[0].no_of_beds,
-        has_paid: booking.has_paid,
-        is_cancelled: booking.is_cancelled,
-      });
-    }
-    if (bookingsArray.length === index + 1) {
-      return res.status(200).json(bookingData);
-    }
-  });
-};
+// const matchBookingToRoomSendResponse = (bookingsArray, res) => {
+//   const bookingData = [];
+//   bookingsArray.map(async (booking, index) => {
+//     if (booking.room_id !== null) {
+//       const room = await Room.getRoomByRoomId(booking.room_id);
+//       bookingData.push({
+//         booking_id: booking.booking_id,
+//         check_in_date: booking.check_in_date,
+//         check_out_date: booking.check_out_date,
+//         booking_date: booking.booking_date,
+//         room_id: booking.room_id,
+//         room_id: booking.room_id,
+//         room_name: room.rows[0].room_name,
+//         price: room.rows[0].price,
+//         no_of_beds: room.rows[0].no_of_beds,
+//         has_paid: booking.has_paid,
+//         is_cancelled: booking.is_cancelled,
+//       });
+//     }
+//     if (bookingsArray.length === index + 1) {
+//       return res.status(200).json(bookingData);
+//     }
+//   });
+// };
 
 const getMyBookings = async (req, res, next) => {
   const userId = req.params.user_id;
@@ -144,9 +149,23 @@ const getMyBookings = async (req, res, next) => {
   }
   const booking = await Booking.getBookingByUserId(userId);
   if (!booking.rows[0]) {
-    return res.json({ errorMessage: "You have no booking yet" });
+    return res.json({ errorMessage: "You have no any booking yet" });
   }
-  matchBookingToRoomSendResponse(booking.rows, res);
+  res.status(200).json(booking.rows);
 };
 
-module.exports = { bookingDates, getUnbookedRooms, bookRoom, getMyBookings };
+const getAllBookings = async (req, res, next) => {
+  const bookings = await Booking.getAllBookingRoomUserData();
+  if (!bookings.rows[0]) {
+    return res.json({ errorMessage: "No bookings available" });
+  }
+  res.status(200).json(bookings.rows);
+};
+
+module.exports = {
+  bookingDates,
+  getUnbookedRooms,
+  bookRoom,
+  getMyBookings,
+  getAllBookings,
+};
