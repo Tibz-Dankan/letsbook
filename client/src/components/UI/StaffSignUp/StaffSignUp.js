@@ -24,6 +24,8 @@ const StaffSignUp = () => {
     (state) => state.notification.value
   );
   const [isError, setIsError] = useState(false);
+  const [passwordValidationMsg, setPasswordValidationMsg] = useState("");
+  const [isPasswordError, setIsPasswordError] = useState(false);
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -71,6 +73,33 @@ const StaffSignUp = () => {
     }
   };
 
+  const arePasswordsMatching = () => {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+    if (password === confirmPassword) return true;
+    setPasswordValidationMsg("**Passwords don't match");
+    setIsPasswordError(true);
+    setTimeout(() => {
+      setPasswordValidationMsg("");
+      setIsPasswordError(false);
+    }, 5000);
+    return false;
+  };
+
+  const isValidPasswordLength = () => {
+    const password = document.getElementById("password").value;
+    if (password.length >= 6 && password.length <= 15) return true;
+    setPasswordValidationMsg(
+      "**Passwords must be at least 6 characters and must not exceed 15"
+    );
+    setIsPasswordError(true);
+    setTimeout(() => {
+      setPasswordValidationMsg("");
+      setIsPasswordError(true);
+    }, 5000);
+    return false;
+  };
+
   const navigateToHome = () => {
     setTimeout(() => {
       navigate("/", { replace: true });
@@ -78,8 +107,7 @@ const StaffSignUp = () => {
   };
 
   // Handling signup of a user with role "user"
-  const handleSignUpSubmit = async (event) => {
-    event.preventDefault();
+  const handleSignUpSubmit = async () => {
     if (!userName || !email || !password || !userRole) return;
     try {
       setIsLoading(true);
@@ -98,6 +126,11 @@ const StaffSignUp = () => {
     }
   };
 
+  const validPasswordOnSubmit = (event) => {
+    event.preventDefault();
+    isValidPasswordLength() && arePasswordsMatching() && handleSignUpSubmit();
+  };
+
   return (
     <Fragment>
       <div className={styles["staff__sign__up__container"]}>
@@ -107,7 +140,7 @@ const StaffSignUp = () => {
         </div>
         <form
           className={styles["signup__form"]}
-          onSubmit={(event) => handleSignUpSubmit(event)}
+          onSubmit={(event) => validPasswordOnSubmit(event)}
         >
           <p className={styles["signup__form__heading"]}>Sign Up</p>
           <div className={styles["signup__form__input__container"]}>
@@ -160,10 +193,16 @@ const StaffSignUp = () => {
             </select>
           </div>
           <div className={styles["signup__form__input__container"]}>
+            {isPasswordError && (
+              <span className={styles["password-error"]}>
+                {passwordValidationMsg}
+              </span>
+            )}
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               className={styles["signup__form__input"]}
+              id="password"
               value={password}
               onChange={(event) => handlePasswordChange(event)}
               required
@@ -192,6 +231,7 @@ const StaffSignUp = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               className={styles["signup__form__input"]}
+              id="confirm-password"
               value={confirmPassword}
               onChange={(event) => handleConfirmPasswordChange(event)}
               required

@@ -24,6 +24,8 @@ const SignUp = () => {
     (state) => state.notification.value
   );
   const [isError, setIsError] = useState(false);
+  const [passwordValidationMsg, setPasswordValidationMsg] = useState("");
+  const [isPasswordError, setIsPasswordError] = useState(false);
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -68,9 +70,35 @@ const SignUp = () => {
     }, 2000);
   };
 
+  const arePasswordsMatching = () => {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+    if (password === confirmPassword) return true;
+    setPasswordValidationMsg("**Passwords don't match");
+    setIsPasswordError(true);
+    setTimeout(() => {
+      setPasswordValidationMsg("");
+      setIsPasswordError(false);
+    }, 5000);
+    return false;
+  };
+
+  const isValidPasswordLength = () => {
+    const password = document.getElementById("password").value;
+    if (password.length >= 6 && password.length <= 15) return true;
+    setPasswordValidationMsg(
+      "**Passwords must be at least 6 characters and must not exceed 15"
+    );
+    setIsPasswordError(true);
+    setTimeout(() => {
+      setPasswordValidationMsg("");
+      setIsPasswordError(true);
+    }, 5000);
+    return false;
+  };
+
   // Handling signup of a user with role "user"
-  const handleSignUpSubmit = async (event) => {
-    event.preventDefault();
+  const handleSignUpSubmit = async () => {
     if (!userName || !email || !password) return;
     try {
       setIsLoading(true);
@@ -89,6 +117,11 @@ const SignUp = () => {
     }
   };
 
+  const validPasswordOnSubmit = (event) => {
+    event.preventDefault();
+    isValidPasswordLength() && arePasswordsMatching() && handleSignUpSubmit();
+  };
+
   return (
     <Fragment>
       <div className={styles["signup__container"]}>
@@ -98,7 +131,7 @@ const SignUp = () => {
         </div>
         <form
           className={styles["signup__form"]}
-          onSubmit={(event) => handleSignUpSubmit(event)}
+          onSubmit={(event) => validPasswordOnSubmit(event)}
         >
           <p className={styles["signup__form__heading"]}>Sign Up</p>
           <div className={styles["signup__form__input__container"]}>
@@ -132,9 +165,15 @@ const SignUp = () => {
             />
           </div>
           <div className={styles["signup__form__input__container"]}>
+            {isPasswordError && (
+              <span className={styles["password-error"]}>
+                {passwordValidationMsg}
+              </span>
+            )}
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              id="password"
               className={styles["signup__form__input"]}
               value={password}
               onChange={(event) => handlePasswordChange(event)}
@@ -162,8 +201,9 @@ const SignUp = () => {
           <div className={styles["signup__form__input__container"]}>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="Confirm Password"
               className={styles["signup__form__input"]}
+              id="confirm-password"
               value={confirmPassword}
               onChange={(event) => handleConfirmPasswordChange(event)}
               required
