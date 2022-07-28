@@ -6,6 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FadeLoader } from "react-spinners";
 import { signup } from "../../../store/actions/auth";
 import { disableEnableButton } from "../../../utils/disableEnableButton";
+import { showNotificationModal } from "../../../store/actions/notification";
 import Select from "react-select";
 import countryList from "react-select-country-list";
 import Modal from "../Modal/Modal";
@@ -20,9 +21,7 @@ const StaffSignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const showNotificationModal = useSelector(
-    (state) => state.notification.value
-  );
+  const showAlertModal = useSelector((state) => state.notification.value);
   const [isError, setIsError] = useState(false);
   const [passwordValidationMsg, setPasswordValidationMsg] = useState("");
   const [isPasswordError, setIsPasswordError] = useState(false);
@@ -122,7 +121,7 @@ const StaffSignUp = () => {
       setIsLoading(false);
       disableEnableButton("signup-button", false);
       setIsError(true);
-      await dispatch(showNotificationModal(error.message));
+      await dispatch(showNotificationModal(error.message)); //TODO: solve notification modal variable conflict
     }
   };
 
@@ -134,7 +133,7 @@ const StaffSignUp = () => {
   return (
     <Fragment>
       <div className={styles["staff__sign__up__container"]}>
-        {showNotificationModal && <Modal isErrorMessage={isError} />}
+        {showAlertModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader size={5} />}
         </div>
