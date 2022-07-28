@@ -16,7 +16,11 @@ const LogOut = () => {
           onClick={() => dispatch(logOut())}
         >
           <IconContext.Provider
-            value={{ color: "blue", className: "global-class-name" }}
+            value={{
+              color: "hsl(0, 100%, 60%)",
+              size: "1.2em",
+              className: "global-class-name",
+            }}
           >
             <BsBoxArrowRight />
           </IconContext.Provider>

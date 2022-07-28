@@ -36,7 +36,11 @@ const LoggedInAs = () => {
               />
             ) : (
               <IconContext.Provider
-                value={{ color: "blue", className: "global-class-name" }}
+                value={{
+                  color: "hsl(0, 0%, 95%)",
+                  size: "2.5em",
+                  className: "global-class-name",
+                }}
               >
                 <div
                   onClick={() => showChevronDownOrUp()}
@@ -51,7 +55,12 @@ const LoggedInAs = () => {
             <span>{userName}</span>
           </div>
           <IconContext.Provider
-            value={{ color: "blue", className: "global-class-name" }}
+            value={{
+              color: "blue",
+              size: "1.2em",
+              color: "hsl(0, 0%, 95%)",
+              className: "global-class-name",
+            }}
           >
             <div
               onClick={() => showChevronDownOrUp()}

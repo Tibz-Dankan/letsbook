@@ -122,6 +122,18 @@ const SignUp = () => {
     isValidPasswordLength() && arePasswordsMatching() && handleSignUpSubmit();
   };
 
+  // const reactSelectCustomStyles = () => {
+  //   menu: (provided, state) => ({
+  //     ...provided,
+  //     width: state.selectProps.width,
+  //     borderBottom: "1px dotted",
+  //     color: state.selectProps.menuColor,
+  //     padding: 20,
+  //   });
+  //   control:() => ({ selectProps: { width } });
+  //   // width:width }),
+  // };
+
   return (
     <Fragment>
       <div className={styles["signup__container"]}>
@@ -133,11 +145,13 @@ const SignUp = () => {
           className={styles["signup__form"]}
           onSubmit={(event) => validPasswordOnSubmit(event)}
         >
-          <p className={styles["signup__form__heading"]}>Sign Up</p>
+          <p className={styles["signup__form__heading"]}>
+            Sign up for an account
+          </p>
           <div className={styles["signup__form__input__container"]}>
             <input
               type="text"
-              placeholder="UserName"
+              placeholder="User Name"
               className={styles["signup__form__input"]}
               value={userName}
               onChange={(event) => handleUserNameChange(event)}
@@ -161,15 +175,17 @@ const SignUp = () => {
               onChange={(event) => handleSelectedCountryChange(event)}
               // autoFocus // to be implemented
               placeholder="Select Your Country"
-              className={styles["signup__form__select__country"]}
+              // className={styles["signup__form__select__country"]}
+              classNamePrefix={styles["signup__form__input"]}
             />
           </div>
-          <div className={styles["signup__form__input__container"]}>
             {isPasswordError && (
+              // TODO: display this message in the modal
               <span className={styles["password-error"]}>
                 {passwordValidationMsg}
               </span>
             )}
+          <div className={styles["signup__form__input__container"]}>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -181,7 +197,10 @@ const SignUp = () => {
             />
             {showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEyeInvisible />
@@ -190,7 +209,10 @@ const SignUp = () => {
             )}
             {!showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEye />
@@ -210,7 +232,10 @@ const SignUp = () => {
             />
             {showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEyeInvisible />
@@ -219,7 +244,10 @@ const SignUp = () => {
             )}
             {!showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEye />
@@ -227,23 +255,29 @@ const SignUp = () => {
               </IconContext.Provider>
             )}
           </div>
-          <button
-            type="submit"
-            id="signup-button"
-            className={styles["signup__form__btn"]}
-            // disabled="disabled" //some testing here
-          >
-            Sign Up
-          </button>
+          <div className={styles["signup__form__btn__container"]}>
+            <button
+              type="submit"
+              id="signup-button"
+              className={styles["signup__form__btn"]}
+              // disabled="disabled" //some testing here
+            >
+              Sign Up
+            </button>
+          </div>
+          <div className={styles["have___account__container"]}>
+            <p className={styles["have__account"]}>
+              Already have account{" "}
+              <Link
+                to="/"
+                onClick={() => dispatch(hideSignUpForm())}
+                className={styles["link"]}
+              >
+                Login
+              </Link>
+            </p>
+          </div>
         </form>
-        <div className={styles["have___account__container"]}>
-          <p className={styles["have__account"]}>
-            Already have account{" "}
-            <Link to="/" onClick={() => dispatch(hideSignUpForm())}>
-              Login
-            </Link>
-          </p>
-        </div>
       </div>
     </Fragment>
   );

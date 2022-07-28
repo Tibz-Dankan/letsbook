@@ -66,14 +66,16 @@ const LogIn = () => {
       <div className={styles["login__container"]}>
         {showNotificationModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
-          {isLoading && <FadeLoader />}
+          {/* {isLoading &&
+           <FadeLoader color="hsl(266, 50%, 36%)" />
+          } */}
         </div>
         <form
           className={styles["login__form"]}
           onSubmit={(event) => handleLogInSubmit(event)}
         >
           <p className={styles["login__form__heading"]}>
-            Log Into your account
+            Log into your account
           </p>
           <div className={styles["login__form__input__container"]}>
             <input
@@ -96,7 +98,10 @@ const LogIn = () => {
             />
             {showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "hsl(0, 0%, 18%)",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEyeInvisible />
@@ -105,7 +110,10 @@ const LogIn = () => {
             )}
             {!showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "hsl(0, 0%, 18%)",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEye />
@@ -128,7 +136,11 @@ const LogIn = () => {
           <div className={styles["dont__have___account__container"]}>
             <p className={styles["dont__have__account"]}>
               Don't have account{" "}
-              <Link onClick={() => dispatch(hideLogInForm())} to="/">
+              <Link
+                onClick={() => dispatch(hideLogInForm())}
+                to="/"
+                className={styles["link"]}
+              >
                 SignUp
               </Link>
             </p>

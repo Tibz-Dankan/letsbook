@@ -141,7 +141,9 @@ const StaffSignUp = () => {
           className={styles["signup__form"]}
           onSubmit={(event) => validPasswordOnSubmit(event)}
         >
-          <p className={styles["signup__form__heading"]}>Sign Up</p>
+          <p className={styles["signup__form__heading"]}>
+            Sign Up As staff member
+          </p>
           <div className={styles["signup__form__input__container"]}>
             <input
               type="text"
@@ -208,7 +210,10 @@ const StaffSignUp = () => {
             />
             {showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEyeInvisible />
@@ -217,7 +222,10 @@ const StaffSignUp = () => {
             )}
             {!showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEye />
@@ -237,7 +245,10 @@ const StaffSignUp = () => {
             />
             {showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEyeInvisible />
@@ -246,7 +257,10 @@ const StaffSignUp = () => {
             )}
             {!showPassword && (
               <IconContext.Provider
-                value={{ color: "black", className: "global-class-name" }}
+                value={{
+                  color: "black",
+                  className: styles["eye__icon__container"],
+                }}
               >
                 <div onClick={() => showHidePassword()}>
                   <AiOutlineEye />
@@ -262,12 +276,15 @@ const StaffSignUp = () => {
           >
             Sign Up
           </button>
+          <div className={styles["have___account__container"]}>
+            <p className={styles["have__account"]}>
+              Already have account{" "}
+              <Link to="/" className={styles["link"]}>
+                Login
+              </Link>
+            </p>
+          </div>
         </form>
-        <div className={styles["have___account__container"]}>
-          <p className={styles["have__account"]}>
-            Already have account <Link to="/">Login</Link>
-          </p>
-        </div>
       </div>
     </Fragment>
   );

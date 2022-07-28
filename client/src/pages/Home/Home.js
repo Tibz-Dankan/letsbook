@@ -12,13 +12,25 @@ const Home = () => {
     (state) => state.signUpLogInForm.value
   );
 
+  // {/* TODO: fetch image url from the backend */}
   return (
     <Fragment>
       <div className={styles["home__page"]}>
         <HomeHeader />
-        {/* <GeneralHeader /> */}
-        {showSignUpFormOrLoginForm && <LogIn />}
-        {!showSignUpFormOrLoginForm && <SignUp />}
+        <GeneralHeader currentPage={"Dynamic page"} />
+        <div className={styles["room__form__container"]}>
+          <div className={styles["room__image__container"]}>
+            <img
+              src={"room url"}
+              alt="room"
+              className={styles["room__image"]}
+            />
+          </div>
+          <>
+            {showSignUpFormOrLoginForm && <LogIn />}
+            {!showSignUpFormOrLoginForm && <SignUp />}
+          </>
+        </div>
         {/* Animated images */}
         {/* Map to show location */}
         <Footer />

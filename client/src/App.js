@@ -15,7 +15,8 @@ import styles from "./App.scss";
 
 function App() {
   const dispatch = useDispatch();
-  const socket = io.connect(baseUrl);
+  // const socket = io.connect(baseUrl);
+  let socket;
 
   const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
   const navigationTypeReload =

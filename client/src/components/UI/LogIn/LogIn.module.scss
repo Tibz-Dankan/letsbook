@@ -1,19 +1,100 @@
 .login__container {
-  // background-color: green;
   display: grid;
   place-items: center;
+  @media screen and (max-width: 500px) {
+    margin-bottom: 2em;
+    width: 80%;
+  }
+  @media screen and (min-width: 501px) and (max-width: 950px) {
+    margin-bottom: 2em;
+    width: 60%;
+  }
 }
 
+// .fade__loader__container{
+//   z-index: 1000;
+//   background-color: hsla(0, 0%, 50%, 0.2);
+//   color: var(--color-primary);
+//   position: absolute;
+//    display: grid;
+//    place-items: center;
+//   height: 100vh;
+//   width: 100vw;
+//   // top: 50%;
+//   // left: 50%;
+//   // transform: translate(-50%, -50%);
+// }
+
 .login__form {
-  margin-top: 5em;
-  // background-color: purple;
+  // margin-top: 5em;
   background-color: var(--color-grey-light-1);
-  border: 1px solid var(--color-grey-light-1);
+  border: 1px solid var(--color-grey-light-3);
   border-radius: 5px;
   padding: 1.5em;
+  width: 100%;
+}
+
+.login__form__heading {
+  color: var(--color-grey-dark-2);
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.login__form__input__container {
+  position: relative;
+  margin: 0.5em 0em;
+  .login__form__input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1.5px solid var(--color-primary-light);
+    border-radius: 3px;
+    outline: none;
+  }
+  .login__form__input:focus {
+    border: 2px solid var(--color-primary-light);
+  }
+  .eye__icon__container {
+    position: absolute;
+    top: 0.4em;
+    right: 0.5em;
+  }
 }
 
 .login__form__btn {
+  width: 100%;
+  color: var(--color-grey-light-1);
   background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 3px;
+  padding: 0.6em 0.5em;
+  margin: 0.5em 0;
   outline: none;
+}
+
+.login__form__btn:hover,
+.login__form__btn:focus {
+  transition: 0.2s;
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-light);
+}
+
+.login__form__btn:disabled {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-light);
+  opacity: 0.6;
+}
+
+.forgot__password__container {
+  font-size: 0.96em;
+  color: var(--color-secondary-light);
+  cursor: pointer;
+}
+
+.dont__have__account {
+  font-size: 0.96em;
+  .link {
+    text-decoration: none;
+    color: hsl(240, 100%, 50%);
+    color: var(--color-secondary-light);
+  }
 }

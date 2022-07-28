@@ -5,7 +5,7 @@ import { notificationActions } from "../reducers/notification";
 import { log } from "../../utils/consoleLog";
 
 export const logOut = () => {
-  localStorage.removeItem("userData");
+  localStorage.clear();
   return authActions.logout();
 };
 

@@ -1,7 +1,20 @@
 .logout__container {
-  background-color: hsl(0, 0%, 90%);
+  width: 6.5em;
+  display: inline-block;
+  background-color: var(--color-grey-light-1);
+  border: 1px solid var(--color-grey-light-1);
+  border-radius: 3px;
+  position: absolute;
+  top: 2.4em;
+  right: -1.65em;
+  padding: 0.5em;
   .logout__paragraph {
-    display: inline-block;
+    color: hsl(0, 100%, 60%);
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    span {
+      margin-left: 0.4em;
+    }
   }
 }
