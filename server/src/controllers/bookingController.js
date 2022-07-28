@@ -36,15 +36,17 @@ const currentBookingData = (bookingsArray, currentBookingId) => {
 
 const sortRoomIds = (bookingsArray, myCheckInDays, myCheckOutDays) => {
   let bookedRoomId = [];
-  bookingsArray.forEach(({ check_in_date, room_id }) => {
-    if (
-      myCheckInDays >= numberOfDays(check_in_date) &&
-      numberOfDays(check_in_date) <= myCheckOutDays &&
-      room_id !== null
-    ) {
-      bookedRoomId.push(room_id);
+  bookingsArray.map((booking) => {
+    const isCheckInDateWithinCurrentBookingDates =
+      myCheckInDays >= numberOfDays(booking.check_in_date) &&
+      numberOfDays(booking.check_in_date) < myCheckOutDays &&
+      booking.room_id !== null;
+
+    if (isCheckInDateWithinCurrentBookingDates) {
+      bookedRoomId.push(booking.room_id);
     }
   });
+  console.log(bookedRoomId);
   return bookedRoomId;
 };
 
@@ -64,6 +66,7 @@ const sortRoomsSendResponse = (roomsArray, sortedRoomIdArray, res) => {
       if (!sortedRoomIdArray[0]) {
         room.push(roomObject);
       } else {
+        // TODO: putting this code in its own function and perfect
         sortedRoomIdArray.map((roomId, index) => {
           let previousIndexRoomId;
           if (index === 0) {
@@ -93,7 +96,6 @@ const getUnbookedRooms = async (req, res, next) => {
 
   // TODO: perfect this algorithm
   if (!rooms.rows[0]) return res.json({ errorMessage: "No rooms avialable" });
-  return res.status(200).json(rooms.rows);
 
   const myBookingData = currentBookingData(bookings.rows, currentBookingId);
   const myCheckInDaysFromNow = numberOfDays(myBookingData.check_in_date);
@@ -104,6 +106,9 @@ const getUnbookedRooms = async (req, res, next) => {
     myCheckInDaysFromNow,
     myCheckOutDaysFromNow
   );
+
+  return res.status(200).json(rooms.rows); // TODO: to be placed in the right place
+
   sortRoomsSendResponse(rooms.rows, bookedRoomIdsArray, res);
 };
 

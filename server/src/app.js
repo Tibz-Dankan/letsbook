@@ -4,6 +4,7 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const roomRoutes = require("./routes/roomRoutes");
+const compression = require("compression");
 const { chatTextMessages } = require("./controllers/chatController");
 
 const app = express();
@@ -12,10 +13,10 @@ let url;
 
 if (process.env.NODE_ENV === "production") {
   app.use(cors({ origin: process.env.PRODUCTION_URL }));
-  url = process.env.PRODUCTION_URL; // production url
+  url = process.env.PRODUCTION_URL;
 } else {
   app.use(cors());
-  url = "http://localhost:3000"; //local dev url
+  url = "http://localhost:3000";
 }
 
 const http = require("http");
@@ -29,6 +30,10 @@ const io = new Server(server, {
 });
 
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(compression());
 
 // user routes
 app.use("/", userRoutes);
@@ -50,5 +55,7 @@ const PORT = process.env.PORT || 8000;
 server.listen(PORT, () =>
   console.log(`server started and running on port ${PORT}...`)
 );
+
+module.exports = app;
 
 // git subtree push --prefix server heroku master
