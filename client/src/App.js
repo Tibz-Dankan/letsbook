@@ -11,7 +11,7 @@ import ChatRoom from "./pages/ChatRoom/ChatRoom";
 import Booking from "./pages/Booking/Booking";
 import AdminDashBoard from "./pages/AdminDashBoard/AdminDashBoard";
 import Staff from "./pages/Staff/Staff";
-import styles from "./App.module.scss";
+import styles from "./App.scss";
 
 function App() {
   const dispatch = useDispatch();

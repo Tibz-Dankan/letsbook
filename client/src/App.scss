@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+:root {
+  --color-primary: hsl(266, 50%, 36%);
+  --color-primary-light: hsl(266, 50%, 60%);
+  --color-primary-dark: hsl(266, 50%, 20%);
+  --color-secondary: hsl(206, 50%, 36%);
+  --color-secondary-light: hsl(206, 50%, 60%);
+
+  --color-grey-light-1: hsl(0, 0%, 95%);
+  --color-grey-light-2: hsl(0, 8%, 95%);
+  --color-grey-light-3: hsl(0, 6%, 94%);
+  --color-grey-light-4: hsl(0, 0%, 80%);
+
+  --color-grey-dark-1: hsl(0, 0%, 10%);
+  --color-grey-dark-2: hsl(0, 0%, 18%);
+  --color-grey-dark-3: hsl(0, 0%, 50%);
+  --color-grey-dark-4: hsl(0, 0%, 60%);
+
+  --shadow-dark: 0 2rem 6rem hsla(0, 0, 0, 0.3);
+  --shadow-light: 0 2rem 5rem hsla(0, 0, 0, 0.06);
+
+  // --color-magenta-pink: hsl(326, 50%, 36%);
+}
+
+body {
+  font-weight: 400;
+  line-height: 1.6;
+  font-family: "Nunito", sans-serif;
+  // font-size: 62.5%;
+  color: var(--color-grey-dark-1);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+html {
+  // font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+// @keyframes App-logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }

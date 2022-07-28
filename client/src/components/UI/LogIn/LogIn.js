@@ -72,7 +72,9 @@ const LogIn = () => {
           className={styles["login__form"]}
           onSubmit={(event) => handleLogInSubmit(event)}
         >
-          <p className={styles["login__form__heading"]}>Log In</p>
+          <p className={styles["login__form__heading"]}>
+            Log Into your account
+          </p>
           <div className={styles["login__form__input__container"]}>
             <input
               type="email"
@@ -111,25 +113,27 @@ const LogIn = () => {
               </IconContext.Provider>
             )}
           </div>
-          <button
-            id="button"
-            type="submit"
-            className={styles["login__form__btn"]}
-          >
-            Log In
-          </button>
+          <div className={styles["login__btn_container"]}>
+            <button
+              id="button"
+              type="submit"
+              className={styles["login__form__btn"]}
+            >
+              Log In
+            </button>
+          </div>
+          <div className={styles["forgot__password__container"]}>
+            <p>Forgot Password?</p>
+          </div>
+          <div className={styles["dont__have___account__container"]}>
+            <p className={styles["dont__have__account"]}>
+              Don't have account{" "}
+              <Link onClick={() => dispatch(hideLogInForm())} to="/">
+                SignUp
+              </Link>
+            </p>
+          </div>
         </form>
-        <div className={styles["forgot__password__container"]}>
-          <p>Forgot Password?</p>
-        </div>
-        <div className={styles["dont__have___account__container"]}>
-          <p className={styles["dont__have__account"]}>
-            Don't have account{" "}
-            <Link onClick={() => dispatch(hideLogInForm())} to="/">
-              SignUp
-            </Link>
-          </p>
-        </div>
       </div>
     </Fragment>
   );

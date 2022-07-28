@@ -1,3 +1,19 @@
-.login-form {
-  color: yellow;
+.login__container {
+  // background-color: green;
+  display: grid;
+  place-items: center;
+}
+
+.login__form {
+  margin-top: 5em;
+  // background-color: purple;
+  background-color: var(--color-grey-light-1);
+  border: 1px solid var(--color-grey-light-1);
+  border-radius: 5px;
+  padding: 1.5em;
+}
+
+.login__form__btn {
+  background-color: var(--color-primary);
+  outline: none;
 }
