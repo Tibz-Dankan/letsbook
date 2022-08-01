@@ -40,7 +40,7 @@ CREATE TABLE booking (
     check_in_date VARCHAR(50) NOT NULL,
     check_out_date VARCHAR(50) NOT NULL,
     booking_date VARCHAR(50) NOT NULL,
-    no_of_clients INTEGER NOT NULL,
+    no_of_clients INTEGER DEFAULT null,
     room_id INTEGER DEFAULT null,
     has_paid BOOLEAN DEFAULT 'false',
     is_cancelled BOOLEAN DEFAULT 'false'
