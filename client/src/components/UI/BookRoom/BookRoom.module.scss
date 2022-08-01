@@ -1,0 +1,106 @@
+.rooms__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .booking__heading {
+    background-color: var(--color-primary-light);
+    color: var(--color-grey-light-1);
+    text-align: center;
+    display: inline-block;
+    width: 40%;
+    margin: 2em 0;
+    padding: 2em;
+    border-radius: 3px;
+    @media screen and (max-width: 400px) {
+      width: 80%;
+    }
+    @media screen and (min-width: 401px) and (max-width: 650px) {
+      width: 60%;
+    }
+  }
+}
+
+.rooms {
+  @media screen and (min-height: 1401px) {
+    width: 70%;
+    // TODO: should have three columns
+  }
+  @media screen and (min-height: 701px) and (max-height: 1400px) {
+    width: 70%;
+    // TODO: should have two columns
+  }
+  @media screen and(min-height: 401px) and (max-height: 700px) {
+    width: 60%;
+    // TODO: should have three columns
+    // align rooms center
+  }
+  @media screen and (max-height: 400px) {
+    width: 80%;
+    // TODO: should have three columns
+    // align rooms center
+  }
+  //   background-color: pink;
+  // TODO: This container should control the with using media queries
+}
+.rooms__inner__container {
+  background-color: var(--color-grey-light-1);
+  margin: 1em 0em;
+  padding: 1em;
+  border-radius: 5px;
+  .rooms__image__container {
+    width: 100%;
+    height: 250px;
+    // TODO:  to be implemented practically
+  }
+  .room__icon__container {
+    background-color: purple;
+    background-color: var(--color-primary-light);
+    border-radius: 5px;
+    width: 100%;
+    height: 250px;
+  }
+  .room__name {
+    color: var(--color-grey-dark-1);
+    font-weight: bold;
+  }
+  .rooms__price {
+    span {
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+  .rooms__description {
+    font-size: 0.96em;
+    background-color: var(--color-grey-dark-4);
+    padding: 0.3em;
+    border-radius: 3px;
+  }
+}
+
+.booking__btn__container {
+  .booking__btn {
+    width: 100%;
+    height: 100%;
+    color: var(--color-grey-light-1);
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
+    padding: 0.6em 0.5em;
+    margin: 0.5em 0;
+  }
+  .booking__btn:hover,
+  .booking__btn:focus {
+    transition: 0.2s;
+    background-color: var(--color-primary-light);
+    border: 1px solid var(--color-primary-light);
+  }
+
+  // TODO: To be implemented on the booking modal
+  // .booking__btn:disabled {
+  //   background-color: var(--color-primary-light);
+  //   border: 1px solid var(--color-primary-light);
+  //   opacity: 0.6;
+  // }
+}

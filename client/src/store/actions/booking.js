@@ -49,12 +49,13 @@ export const submitBookingDates = (
   };
 };
 
-export const bookingRoom = (bookingId, token, roomId) => {
+export const bookingRoom = (bookingId, token, roomId, numberOfGuests) => {
   return async (dispatch) => {
     const response = await axios.post(
       `${baseUrl}/book-room/${bookingId}`,
       {
         roomId: roomId,
+        numberOfGuests: numberOfGuests,
       },
       {
         headers: {
@@ -71,5 +72,17 @@ export const bookingRoom = (bookingId, token, roomId) => {
       })
     );
     saveBookingProcessToStorage(3, bookingId);
+  };
+};
+
+export const showBookingModal = () => {
+  return async (dispatch) => {
+    await dispatch(bookingActions.showBookingModal());
+  };
+};
+
+export const hideBookingModal = () => {
+  return async (dispatch) => {
+    await dispatch(bookingActions.hideBookingModal());
   };
 };

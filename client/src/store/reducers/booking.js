@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const theInitialState = {
   bookingStep: { step: 1, bookingId: null },
+  value: false,
 };
 export const bookingSlice = createSlice({
   name: "booking",
@@ -12,6 +13,12 @@ export const bookingSlice = createSlice({
     },
     endBookingProcess(state) {
       state.bookingProcess = { step: 1, bookingId: null };
+    },
+    showBookingModal(state) {
+      state.value = !state.value;
+    },
+    hideBookingModal(state) {
+      state.value = !state.value;
     },
   },
 });

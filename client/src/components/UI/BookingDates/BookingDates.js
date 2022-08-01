@@ -52,24 +52,33 @@ const BookingDates = () => {
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader />}
         </div>
+        <div className={styles["booking__heading"]}>
+          <span> Step 1: Select your booking dates</span>
+        </div>
         <form
           className={styles["form"]}
           onSubmit={(event) => handleSubmitDate(event)}
         >
           <div className={styles["form__group__input"]}>
-            <label htmlFor="check-in-date">Check In date</label>
+            <label htmlFor="check-in-date" className={styles["label"]}>
+              Check In date
+            </label>
             <input
               type="date"
               value={checkInDate}
+              className={styles["form__input"]}
               onChange={(event) => handleCheckInDate(event)}
               required
             />
           </div>
           <div className={styles["form__group__input"]}>
-            <label htmlFor="check-out-date">Check Out date</label>
+            <label htmlFor="check-out-date" className={styles["label"]}>
+              Check Out date
+            </label>
             <input
               type="date"
               value={checkOutDate}
+              className={styles["form__input"]}
               onChange={(event) => handleCheckOutDate(event)}
               required
             />

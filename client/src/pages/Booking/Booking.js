@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookingActions } from "../../store/reducers/booking";
 import BookRoom from "../../components/UI/BookRoom/BookRoom";
 import MyBooking from "../../components/UI/MyBooking/MyBooking";
+import GeneralHeader from "../../components/layouts/GeneralHeader/GeneralHeader";
+import Footer from "../../components/layouts/Footer/Footer";
 
 const Booking = () => {
   const dispatch = useDispatch();
@@ -29,10 +31,12 @@ const Booking = () => {
   return (
     <Fragment>
       <div className={styles["booking__container"]}>
-        {/* {bookingStep === 1 && <BookingDates />} */}
-        <BookRoom />
-        {/* {bookingStep === 2 && <BookRoom />} */}
-        {/* {bookingStep === 3 && <MyBooking />} */}
+        <GeneralHeader currentPage={"Booking"} />
+        {bookingStep === 1 && <BookingDates />}
+        {/* <BookRoom /> */}
+        {bookingStep === 2 && <BookRoom />}
+        {bookingStep === 3 && <MyBooking />}
+        <Footer />
       </div>
     </Fragment>
   );

@@ -20,7 +20,7 @@ const HomeHeader = () => {
           <nav className={styles["nav__links"]}>
             <ul className={styles["ul__list__link"]}>
               <li className={styles["list__link"]}>
-                {/* TODO: on hovering display message "chat with the customer support personel" */}
+                {/* TODO: on hovering display message "chat with the customer support personnel" */}
                 <Link to="/chat" className={styles["link"]}>
                   Chat
                 </Link>
@@ -31,7 +31,7 @@ const HomeHeader = () => {
                   onClick={() => showSignUpForm()}
                   className={styles["link"]}
                 >
-                  Sign up
+                  SignUp
                 </Link>
               </li>
               <li className={styles["list__link"]}>

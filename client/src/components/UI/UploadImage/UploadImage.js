@@ -114,7 +114,7 @@ const UploadImage = () => {
         </div>
         <h1>Upload Image</h1>
         {isValidImgType && image.preview && (
-          <img src={image.preview} width="100" height="100" alt="our image" />
+          <img src={image.preview} width="100" height="100" alt="room-pic" />
         )}
         {isImageError && (
           <span className={styles["image__error"]}>{imageErrorMsg}</span>
