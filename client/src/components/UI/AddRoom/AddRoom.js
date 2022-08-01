@@ -13,6 +13,7 @@ import { disableEnableButton } from "../../../utils/disableEnableButton";
 const AddRoom = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [roomName, setRoomName] = useState("");
   const [roomDescription, setRoomDescription] = useState("");
   const [numberOfBeds, setNumberOfBeds] = useState(undefined);
   const [roomPrice, setRoomPrice] = useState(undefined);
@@ -20,6 +21,10 @@ const AddRoom = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const showModal = useSelector((state) => state.notification.value);
+
+  const handleRoomName = (event) => {
+    setRoomName(event.target.value);
+  };
 
   const handleRoomDescription = (event) => {
     setRoomDescription(event.target.value);
@@ -37,6 +42,7 @@ const AddRoom = () => {
       numberOfBeds: numberOfBeds,
       roomPrice: roomPrice,
       roomPicture: roomPicture,
+      roomName: roomName,
     };
   };
 
@@ -87,6 +93,17 @@ const AddRoom = () => {
             className={styles["form"]}
             onSubmit={(event) => handleAddRoomSubmit(event)}
           >
+            <div className={styles["form__input__group"]}>
+              <label htmlFor="room name">Room name</label>
+              <input
+                type="text"
+                value={roomName}
+                onChange={(event) => handleRoomName(event)}
+                placeholder="Room name"
+                className={styles["form__input__field"]}
+                required
+              />
+            </div>
             <div className={styles["form__input__group"]}>
               <label htmlFor="room description">Room Description</label>
               <textarea
