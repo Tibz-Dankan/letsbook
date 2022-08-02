@@ -23,6 +23,8 @@ const LoggedInAs = () => {
     }
   };
 
+  // TODO: delay for 2seconds redirect to the home page upon successful logout
+
   return (
     <Fragment>
       <div className={styles["logged__in__as__container"]}>

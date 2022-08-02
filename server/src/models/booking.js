@@ -9,11 +9,11 @@ Booking.createBooking = (userId, checkInDate, checkOutDate, bookingDate) => {
   );
 };
 
-Booking.updateBookingWithRoom = (bookingId, roomId) => {
-  return db.query("UPDATE booking SET room_id = $1 WHERE booking_id = $2", [
-    roomId,
-    bookingId,
-  ]);
+Booking.updateBookingWithRoom = (bookingId, roomId, numberOfGuests) => {
+  return db.query(
+    "UPDATE booking SET room_id = $1, no_of_guests = $2 WHERE booking_id = $3",
+    [roomId, bookingId, numberOfGuests]
+  );
 };
 
 Booking.getAllBookings = () => {
@@ -29,7 +29,7 @@ Booking.getAllBookingRoomData = () => {
 //Getting bookings with their respective users and rooms (For the manager to view)
 Booking.getAllBookingRoomUserData = () => {
   const bookingRoomUserQuery =
-    "SELECT bk.booking_id, bk.check_in_date, bk.check_out_date, bk.booking_date, bk.no_of_clients, bk.has_paid, bk.is_cancelled, rm.room_name, rm.price, users.user_name, users.country FROM booking AS bk, room AS rm, users WHERE bk.room_id = rm.room_id AND bk.user_id = users.user_id";
+    "SELECT bk.booking_id, bk.check_in_date, bk.check_out_date, bk.booking_date, bk.no_of_guests, bk.has_paid, bk.is_cancelled, rm.room_name, rm.price, users.user_name, users.country FROM booking AS bk, room AS rm, users WHERE bk.room_id = rm.room_id AND bk.user_id = users.user_id";
   return db.query(bookingRoomUserQuery);
 };
 

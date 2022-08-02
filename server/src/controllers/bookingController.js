@@ -95,17 +95,17 @@ const getUnbookedRooms = async (req, res, next) => {
   const rooms = await Room.getAllRooms();
 
   // TODO: perfect this algorithm
-  if (!rooms.rows[0]) return res.json({ errorMessage: "No rooms avialable" });
+  if (!rooms.rows[0]) return res.json({ errorMessage: "No rooms available" });
 
-  const myBookingData = currentBookingData(bookings.rows, currentBookingId);
-  const myCheckInDaysFromNow = numberOfDays(myBookingData.check_in_date);
-  const myCheckOutDaysFromNow = numberOfDays(myBookingData.check_out_date);
+  // const myBookingData = currentBookingData(bookings.rows, currentBookingId);
+  // const myCheckInDaysFromNow = numberOfDays(myBookingData.check_in_date);
+  // const myCheckOutDaysFromNow = numberOfDays(myBookingData.check_out_date);
 
-  const bookedRoomIdsArray = sortRoomIds(
-    bookings.rows,
-    myCheckInDaysFromNow,
-    myCheckOutDaysFromNow
-  );
+  // const bookedRoomIdsArray = sortRoomIds(
+  //   bookings.rows,
+  //   myCheckInDaysFromNow,
+  //   myCheckOutDaysFromNow
+  // );
 
   return res.status(200).json(rooms.rows); // TODO: to be placed in the right place
 
@@ -115,10 +115,11 @@ const getUnbookedRooms = async (req, res, next) => {
 const bookRoom = async (req, res, next) => {
   const bookingId = req.params.booking_id;
   const roomId = req.body.roomId;
+  const numberOfGuests = req.body.numberOfGuests;
   if (!bookingId || !roomId) {
     return res.json({ errorMessage: "No booking id or no room id" });
   }
-  await Booking.updateBookingWithRoom(bookingId, roomId);
+  await Booking.updateBookingWithRoom(bookingId, roomId, numberOfGuests);
   res.status(200).json({ status: "success" });
 };
 

@@ -7,11 +7,12 @@ import BookRoom from "../../components/UI/BookRoom/BookRoom";
 import MyBooking from "../../components/UI/MyBooking/MyBooking";
 import GeneralHeader from "../../components/layouts/GeneralHeader/GeneralHeader";
 import Footer from "../../components/layouts/Footer/Footer";
+import { log } from "../../utils/consoleLog";
 
 const Booking = () => {
   const dispatch = useDispatch();
   const bookingStep = useSelector((state) => state.booking.bookingStep.step);
-  console.log("booking step: " + bookingStep);
+  log("booking step: " + bookingStep);
 
   const bookingStepFromStorage = JSON.parse(
     localStorage.getItem("bookingStep")
@@ -33,7 +34,6 @@ const Booking = () => {
       <div className={styles["booking__container"]}>
         <GeneralHeader currentPage={"Booking"} />
         {bookingStep === 1 && <BookingDates />}
-        {/* <BookRoom /> */}
         {bookingStep === 2 && <BookRoom />}
         {bookingStep === 3 && <MyBooking />}
         <Footer />
