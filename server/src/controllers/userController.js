@@ -21,14 +21,6 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-// const checkEmailExistence = (email, next) => {
-//   emailExistence.check(email, (error, response) => {
-//     if (error)
-//       return next(AppError("error occurred during email validation", 500));
-//     if (!response) return next(AppError("Invalid email validation", 403));
-//     console.log("Email Validation status: " + response);
-//   });
-// };
 
 const createUserSendResponse = async (
   res,

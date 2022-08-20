@@ -26,6 +26,7 @@ const db = new pg.Client(credentialObject);
 db.connect((err) => {
   if (err) {
     console.log("Error:Failed to connect to the database");
+    console.log(err.message);
   } else {
     console.log("Database successfully connected!");
   }

@@ -11,5 +11,6 @@
     "stringfied",
     "Tibesigwa",
     "Videocam"
-  ]
+  ],
+  "editor.formatOnSave": true
 }

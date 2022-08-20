@@ -3,11 +3,8 @@ import axios from "axios";
 import { baseUrl } from "../../../store/appStore";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { showNotificationModal } from "../../../store/actions/notification";
-import { bookingRoom } from "../../../store/actions/booking";
 import { FadeLoader } from "react-spinners";
 import { log } from "../../../utils/consoleLog";
-import { disableEnableButton } from "../../../utils/disableEnableButton";
-import { showBookingModal } from "../../../store/actions/booking";
 import Modal from "../Modal/Modal";
 import styles from "./BookRoom.module.scss";
 import { GiMushroomHouse } from "react-icons/gi";
@@ -21,7 +18,6 @@ const BookRoom = () => {
   const effectRan = useRef(false);
   const dispatch = useDispatch();
   const showAlertModal = useSelector((state) => state.notification.value);
-  const openBookingModal = useSelector((state) => state.booking.value);
   const token = useSelector((state) => state.auth.token);
   const bookingId = useSelector((state) => state.booking.bookingStep.bookingId);
 
@@ -67,22 +63,6 @@ const BookRoom = () => {
     }
   }, [rooms]);
 
-  const bookRoom = async (roomId) => {
-    if (!bookingId || !token) return;
-    try {
-      setIsLoading(true);
-      disableEnableButton("booking-btn", true);
-      await dispatch(bookingRoom(bookingId, token, roomId));
-      setIsLoading(false);
-      disableEnableButton("booking-btn", false);
-    } catch (error) {
-      setIsLoading(false);
-      setIsError(true);
-      disableEnableButton("booking-btn", false);
-      await dispatch(showNotificationModal(error.message));
-    }
-  };
-
   return (
     <Fragment>
       <div className={styles["rooms__container"]}>
@@ -96,12 +76,12 @@ const BookRoom = () => {
         <div className={styles["rooms"]}>
           {rooms.map((room, index) => {
             return (
-              <div key={index} className={styles["rooms__inner__container"]}>
+              <div key={index} className={styles["rooms__inner__container"]} id={styles["room__container"]}>
                 {room.room_image_url ? (
                   <div className={styles["rooms__image__container"]}>
                     <img
                       src={room.image_url}
-                      alt="Room Image"
+                      alt="Room"
                       className={styles["rooms__image"]}
                     />
                   </div>
@@ -125,17 +105,9 @@ const BookRoom = () => {
                 <div className={styles["rooms__description"]}>
                   {room.room_description}
                 </div>
-                <div className={styles["booking__btn__container"]}>
-                  <button
-                    id="booking-btn"
-                    className={styles["booking__btn"]}
-                    // onClick={() => bookRoom(room.room_id)}
-                    onClick={() => dispatch(showBookingModal())}
-                  >
-                    Book
-                  </button>
-                  {openBookingModal && <BookingModal roomDataObject={room} />}
-                  {/*TODO: TO BE PERFECTED*/}
+                <div className={styles["booking__modal__container"]}>
+                  {/* Modal to capture number of guests */}
+                  <BookingModal roomDataObject={room} />
                 </div>
               </div>
             );

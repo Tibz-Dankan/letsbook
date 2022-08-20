@@ -1,35 +1,50 @@
-.booking__modal__container {
-  background-color: hsla(0, 0%, 80%, 0.05);
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: fixed;
-}
+.open__booking__modal{
+  button {
+    width: 100%;
+    color: var(--color-grey-light-1);
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
+    padding: 0.6em 0.5em;
+    margin: 0.5em 0;
+    outline: none;
+  }
 
-.booking__modal {
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  .button:hover,
+  .button:focus {
+    transition: 0.2s;
+    background-color: var(--color-primary-light);
+    border: 1px solid var(--color-primary-light);
+  }
 }
 .booking__modal__data__container {
   display: grid;
   place-items: center;
-  background-color: hsl(0, 0%, 100%);
   padding: 1em 0.5em;
   border-radius: 3px;
   position: relative;
   @media screen and (max-width: 400px) {
     width: 130%;
   }
-
   .number__guest__form__container {
+    display: inline-block;
+    background-color: hsl(0, 0%, 100%);
     text-align: start;
     margin: 0.2em;
     padding: 0.5em;
+    padding: 1em;
+    border-radius: 3px;
+    .fade__loader__container{
+      color:hsl(266, 50%, 36%);
+      background-color: hsl(266, 50%, 95%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      border: 1px solid hsl(266, 50%, 36%);
+      border-radius: 3px;
+      margin-bottom: .5em;
+    }
     .room__name {
       font-weight: bold;
       background-color: var(--color-secondary-light);
@@ -42,6 +57,18 @@
         color: var(--color-grey-dark-2);
         font-weight: bold;
         margin-bottom: 0.5em;
+      }
+      .Invalid__guest__no__msg{
+        margin-bottom: 1em;
+          p{
+          font-size: small;
+          color: hsl(0, 100%, 60%);
+          background-color: hsl(0, 100%, 95%);
+          padding: 0.5em;
+          border: 1px solid hsl(0, 100%, 60%); 
+          border-radius: 3px;
+          text-align: center;
+        }
       }
       .form__input__group {
         .form__input {
