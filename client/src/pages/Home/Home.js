@@ -19,7 +19,9 @@ const Home = () => {
         <div className={styles["room__form__container"]}>
           <div className={styles["room__image__container"]}>
             <img
-              src={"room url"}
+              src={
+                "https://res.cloudinary.com/dlmv4ot9h/image/upload/v1659598762/room-6_ixhjsz.jpg"
+              }
               alt="room"
               className={styles["room__image"]}
             />
