@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { FadeLoader } from "react-spinners";
+// import { FadeLoader } from "react-spinners";
 import { signup } from "../../../store/actions/auth";
 import { disableEnableButton } from "../../../utils/disableEnableButton";
 import styles from "./SignUp.module.scss";
@@ -138,9 +138,15 @@ const SignUp = () => {
     <Fragment>
       <div className={styles["signup__container"]}>
         {showNotificationModal && <Modal isErrorMessage={isError} />}
-        <div className={styles["fade__loader__container"]}>
-          {isLoading && <FadeLoader size={5} />}
-        </div>
+        {isLoading && (
+          <div className={styles["fade__loader__container"]}>
+            {/* <FadeLoader
+            color="hsl(266, 50%, 36%)"
+            className={styles["spinner"]}
+          /> */}
+            <span>Signing up...</span>
+          </div>
+        )}
         <form
           className={styles["signup__form"]}
           onSubmit={(event) => validPasswordOnSubmit(event)}
@@ -179,12 +185,12 @@ const SignUp = () => {
               classNamePrefix={styles["signup__form__input"]}
             />
           </div>
-            {isPasswordError && (
-              // TODO: display this message in the modal
-              <span className={styles["password-error"]}>
-                {passwordValidationMsg}
-              </span>
-            )}
+          {isPasswordError && (
+            // TODO: display this message in the modal
+            <span className={styles["password-error"]}>
+              {passwordValidationMsg}
+            </span>
+          )}
           <div className={styles["signup__form__input__container"]}>
             <input
               type={showPassword ? "text" : "password"}

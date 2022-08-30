@@ -26,6 +26,8 @@ const BookingDates = () => {
     setCheckOutDate(event.target.value);
   };
 
+  // TODO: validate dates
+
   const handleSubmitDate = async (event) => {
     event.preventDefault();
     if (!userId) return;
@@ -49,12 +51,18 @@ const BookingDates = () => {
     <Fragment>
       <div className={styles["booking__dates__container"]}>
         {showAlertModal && <Modal isErrorMessage={isError} />}
-        <div className={styles["fade__loader__container"]}>
-          {isLoading && <FadeLoader />}
-        </div>
         <div className={styles["booking__heading"]}>
           <span> Step 1: Select your booking dates</span>
         </div>
+        {isLoading && (
+          <div className={styles["fade__loader__container"]}>
+            <FadeLoader
+              color="hsl(266, 50%, 36%)"
+              className={styles["spinner"]}
+            />
+            <span>Submitting...</span>
+          </div>
+        )}
         <form
           className={styles["form"]}
           onSubmit={(event) => handleSubmitDate(event)}

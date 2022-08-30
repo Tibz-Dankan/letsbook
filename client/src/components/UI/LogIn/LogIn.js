@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// eslint-disable-next-line no-unused-vars
 import { useNavigate, Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -16,11 +17,15 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const dispatch = useDispatch();
   const showNotificationModal = useSelector(
     (state) => state.notification.value
   );
+
+  // const userRole = useSelector(
+  //   (state) => state.auth.user && state.auth.user.userRole
+  // );
   const [isError, setIsError] = useState(false);
 
   const handleEmailChange = (event) => {
@@ -43,6 +48,23 @@ const LogIn = () => {
     }
   };
 
+  // // Navigating a user based on the role
+  // const navigateUser = (role) => {
+  //   console.log(role);
+  //   switch (role) {
+  //     case "user":
+  //       navigate("/booking", { replace: true });
+  //       break;
+  //     case "manager":
+  //       navigate("/admin", { replace: true });
+  //       break;
+  //     case "customer support":
+  //       navigate("/chat", { replace: true });
+  //       break;
+  //     default:
+  //   }
+  // };
+
   const handleLogInSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) return;
@@ -51,8 +73,9 @@ const LogIn = () => {
       disableEnableButton("button", true);
       await dispatch(login(email, password));
       setIsLoading(false);
+      // navigateUser(userRole);
+      // navigate("/chat", { replace: true }); //TODO: navigate according user role (create function to handle the task)
       disableEnableButton("button", false);
-      navigate("/chat", { replace: true }); //TODO: navigate according user role (create function to handle the task)
     } catch (error) {
       setIsLoading(false);
       disableEnableButton("button", false);
@@ -65,11 +88,15 @@ const LogIn = () => {
     <Fragment>
       <div className={styles["login__container"]}>
         {showNotificationModal && <Modal isErrorMessage={isError} />}
-        <div className={styles["fade__loader__container"]}>
-          {/* {isLoading &&
-           <FadeLoader color="hsl(266, 50%, 36%)" />
-          } */}
-        </div>
+        {isLoading && (
+          <div className={styles["fade__loader__container"]}>
+            <FadeLoader
+              color="hsl(266, 50%, 36%)"
+              className={styles["spinner"]}
+            />
+            <span>Authenticating...</span>
+          </div>
+        )}
         <form
           className={styles["login__form"]}
           onSubmit={(event) => handleLogInSubmit(event)}

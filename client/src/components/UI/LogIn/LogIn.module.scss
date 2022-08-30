@@ -25,11 +25,25 @@
 //   // transform: translate(-50%, -50%);
 // }
 
+.fade__loader__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary);
+  background-color: var(--color-grey-light-2);
+  box-shadow: var(--shadow-dark);
+  border-radius: 5px;
+  padding: 0.2em 1em;
+  margin-bottom: 2em;
+  position: relative;
+}
+
 .login__form {
   // margin-top: 5em;
   background-color: var(--color-grey-light-1);
   border: 1px solid var(--color-grey-light-3);
   border-radius: 5px;
+  box-shadow: var(--shadow-dark);
   padding: 1.5em;
   width: 100%;
 }

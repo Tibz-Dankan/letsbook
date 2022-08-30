@@ -19,6 +19,18 @@
       width: 60%;
     }
   }
+  .fade__loader__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary);
+    background-color: var(--color-grey-light-2);
+    box-shadow: var(--shadow-dark);
+    border-radius: 5px;
+    padding: 0.2em 1em;
+    margin-bottom: 2em;
+    position: relative;
+  }
 }
 
 .rooms {
@@ -45,6 +57,7 @@
 }
 .rooms__inner__container {
   background-color: var(--color-grey-light-1);
+  box-shadow: var(--shadow-dark);
   margin: 1em 0em;
   padding: 1em;
   border-radius: 5px;

@@ -9,6 +9,23 @@
   }
 }
 
+.user__image__container {
+  // .user__image{
+  // }
+
+  // .image__icon__container{
+  // }
+
+  .image__icon__container {
+    display: grid;
+    place-items: center;
+    // border: 1.5px solid hsl(0, 0%, 60%);
+    border-radius: 50%;
+    background-color: hsl(0, 0%, 90%);
+    padding: 0.2em;
+  }
+}
+
 .user__name__container {
   color: var(--color-grey-light-1);
   margin: 0em 0.3em;

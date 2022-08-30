@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { CgProfile } from "react-icons/cg";
-import { GoChevronDown, GoChevronUp } from "react-icons/go";
+import { GoChevronDown, GoChevronUp, GoPerson } from "react-icons/go";
 import { IconContext } from "react-icons";
 import styles from "./LoggedInAs.module.scss";
 import LogOut from "../LogOut/LogOut";
@@ -33,22 +32,19 @@ const LoggedInAs = () => {
             {userImage ? (
               <img
                 src={"some-image-url"}
-                alt="profile-image"
+                alt="profile-pic"
                 className={styles["user__image"]}
               />
             ) : (
               <IconContext.Provider
                 value={{
-                  color: "hsl(0, 0%, 95%)",
+                  color: "hsl(0, 0%, 60%)",
                   size: "2.5em",
-                  className: "global-class-name",
+                  className: styles["image__icon__container"],
                 }}
               >
-                <div
-                  onClick={() => showChevronDownOrUp()}
-                  className={styles["image__icon__container"]}
-                >
-                  <CgProfile className={styles["image__icon"]} />
+                <div onClick={() => showChevronDownOrUp()}>
+                  <GoPerson className={styles["image__icon"]} />
                 </div>
               </IconContext.Provider>
             )}
@@ -58,7 +54,6 @@ const LoggedInAs = () => {
           </div>
           <IconContext.Provider
             value={{
-              color: "blue",
               size: "1.2em",
               color: "hsl(0, 0%, 95%)",
               className: "global-class-name",

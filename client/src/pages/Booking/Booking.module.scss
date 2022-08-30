@@ -1,0 +1,45 @@
+.booking {
+  &__header {
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
+    &__list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 1em;
+      @media screen and (max-width: 360px) {
+        grid-template-columns: 1fr;
+      }
+      &--item {
+        text-align: center;
+        font-size: 0.8em;
+        font-weight: 400;
+        background-color: var(--color-grey-light-2);
+        box-shadow: var(--shadow-dark);
+        padding: 0.2em 0.6em;
+        border-radius: 3px;
+        &--link {
+          text-decoration: none;
+          color: hsl(0, 0%, 10%);
+          //   outline: none;
+        }
+        &--link:hover,
+        &--link:focus {
+          background-color: hsl(0, 0%, 100%);
+          padding: 0.2em;
+          border-radius: 2px;
+        }
+        // &--link:active {
+        //   background-color: hsl(0, 0%, 100%);
+        //   padding: 0.2em;
+        //   border-radius: 2px;
+        // }
+      }
+      &--item:hover,
+      &--item:focus {
+        background-color: hsl(0, 0%, 100%);
+      }
+    }
+  }
+}

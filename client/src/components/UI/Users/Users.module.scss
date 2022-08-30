@@ -1,0 +1,17 @@
+.users__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .fade__loader__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary);
+    background-color: var(--color-grey-light-2);
+    box-shadow: var(--shadow-dark);
+    border-radius: 5px;
+    padding: 0.2em 1em;
+    margin-top: 2em;
+  }
+}

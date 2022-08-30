@@ -7,7 +7,8 @@ import { FadeLoader } from "react-spinners";
 import { log } from "../../../utils/consoleLog";
 import Modal from "../Modal/Modal";
 import styles from "./BookRoom.module.scss";
-import { GiMushroomHouse } from "react-icons/gi";
+// import { GiMushroomHouse } from "react-icons/gi";
+import { MdOutlineBedroomParent } from "react-icons/md";
 import { IconContext } from "react-icons";
 import BookingModal from "../BookingModal/BookingModal";
 
@@ -61,22 +62,33 @@ const BookRoom = () => {
         effectRan.current = true;
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rooms]);
 
   return (
     <Fragment>
       <div className={styles["rooms__container"]}>
         {showAlertModal && <Modal isErrorMessage={isError} />}
-        <div className={styles["fade__loader__container"]}>
-          {isLoading && <FadeLoader />}
-        </div>
         <div className={styles["booking__heading"]}>
           <span> Step 2: Book a room of your choice</span>
         </div>
+        {isLoading && (
+          <div className={styles["fade__loader__container"]}>
+            <FadeLoader
+              color="hsl(266, 50%, 36%)"
+              className={styles["spinner"]}
+            />
+            <span>Fetching rooms...</span>
+          </div>
+        )}
         <div className={styles["rooms"]}>
           {rooms.map((room, index) => {
             return (
-              <div key={index} className={styles["rooms__inner__container"]} id={styles["room__container"]}>
+              <div
+                key={index}
+                className={styles["rooms__inner__container"]}
+                id={styles["room__container"]}
+              >
                 {room.room_image_url ? (
                   <div className={styles["rooms__image__container"]}>
                     <img
@@ -93,7 +105,8 @@ const BookRoom = () => {
                       size: "8em",
                     }}
                   >
-                    <GiMushroomHouse />
+                    {/* <GiMushroomHouse /> */}
+                    <MdOutlineBedroomParent />
                   </IconContext.Provider>
                 )}
                 <div className={styles["room__name"]}>{room.room_name}</div>

@@ -6,8 +6,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  //   background-color: pink;
-  //   position: relative;
 
   .booking__heading {
     background-color: var(--color-primary-light);
@@ -26,6 +24,18 @@
   }
 }
 // fade loader styles here
+.fade__loader__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary);
+  background-color: var(--color-grey-light-2);
+  box-shadow: var(--shadow-dark);
+  border-radius: 5px;
+  padding: 0.2em 1em;
+  margin-bottom: 2em;
+  position: relative;
+}
 
 .form {
   display: flex;
@@ -35,6 +45,7 @@
   background-color: var(--color-grey-light-1);
   border: 1px solid var(--color-grey-light-1);
   border-radius: 5px;
+  box-shadow: var(--shadow-dark);
   width: 40%;
   padding: 1.5em;
   @media screen and (max-width: 400px) {

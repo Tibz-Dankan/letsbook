@@ -1,21 +1,22 @@
 import React, { Fragment } from "react";
 import styles from "./GeneralHeader.module.scss";
 import LoggedInAs from "../../UI/LoggedInAs/LoggedInAs";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-const GeneralHeader = ({ currentPage }) => {
+const GeneralHeader = ({ title }) => {
   return (
     <Fragment>
       <header className={styles["general__header__container"]}>
-        <div className={styles["current__page__container"]}>
-          <span className={styles["current__page"]}>{currentPage}</span>
+        <div className={styles["title__container"]}>
+          <span className={styles["title"]}>{title}</span>
         </div>
         <div className={styles["logged__as__container"]}>
-          <div className={styles["home__link"]}>
+          {/* Notification bell here */}
+          {/* <div className={styles["home__link"]}>
             <Link to="/" className={styles["link"]}>
               Home
             </Link>
-          </div>
+          </div> */}
           <LoggedInAs />
         </div>
       </header>

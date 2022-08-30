@@ -41,7 +41,11 @@ const Users = ({ socket }) => {
       <div className={styles["users__container"]}>
         {isLoading && (
           <div className={styles["fade__loader__container"]}>
-            <FadeLoader className={styles["fade__loader"]} />
+            <FadeLoader
+              color="hsl(266, 50%, 36%)"
+              className={styles["spinner"]}
+            />
+            <span>Fetching users...</span>
           </div>
         )}
         <ChatList socket={socket} />

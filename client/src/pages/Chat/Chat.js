@@ -5,7 +5,7 @@ import Users from "../../components/UI/Users/Users";
 const Chat = ({ socket }) => {
   return (
     <Fragment>
-      <div className={styles["chat-page"]}>
+      <div className={styles["chat__container"]}>
         <Users socket={socket} />
       </div>
     </Fragment>

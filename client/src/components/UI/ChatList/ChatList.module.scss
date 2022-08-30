@@ -1,31 +1,92 @@
-.chat__list__wrapper {
-  color: violet;
-  display: grid;
-  place-items: center;
+.chat__list__container {
+  color: var(--color-grey-dark-2);
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
 }
 
-.chat__list {
-  position: relative;
-  background-color: hsl(0, 0%, 100%);
-  box-shadow: 1px 1px 5px hsl(0, 0%, 80%);
-  border-radius: 2px;
+.chat__list__container__inner {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: start;
-  margin: 1em 0em;
-  padding: 1em 0em 1em 1em;
-  width: 50%;
-}
-.image__icon__container {
-  margin-right: 1em;
-  .image__icon {
-    size: 2em;
+  margin-top: 3.5em;
+
+  .chat__list {
+    position: relative;
+    background-color: hsl(0, 0%, 98%);
+    box-shadow: var(--shadow-dark);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin: 1em 0em;
+    padding: 1em 0em 1em 1em;
+    width: 40%;
+    @media screen and (max-width: 1000px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 650px) {
+      width: 60%;
+    }
+    @media screen and (max-width: 550px) {
+      width: 70%;
+    }
+    @media screen and (max-width: 450px) {
+      width: 80%;
+    }
+    @media screen and (max-width: 400px) {
+      width: 90%;
+    }
   }
-}
-.message__icon {
-  position: absolute;
-  color: violet;
-  top: 1.5em;
-  right: 1em;
+  .image__icon__container {
+    display: grid;
+    place-items: center;
+    // border: 1.5px solid hsl(0, 0%, 60%);
+    border-radius: 50%;
+    background-color: hsl(0, 0%, 90%);
+    padding: 0.2em;
+    margin-right: 1em;
+  }
+  .user__role {
+    font-size: 0.6em;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute;
+    bottom: 0em;
+    bottom: -0.2em;
+    left: 0em;
+    // background-color: yellow;
+    .client__role {
+      padding: 0.1em 0.3em;
+      background-color: var(--color-primary-light);
+      background-color: hsl(120, 100%, 30%);
+      color: var(--color-grey-light-1);
+      border-radius: 2px;
+    }
+    .customer__support__role {
+      padding: 0.1em 0.3em;
+      // background-color: var(--color-primary-light);
+      background-color: hsl(240, 100%, 40%);
+      color: var(--color-grey-light-1);
+      border-radius: 2px;
+    }
+  }
+  .message__icon__container {
+    position: absolute;
+    top: 0.9em;
+    right: 1em;
+    display: grid;
+    place-items: center;
+    width: 2.8em;
+    height: 2.8em;
+    // border: 1.5px solid hsl(0, 0%, 60%);
+    border-radius: 50%;
+    background-color: hsl(0, 0%, 90%);
+    padding: 0.2em;
+    // .message__icon {
+    //   // margin: 0.5em;
+    //   // background-color: yellow;
+    // }
+  }
 }
