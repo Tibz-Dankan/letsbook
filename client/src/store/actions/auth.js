@@ -4,6 +4,13 @@ import { authActions } from "../reducers/auth";
 import { notificationActions } from "../reducers/notification";
 import { log } from "../../utils/consoleLog";
 
+export const authenticate = (user, token) => {
+  return async (dispatch) => {
+    await dispatch(authActions.authenticate({ token: token, user: user }));
+  };
+};
+
+// TODO: LogoutTimer and clearLogoutTimer(When jwt expire time is added)
 export const logOut = () => {
   localStorage.clear();
   return authActions.logout();
