@@ -3,6 +3,17 @@ import { baseUrl } from "../appStore";
 import { bookingActions } from "../reducers/booking";
 import { log } from "../../utils/consoleLog";
 
+export const bookingProcess = (bookingStepNum, bookingId) => {
+  return async (dispatch) => {
+    await dispatch(
+      bookingActions.bookingProcess({
+        bookingStep: { step: bookingStepNum, bookingId: bookingId },
+      })
+    );
+    saveBookingProcessToStorage(bookingStepNum, bookingId);
+  };
+};
+
 export const saveBookingProcessToStorage = (stepNumber, bookingId) => {
   localStorage.setItem(
     "bookingStep",
