@@ -1,20 +1,24 @@
-.logout__container {
-  width: 6.5em;
+.logout {
+  width: 5.2em;
   display: inline-block;
   background-color: var(--color-grey-light-1);
   border: 1px solid var(--color-grey-light-1);
+  box-shadow: var(--shadow-dark);
   border-radius: 3px;
   position: absolute;
   top: 2.4em;
   right: -1.65em;
-  padding: 0.5em;
-  .logout__paragraph {
+  padding: 0.2em 0em;
+  &__group {
     color: hsl(0, 100%, 60%);
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
-    span {
+    &__text {
       margin-left: 0.4em;
+      font-size: 0.8em;
+      font-weight: bold;
     }
   }
 }

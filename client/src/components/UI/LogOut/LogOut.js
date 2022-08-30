@@ -1,30 +1,37 @@
 import React, { Fragment } from "react";
 import { logOut } from "../../../store/actions/auth";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styles from "./LogOut.module.scss";
-import { BsBoxArrowRight } from "react-icons/bs";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 import { IconContext } from "react-icons";
 
 const LogOut = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOutHandler = async () => {
+    await dispatch(logOut());
+    navigate("/", { replace: true });
+  };
 
   return (
     <Fragment>
-      <div className={styles["logout__container"]}>
+      <div className={styles["logout"]}>
         <div
-          className={styles["logout__paragraph"]}
-          onClick={() => dispatch(logOut())}
+          className={styles["logout__group"]}
+          onClick={() => logOutHandler()}
         >
           <IconContext.Provider
             value={{
               color: "hsl(0, 100%, 60%)",
-              size: "1.2em",
-              className: "global-class-name",
+              size: "1.0em",
+              className: "logout__group__icon",
             }}
           >
-            <BsBoxArrowRight />
+            <RiLogoutCircleRLine />
           </IconContext.Provider>
-          <span> Log out</span>
+          <span className={styles["logout__group__text"]}> Log out</span>
         </div>
       </div>
     </Fragment>
