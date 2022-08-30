@@ -25,8 +25,8 @@
   --color-grey-dark-3: hsl(0, 0%, 50%);
   --color-grey-dark-4: hsl(0, 0%, 90%);
 
-  --shadow-dark: 0 2rem 6rem hsla(0, 0, 0, 0.3);
-  --shadow-light: 0 2rem 5rem hsla(0, 0, 0, 0.06);
+  --shadow-dark: 1px 1px 6px 2px hsla(0, 0%, 0%, 0.3);
+  --shadow-light: 2px 4px 6px 2px hsla(0, 0%, 0%, 0.08);
 
   // --color-magenta-pink: hsl(326, 50%, 36%);
 }
@@ -53,3 +53,21 @@ html {
 //     transform: rotate(360deg);
 //   }
 // }
+
+.pages {
+  box-shadow: var(--shadow-dark);
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+  flex: 1;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+  &__component {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: var(--color-grey-light-2);
+    position: relative;
+  }
+}
