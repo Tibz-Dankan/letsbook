@@ -154,7 +154,7 @@ const receiveSendMessages = (socket) => {
     socket.to(data.chatRoomId).emit("receiveMessage", data);
     // save chat message in the in the database
     saveChatMessagesInDatabase(
-      data.senderId,
+      data.sender_Id,
       data.recipientId,
       data.chatRoomId,
       data.date,

@@ -11,12 +11,14 @@ CREATE TABLE users (
    user_role VARCHAR(40) NOT NULL,
    UNIQUE (email) 
 );
+-- add column named tel_number to the table users
 
 CREATE TABLE user_image_urls (
     image_url_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL, 
     image_url VARCHAR(250) NOT NULL DEFAULT null
 );
+-- TODO: rename column in table user_image_urls image_url to user_image_url
 
 CREATE TABLE chat_messages (
     message_id SERIAL PRIMARY KEY,
@@ -63,6 +65,7 @@ CREATE TABLE room (
     price INTEGER NOT NULL,
     image_url VARCHAR(250) NOT NULL DEFAULT null
 );
+-- TODO: rename column image_url in table room to room_image_url
 
 CREATE TABLE staff_token (
     token_id SERIAL PRIMARY KEY, 
