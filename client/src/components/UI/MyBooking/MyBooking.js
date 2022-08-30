@@ -7,7 +7,12 @@ import { log } from "../../../utils/consoleLog";
 import Modal from "../Modal/Modal";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { FadeLoader } from "react-spinners";
-import Payment from "../Payment/Payment";
+// import Payment from "../Payment/Payment";
+// import { GiMushroomHouse } from "react-icons/gi";
+import { MdOutlineBedroomParent } from "react-icons/md";
+import { GoPerson } from "react-icons/go";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { IconContext } from "react-icons";
 
 const MyBooking = () => {
   // TODO: list all my booking with their details
@@ -25,7 +30,7 @@ const MyBooking = () => {
   const dispatch = useDispatch();
   const effectRan = useRef(false);
   const showAlertModal = useSelector((state) => state.notification.value);
-  const userName = useSelector((state) => state.auth.user.userName);
+  // const userName = useSelector((state) => state.auth.user.userName);
 
   const getMyBookings = () => {
     return async () => {
@@ -63,6 +68,7 @@ const MyBooking = () => {
         effectRan.current = true;
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myBookings]);
 
   // provides format  -> //7/3/2022
@@ -80,58 +86,248 @@ const MyBooking = () => {
     });
   };
 
+  // generate booking id
+  const generateBookingIdString = (bookingIdFromDb) => {
+    const bookingIdString = "#LBR" + bookingIdFromDb;
+    log(bookingIdString);
+    return bookingIdString;
+  };
+
+  // calculate number of nights
+  const numberOfNights = (checkInDateStrObj, checkOutDateStrObj) => {
+    const day = 1000 * 60 * 60 * 24;
+    const checkInDate = JSON.parse(checkInDateStrObj).date;
+    const checkOutDate = JSON.parse(checkOutDateStrObj).date;
+    const numberOfNights =
+      (new Date(checkOutDate) - new Date(checkInDate)) / day;
+    return Math.floor(numberOfNights);
+  };
+
+  // calculate total amount of the booking
+  const totalAmountOfBooking = (
+    roomPrice,
+    noOfGuests,
+    checkInDateStrObj,
+    checkOutDateStrObj
+  ) => {
+    const numOfNights = numberOfNights(checkInDateStrObj, checkOutDateStrObj);
+    const totalAmount = roomPrice * noOfGuests * numOfNights;
+    return totalAmount;
+  };
+
   return (
     <Fragment>
-      <div className={styles["my__booking__container"]}>
+      <div className={styles["user__booking__data__container"]}>
         {showAlertModal && <Modal isErrorMessage={isError} />}
-        <div className={styles["fade__loader__container"]}>
-          {isLoading && <FadeLoader />}
-        </div>
-        <div className={styles["my__booking__container"]}>
-          {myBookings.map((booking) => {
-            return (
-              <div
-                className={styles["my__booking__data"]}
-                key={booking.booking_id}
-              >
-                <div className={styles["user__name"]}>
-                  <span>{userName}</span>
-                </div>
-                <div className={styles["check__in__date"]}>
-                  <span>{getDateString(booking.check_in_date)}</span>
-                </div>
-                <div className={styles["check__out__date"]}>
-                  <span>{getDateString(booking.check_out_date)}</span>
-                </div>
-                <div className={styles["date__of__booking"]}>
-                  <span>
-                    {getDateString(booking.booking_date)}{" "}
-                    {getTime(booking.booking_date)}
-                  </span>
-                </div>
-                <div className={styles["room__no__name"]}>
-                  {booking.room_name}
-                </div>
-                <div className={styles["room__price"]}>{booking.price}</div>
-                <div className={styles["payment__status"]}>
-                  {booking.has_paid === true ? (
-                    <span className={styles["paid"]}>
-                      Paid verify_icon here
+        {isLoading && (
+          <div className={styles["fade__loader__container"]}>
+            <FadeLoader
+              color="hsl(266, 50%, 36%)"
+              className={styles["spinner"]}
+            />
+            <span>Fetching...</span>
+          </div>
+        )}
+        {myBookings.map((booking) => {
+          return (
+            <div
+              className={styles["user__booking__data__outer__container"]}
+              key={booking.booking_id}
+            >
+              <div className={styles["user__booking__data__inner__container"]}>
+                <div className={styles["user__data__container"]}>
+                  <div className={styles["user__image"]}>
+                    {booking.user_image_url ? (
+                      <img src={booking.user_image_url} alt="profile_pic" />
+                    ) : (
+                      <IconContext.Provider
+                        value={{
+                          color: "hsl(206, 50%, 70%)",
+                          className: styles["person__icon__container"],
+                          size: "3em",
+                        }}
+                      >
+                        <GoPerson />
+                      </IconContext.Provider>
+                    )}
+                  </div>
+                  <div className={styles["user__data"]}>
+                    <span className={styles["user__name"]}>
+                      {booking.user_name}
                     </span>
-                  ) : (
-                    <span className={styles["not__paid"]}>Not Paid</span>
-                  )}
+                    <span className={styles["email"]}>{booking.email}</span>
+                    <span className={styles["nationality"]}>
+                      {booking.country}
+                    </span>
+                    <span className={styles["tel__number"]}>
+                      {booking.tel_number
+                        ? booking.tel_number
+                        : "Telephone number"}
+                    </span>
+                  </div>
                 </div>
-                <br /> {/*to be removed*/}
-                <br /> {/*to be removed*/}
-                <br /> {/*to be removed*/}
-                <div className="payment__container">
-                  <Payment />
+                <div className={styles["guest__num__checkin__checkout"]}>
+                  <div className={styles["check__in__date__container"]}>
+                    <span className={styles["check__in__date__label"]}>
+                      Check In
+                    </span>
+                    <span className={styles["check__in__date"]}>
+                      {getDateString(booking.check_in_date)}
+                    </span>
+                  </div>
+                  <div className={styles["check__out__date__container"]}>
+                    <span className={styles["check__out__date__label"]}>
+                      Check Out
+                    </span>
+                    <span className={styles["check__out__date"]}>
+                      {getDateString(booking.check_out_date)}
+                    </span>
+                  </div>
+                  <div className={styles["guest__night__num__container"]}>
+                    <div className={styles["guest__num__container"]}>
+                      <span className={styles["guest__num__label"]}>
+                        Guests
+                      </span>
+                      <span className={styles["guest__num"]}>
+                        {booking.no_of_guests}
+                      </span>
+                    </div>
+                    <div className={styles["night__num__container"]}>
+                      <span className={styles["night__num__label"]}>
+                        Nights
+                      </span>
+                      <span className={styles["night__num"]}>
+                        {numberOfNights(
+                          booking.check_in_date,
+                          booking.check_out_date
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles["payment__data"]}>
+                  <div className={styles["amount__total__container"]}>
+                    <span className={styles["amount__total__label"]}>
+                      Total amount{" "}
+                    </span>
+                    <span className={styles["amount__total"]}>
+                      {totalAmountOfBooking(
+                        booking.price,
+                        booking.no_of_guests,
+                        booking.check_in_date,
+                        booking.check_out_date
+                      )}{" "}
+                      USD
+                    </span>
+                  </div>
+                  <div className={styles["amount__due__container"]}>
+                    <span className={styles["amount__due__label"]}>
+                      Amount Due{" "}
+                    </span>
+                    <span className={styles["amount__due"]}>
+                      {booking.has_paid === true ? (
+                        <>0 USD</>
+                      ) : (
+                        <>
+                          {totalAmountOfBooking(
+                            booking.price,
+                            booking.no_of_guests,
+                            booking.check_in_date,
+                            booking.check_out_date
+                          )}{" "}
+                          USD
+                        </>
+                      )}
+                    </span>
+                  </div>
+                  <div className={styles["payment__status__container"]}>
+                    <span className={styles["payment__status__label"]}>
+                      Status{" "}
+                    </span>
+                    {booking.has_paid === true ? (
+                      <span className={styles["paid"]}>
+                        <>Paid </>
+                        <IconContext.Provider
+                          value={{
+                            color: "hsl(120, 100%, 40%)",
+                            className: styles["fill__check__circle__icon"],
+                          }}
+                        >
+                          <AiFillCheckCircle />
+                        </IconContext.Provider>
+                      </span>
+                    ) : (
+                      <span className={styles["not__paid"]}>Not Paid</span>
+                    )}
+                  </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
+              <div className={styles["booking__reservation__details"]}>
+                <span className={styles["reservation__heading"]}>
+                  Reservation Details
+                </span>
+                <div className={styles["reservation__data__container"]}>
+                  <div className={styles["reservation__data"]}>
+                    {/* Booking id */}
+                    <div className={styles["booking__id__container"]}>
+                      <span className={styles["booking__id__label"]}>
+                        Booking ID
+                      </span>
+                      <span className={styles["booking__id"]}>
+                        {generateBookingIdString(booking.booking_id)}
+                      </span>
+                    </div>
+                    {/* Booking date */}
+                    <div className={styles["booking__date__container"]}>
+                      <span className={styles["booking__date__label"]}>
+                        Booking Date
+                      </span>
+                      <span className={styles["booking__date"]}>
+                        {getDateString(booking.booking_date)}{" "}
+                        {getTime(booking.booking_date)}
+                      </span>
+                    </div>
+                    {/* Booked room name */}
+                    <div className={styles["booked__room__container"]}>
+                      <span className={styles["booked__room__label"]}>
+                        Booked Room
+                      </span>
+                      <span className={styles["booked__room"]}>
+                        {booking.room_name}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={styles["booked__room__image"]}>
+                    {/* booked__room__image */}
+                    {booking.room_image_url ? (
+                      <img
+                        src={booking.room_image_url}
+                        alt={booking.room_name}
+                      />
+                    ) : (
+                      <IconContext.Provider
+                        value={{
+                          color: "hsl(206, 50%, 70%)",
+                          className: styles["room__icon__container"],
+                          size: "8em",
+                        }}
+                      >
+                        {/* <GiMushroomHouse /> */}
+                        <MdOutlineBedroomParent />
+                      </IconContext.Provider>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* <br />
+              <br /> 
+              <br /> 
+              <div className="payment__container">
+                <Payment />
+              </div> */}
+            </div>
+          );
+        })}
       </div>
     </Fragment>
   );

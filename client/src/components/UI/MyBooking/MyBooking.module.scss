@@ -1,0 +1,280 @@
+.user__booking__data__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade__loader__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary);
+  background-color: var(--color-grey-light-2);
+  box-shadow: var(--shadow-dark);
+  border-radius: 5px;
+  padding: 0.2em 1em;
+  margin-top: 2em;
+  // margin-bottom: 2em;
+}
+
+.user__booking__data__outer__container {
+  margin: 2em 0em;
+}
+.user__booking__data__inner__container {
+  // border: 1px solid hsl(0, 0%, 0%);
+  box-shadow: var(--shadow-dark);
+  border-radius: 5px;
+  margin: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  // background-color: green;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    margin: 2em;
+    padding: 2em;
+  }
+  @media screen and (max-width: 500px) {
+    margin: 2em 0.5em;
+    padding: 2em 0.5em;
+  }
+}
+
+.user__data__container {
+  border: 1px solid hsl(0, 0%, 0%);
+  // box-shadow: var(--shadow-dark);
+  border-radius: 2px;
+  margin: 0.5em;
+  display: flex;
+  align-items: center;
+
+  .user__image {
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 50%;
+    margin-left: 0.5em;
+    padding: 0.5em;
+    @media screen and (max-width: 400px) {
+      margin-left: 1em;
+    }
+  }
+
+  .user__data {
+    //   border: 1px solid hsl(0, 0%, 0%);
+    margin: 0.5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @media screen and (max-width: 400px) {
+      grid-template-columns: 1fr;
+      // image styles here
+    }
+
+    .user__name,
+    .email,
+    .nationality,
+    .tel__number {
+      border: 1px solid hsl(0, 0%, 0%);
+      margin: 0.5em;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+  }
+}
+
+.guest__num__checkin__checkout {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 2px;
+  margin: 0.5em;
+  .check__in__date__container {
+    display: inline-block;
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 2px;
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+    .check__in__date__label {
+      margin-right: 0.8em;
+    }
+    .check__in__date {
+      border: 1px solid hsl(0, 0%, 0%);
+      margin: 0.5em;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+  }
+  .check__out__date__container {
+    display: inline-block;
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 2px;
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+    // .check__out__date__label {
+    // }
+    .check__out__date {
+      border: 1px solid hsl(0, 0%, 0%);
+      margin: 0.5em;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+  }
+
+  .guest__night__num__container {
+    display: flex;
+    align-items: center;
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 2px;
+    margin: 0.5em;
+    padding: 0.1em 0.5em;
+    .guest__num__container {
+      .guest__num {
+        border: 1px solid hsl(0, 0%, 0%);
+        margin: 0em 0.5em;
+        padding: 0.1em 0.3em;
+        border-radius: 2px;
+      }
+    }
+    .night__num__container {
+      .night__num {
+        display: inline-block;
+        border: 1px solid hsl(0, 0%, 0%);
+        margin: 0em 0.5em;
+        padding: 0.1em 0.3em;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+.payment__data {
+  border: 1px solid hsl(0, 0%, 0%);
+  margin: 0.5em;
+  border-radius: 2px;
+  .amount__total__container {
+    border: 1px solid hsl(0, 0%, 0%);
+    margin: 0.5em;
+    border-radius: 2px;
+    padding: 0.2em 0.5em;
+    .amount__total__label {
+      margin-right: 0.2em;
+    }
+    .amount__total {
+      border: 1px solid hsl(0, 0%, 0%);
+      border-radius: 2px;
+      margin: 0.5em;
+      padding: 0.1em 0.3em;
+    }
+  }
+  .amount__due__container {
+    border: 1px solid hsl(0, 0%, 0%);
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+    border-radius: 2px;
+    .amount__due__label {
+      margin-right: 0.4em;
+    }
+    .amount__due {
+      border: 1px solid hsl(0, 0%, 0%);
+      border-radius: 2px;
+      margin: 0.5em;
+      padding: 0.1em 0.3em;
+    }
+  }
+  .payment__status__container {
+    border: 1px solid hsl(0, 0%, 0%);
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+    border-radius: 2px;
+    .payment__status__label {
+      margin-right: 3.7em;
+    }
+    .paid {
+      background-color: lightblue;
+      border-radius: 2px;
+      padding: 0.1em 0.3em;
+    }
+    .not__paid {
+      background-color: hsl(0, 0%, 50%);
+      border-radius: 2px;
+      color: orange;
+      padding: 0.1em 0.3em;
+    }
+  }
+}
+
+.booking__reservation__details {
+  // border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 5px;
+  box-shadow: var(--shadow-dark);
+  margin: 0.5em;
+  .reservation__heading {
+    margin: 2em 0.5em;
+    background-color: var(--color-secondary-light);
+    padding: 0.1em 0.3em;
+    border: 1px solid var(--color-secondary-light);
+    border-radius: 2px;
+  }
+  .reservation__data__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    // border: 1px solid hsl(0, 0%, 0%);
+    margin: 0.5em;
+    @media screen and (max-width: 650px) {
+      grid-template-columns: 1fr;
+    }
+
+    .reservation__data {
+      border: 1px solid hsl(0, 0%, 0%);
+      border-radius: 2px;
+      margin: 0.5em;
+      padding: 0.5em;
+      .booking__id__container {
+        .booking__id__label {
+          margin-right: 1.4em;
+        }
+        .booking__id {
+          border: 1px solid hsl(0, 0%, 0%);
+          margin: 0.5em;
+          padding: 0.1em 0.3em;
+          border-radius: 2px;
+          text-align: start;
+        }
+      }
+      .booking__date__container {
+        .booking__date__label {
+          margin-right: 0.3em;
+        }
+        .booking__date {
+          border: 1px solid hsl(0, 0%, 0%);
+          margin: 0.5em;
+          padding: 0.1em 0.3em;
+          border-radius: 2px;
+        }
+      }
+      .booked__room__container {
+        // .booked__room__label{
+        // }
+        .booked__room {
+          border: 1px solid hsl(0, 0%, 0%);
+          margin: 0.5em;
+          padding: 0.1em 0.3em;
+          border-radius: 2px;
+        }
+      }
+    }
+    .booked__room__image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid hsl(0, 0%, 0%);
+      border-radius: 2px;
+      margin: 0.5em;
+
+      img {
+        background-color: var(--color-grey-dark-4);
+        width: 200px;
+        height: 200px;
+      }
+    }
+  }
+}
