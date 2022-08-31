@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styles from "./Booking.module.scss";
 import BookingDates from "../../components/UI/BookingDates/BookingDates";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,8 +6,9 @@ import { bookingActions } from "../../store/reducers/booking";
 import BookRoom from "../../components/UI/BookRoom/BookRoom";
 import MyBooking from "../../components/UI/MyBooking/MyBooking";
 import { bookingProcess } from "../../store/actions/booking";
+import { hideAllBookingComponents } from "../../store/actions/booking";
 import { log } from "../../utils/consoleLog";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Booking = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,26 @@ const Booking = () => {
   log("booking step: " + bookingStep);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+  const [showDatesBooking, setShowDatesBooking] = useState(false);
+  const [showBookingMade, setShowBookingMade] = useState(false);
+
+  const showBookingDatesComponent = useSelector(
+    (state) => state.booking.showBookingDatesComponent
+  );
+  const showBookRoomComponent = useSelector(
+    (state) => state.booking.showBookRoomComponent
+  );
+  const showMyBookingComponent = useSelector(
+    (state) => state.booking.showMyBookingComponent
+  );
+
   const bookingStepFromStorage = JSON.parse(
     localStorage.getItem("bookingStep")
   );
+
+  const bookingIdFromStorage =
+    bookingStepFromStorage && bookingStepFromStorage.bookingStep.bookingId;
+
   const navigationTypeReload =
     performance.getEntriesByType("navigation")[0].type === "reload";
 
@@ -33,6 +51,26 @@ const Booking = () => {
   // const handleBookingStep = async (bookingStepNum, bookingId) => {
   //   await dispatch(bookingProcess(bookingStepNum, bookingId));
   // };
+
+  // useEffect(() => {
+  //   dispatch(bookingProcess(bookingStep, bookingId));
+  //   console.log("booking process in useEffect");
+  // }, [dispatch, bookingStep, bookingId]);
+
+  // show Booking dates component component
+  const showBookingDatesComp = async () => {
+    await dispatch(hideAllBookingComponents());
+    await dispatch(bookingProcess(1, bookingIdFromStorage));
+    setShowDatesBooking(true);
+    setShowBookingMade(false);
+  };
+  // show MyBooking  component
+  const showMyBookingComp = async () => {
+    await dispatch(hideAllBookingComponents());
+    await dispatch(bookingProcess(3, bookingIdFromStorage));
+    setShowBookingMade(true);
+    setShowDatesBooking(false);
+  };
 
   useEffect(() => {
     const setBackgroundColor = () => {
@@ -68,10 +106,10 @@ const Booking = () => {
               <NavLink
                 to="/booking"
                 className={styles["booking__header__list--item--link"]}
-                // onClick={() => handleBookingStep(1, null)}
-                onClick={() => dispatch(bookingProcess(1, null))}
+                onClick={() => showBookingDatesComp()}
               >
-                <span>Make Booking</span>
+                {/* <span>Make Booking</span> */}
+                <span>Book Now</span>
               </NavLink>
             </li>
             <li
@@ -81,8 +119,7 @@ const Booking = () => {
               <NavLink
                 to="/booking"
                 className={styles["booking__header__list--item--link"]}
-                // onClick={() => handleBookingStep(3, null)}
-                onClick={() => dispatch(bookingProcess(3, null))}
+                onClick={() => showMyBookingComp()}
               >
                 <span>My Booking</span>
               </NavLink>
@@ -98,9 +135,15 @@ const Booking = () => {
           </ul>
         </div>
         <div className={styles["booking__components"]}>
-          {bookingStep === 1 && <BookingDates />}
-          {bookingStep === 2 && <BookRoom />}
-          {bookingStep === 3 && <MyBooking />}
+          {/* {bookingStep === 1 && <BookingDates />} */}
+          {/* {bookingStep === 2 && <BookRoom />} */}
+          {/* {bookingStep === 3 && <MyBooking />} */}
+          {showBookingDatesComponent && <BookingDates />}
+          {showBookRoomComponent && <BookRoom />}
+          {showMyBookingComponent && <MyBooking />}
+          {/* show on nav link click */}
+          {showDatesBooking && <BookingDates />}
+          {showBookingMade && <MyBooking />}
         </div>
       </div>
     </Fragment>

@@ -72,14 +72,14 @@ const BookingModal = ({ roomDataObject }) => {
     validateNumberOfGuests();
     try {
       setIsLoading(true);
-      disableEnableButton("booking-btn", true);
+      // disableEnableButton("booking-btn", true);
       await dispatch(bookingRoom(bookingId, token, roomId, numberOfGuests));
       setIsLoading(false);
-      disableEnableButton("booking-btn", false);
+      // disableEnableButton("booking-btn", false);
     } catch (error) {
       setIsLoading(false);
       setIsError(true);
-      disableEnableButton("booking-btn", false);
+      // disableEnableButton("booking-btn", false);
       await dispatch(showNotificationModal(error.message));
     }
   };

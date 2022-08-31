@@ -13,6 +13,7 @@ import { MdOutlineBedroomParent } from "react-icons/md";
 import { GoPerson } from "react-icons/go";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
+import bookedRoomPhoto from "../../../assets/booked-room1.jpeg";
 
 const MyBooking = () => {
   // TODO: list all my booking with their details
@@ -305,16 +306,20 @@ const MyBooking = () => {
                         alt={booking.room_name}
                       />
                     ) : (
-                      <IconContext.Provider
-                        value={{
-                          color: "hsl(206, 50%, 70%)",
-                          className: styles["room__icon__container"],
-                          size: "8em",
-                        }}
-                      >
-                        {/* <GiMushroomHouse /> */}
-                        <MdOutlineBedroomParent />
-                      </IconContext.Provider>
+                      // <IconContext.Provider
+                      //   value={{
+                      //     color: "hsl(206, 50%, 70%)",
+                      //     className: styles["room__icon__container"],
+                      //     size: "8em",
+                      //   }}
+                      // >
+                      //   <MdOutlineBedroomParent />
+                      // </IconContext.Provider>
+                      <img
+                        src={bookedRoomPhoto}
+                        alt="booked-room"
+                        style={{ width: "100%" }}
+                      />
                     )}
                   </div>
                 </div>

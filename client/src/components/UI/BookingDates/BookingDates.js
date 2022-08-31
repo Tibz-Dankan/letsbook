@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from "react";
 import styles from "./BookingDates.module.scss";
-import { disableEnableButton } from "../../../utils/disableEnableButton";
+// import { disableEnableButton } from "../../../utils/disableEnableButton";
 import { FadeLoader } from "react-spinners";
 import { submitBookingDates } from "../../../store/actions/booking";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../Modal/Modal";
+import { log } from "../../../utils/consoleLog";
 
 const BookingDates = () => {
   const [isError, setIsError] = useState(false);
@@ -14,7 +15,7 @@ const BookingDates = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user.userId);
-  console.log(userId);
+  log(userId);
   const authToken = useSelector((state) => state.auth.token);
   const showAlertModal = useSelector((state) => state.notification.value);
 
@@ -33,15 +34,15 @@ const BookingDates = () => {
     if (!userId) return;
     try {
       setIsLoading(true);
-      disableEnableButton("date-btn", true);
+      // disableEnableButton("date-btn", true);
       await dispatch(
         submitBookingDates(checkInDate, checkOutDate, userId, authToken)
       );
       setIsLoading(false);
-      disableEnableButton("date-btn", false);
+      // disableEnableButton("date-btn", false);
     } catch (error) {
       setIsLoading(false);
-      disableEnableButton("date-btn", false);
+      // disableEnableButton("date-btn", false);
       setIsError(true);
       await dispatch(showNotificationModal(error.message));
     }

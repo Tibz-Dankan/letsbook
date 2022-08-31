@@ -3,13 +3,17 @@ import axios from "axios";
 import { baseUrl } from "../../../store/appStore";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { showNotificationModal } from "../../../store/actions/notification";
+// import { bookingProcess } from "../../../store/actions/booking";
+import roomPhoto from "../../../assets/room1.jpeg";
+// import bookedRoomPhoto from "../../../assets/booked-room1.jpeg";
+
 import { FadeLoader } from "react-spinners";
 import { log } from "../../../utils/consoleLog";
 import Modal from "../Modal/Modal";
 import styles from "./BookRoom.module.scss";
 // import { GiMushroomHouse } from "react-icons/gi";
-import { MdOutlineBedroomParent } from "react-icons/md";
-import { IconContext } from "react-icons";
+// import { MdOutlineBedroomParent } from "react-icons/md";
+// import { IconContext } from "react-icons";
 import BookingModal from "../BookingModal/BookingModal";
 
 const BookRoom = () => {
@@ -20,7 +24,15 @@ const BookRoom = () => {
   const dispatch = useDispatch();
   const showAlertModal = useSelector((state) => state.notification.value);
   const token = useSelector((state) => state.auth.token);
+  // const bookingStep = useSelector((state) => state.booking.bookingStep.step);
   const bookingId = useSelector((state) => state.booking.bookingStep.bookingId);
+
+  console.log("Booking Id from the redux store:" + bookingId);
+
+  // useEffect(() => {
+  //   dispatch(bookingProcess(bookingStep, bookingId));
+  //   console.log("booking room dispatch  in useEffect");
+  // }, [dispatch, bookingStep, bookingId]);
 
   // TODO: perfect the algorithm for fetching the rooms on the backend
   const getUnbookedRooms = () => {
@@ -42,7 +54,7 @@ const BookRoom = () => {
   };
 
   const getRooms = async () => {
-    if (!bookingId) return;
+    // if (!bookingId) return;
     try {
       setIsLoading(true);
       await dispatch(getUnbookedRooms());
@@ -98,16 +110,30 @@ const BookRoom = () => {
                     />
                   </div>
                 ) : (
-                  <IconContext.Provider
-                    value={{
-                      color: "hsl(206, 50%, 70%)",
-                      className: styles["room__icon__container"],
-                      size: "8em",
+                  // <IconContext.Provider
+                  //   value={{
+                  //     color: "hsl(206, 50%, 70%)",
+                  //     className: styles["room__icon__container"],
+                  //     size: "8em",
+                  //   }}
+                  // >
+                  //   {/* <GiMushroomHouse /> */}
+                  //   <MdOutlineBedroomParent />
+                  // </IconContext.Provider>
+                  // <div className={styles["rooms__image__container"]}>
+                  <img
+                    src={roomPhoto}
+                    // src={bookedRoomPhoto}
+                    // bookedRoomPhoto
+                    alt="Room"
+                    className={styles["rooms__image"]}
+                    style={{
+                      width: "100%",
+                      height: "235px",
+                      objectFit: "cover",
                     }}
-                  >
-                    {/* <GiMushroomHouse /> */}
-                    <MdOutlineBedroomParent />
-                  </IconContext.Provider>
+                  />
+                  // </div>
                 )}
                 <div className={styles["room__name"]}>{room.room_name}</div>
                 <div className={styles["rooms__price"]}>

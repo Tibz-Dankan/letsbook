@@ -3,6 +3,29 @@ import { baseUrl } from "../appStore";
 import { bookingActions } from "../reducers/booking";
 import { log } from "../../utils/consoleLog";
 
+// export const showBookingDates = () => {
+//   return async (dispatch) => {
+//     await dispatch(bookingActions.showBookingDates());
+//   };
+// };
+
+// export const showBookRoom = () => {
+//   return async (dispatch) => {
+//     await dispatch(bookingActions.showBookRoom());
+//   };
+// };
+
+// export const showMyBooking = () => {
+//   return async (dispatch) => {
+//     await dispatch(bookingActions.showMyBooking());
+//   };
+// };
+export const hideAllBookingComponents = () => {
+  return async (dispatch) => {
+    await dispatch(bookingActions.hideAllBookingComponents());
+  };
+};
+
 export const bookingProcess = (bookingStepNum, bookingId) => {
   return async (dispatch) => {
     await dispatch(
@@ -51,6 +74,7 @@ export const submitBookingDates = (
     if (response.data.errorMessage) {
       throw new Error(response.data.errorMessage);
     }
+    await dispatch(bookingActions.showBookRoom());
     await dispatch(
       bookingActions.bookingProcess({
         bookingStep: { step: 2, bookingId: response.data.bookingId },
@@ -77,6 +101,7 @@ export const bookingRoom = (bookingId, token, roomId, numberOfGuests) => {
     if (response.data.errorMessage) {
       throw new Error(response.data.errorMessage);
     }
+    await dispatch(bookingActions.showMyBooking());
     await dispatch(
       bookingActions.bookingProcess({
         bookingStep: { step: 3, bookingId: bookingId },
