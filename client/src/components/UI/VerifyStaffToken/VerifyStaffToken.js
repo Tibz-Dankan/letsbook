@@ -3,6 +3,7 @@ import Modal from "../Modal/Modal";
 import { FadeLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { showNotificationModal } from "../../../store/actions/notification";
+import { ValidateStaffToken } from "../../../store/actions/auth";
 import axios from "axios";
 import { baseUrl } from "../../../store/appStore";
 import { log } from "../../../utils/consoleLog";
@@ -29,6 +30,7 @@ const VerifyStaffToken = () => {
       if (response.data.errorMessage) {
         throw new Error(response.data.errorMessage);
       }
+      await dispatch(ValidateStaffToken(staffToken));
       await dispatch(showNotificationModal("Token successfully verified"));
     };
   };

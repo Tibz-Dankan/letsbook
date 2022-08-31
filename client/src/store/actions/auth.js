@@ -78,3 +78,12 @@ export const signup = (userName, email, countrySelected, password, role) => {
     );
   };
 };
+
+// staff Token validation
+export const ValidateStaffToken = (staffToken) => {
+  return async (dispatch) => {
+    await dispatch(
+      authActions.ValidateStaffToken({ StaffSignUpToken: staffToken })
+    );
+  };
+};
