@@ -12,7 +12,7 @@ Booking.createBooking = (userId, checkInDate, checkOutDate, bookingDate) => {
 Booking.updateBookingWithRoom = (bookingId, roomId, numberOfGuests) => {
   return db.query(
     "UPDATE booking SET room_id = $1, no_of_guests = $2 WHERE booking_id = $3",
-    [roomId, bookingId, numberOfGuests]
+    [roomId, numberOfGuests, bookingId]
   );
 };
 

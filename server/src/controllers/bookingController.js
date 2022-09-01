@@ -86,33 +86,44 @@ const sortRoomsSendResponse = (roomsArray, sortedRoomIdArray, res) => {
   return res.status(200).json(room);
 };
 
+// const getUnbookedRooms = async (req, res, next) => {
+//   const currentBookingId = req.params.booking_id;
+//   if (!currentBookingId) {
+//     return res.json({ errorMessage: "No booking id provided" });
+//   }
+//   const bookings = await Booking.getAllBookings();
+//   const rooms = await Room.getAllRooms();
+
+//   // TODO: perfect this algorithm
+//   if (!rooms.rows[0]) return res.json({ errorMessage: "No rooms available" });
+
+//   // const myBookingData = currentBookingData(bookings.rows, currentBookingId);
+//   // const myCheckInDaysFromNow = numberOfDays(myBookingData.check_in_date);
+//   // const myCheckOutDaysFromNow = numberOfDays(myBookingData.check_out_date);
+
+//   // const bookedRoomIdsArray = sortRoomIds(
+//   //   bookings.rows,
+//   //   myCheckInDaysFromNow,
+//   //   myCheckOutDaysFromNow
+//   // );
+
+//   return res.status(200).json(rooms.rows); // TODO: to be placed in the right place
+
+//   sortRoomsSendResponse(rooms.rows, bookedRoomIdsArray, res);
+// };
+
+// TODO: rename the function to getRooms
 const getUnbookedRooms = async (req, res, next) => {
-  const currentBookingId = req.params.booking_id;
-  if (!currentBookingId) {
-    return res.json({ errorMessage: "No booking id provided" });
-  }
-  const bookings = await Booking.getAllBookings();
   const rooms = await Room.getAllRooms();
-
-  // TODO: perfect this algorithm
   if (!rooms.rows[0]) return res.json({ errorMessage: "No rooms available" });
-
-  // const myBookingData = currentBookingData(bookings.rows, currentBookingId);
-  // const myCheckInDaysFromNow = numberOfDays(myBookingData.check_in_date);
-  // const myCheckOutDaysFromNow = numberOfDays(myBookingData.check_out_date);
-
-  // const bookedRoomIdsArray = sortRoomIds(
-  //   bookings.rows,
-  //   myCheckInDaysFromNow,
-  //   myCheckOutDaysFromNow
-  // );
-
-  return res.status(200).json(rooms.rows); // TODO: to be placed in the right place
-
-  sortRoomsSendResponse(rooms.rows, bookedRoomIdsArray, res);
+  return res.status(200).json(rooms.rows);
 };
 
 const bookRoom = async (req, res, next) => {
+  console.log("Book room request params data");
+  console.log(req.params);
+  console.log("Book room request body data");
+  console.log(req.body);
   const bookingId = req.params.booking_id;
   const roomId = req.body.roomId;
   const numberOfGuests = req.body.numberOfGuests;
