@@ -16,7 +16,7 @@ CREATE TABLE users (
 CREATE TABLE user_image_urls (
     image_url_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL, 
-    user_image_url VARCHAR(250) DEFAULT null
+    user_image_url VARCHAR(250) NOT NULL DEFAULT null
 );
 -- TODO: rename column in table user_image_urls image_url to user_image_url
 

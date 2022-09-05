@@ -59,3 +59,5 @@ server.listen(PORT, () =>
 module.exports = app;
 
 // git subtree push --prefix server heroku master
+//  heroku git:remote -a unique-app-name-to-be-entered //connecting to an existing app on heroku
+//  heroku pg:psql -a unique-app-name-to-be-entered // open psql of heroku app specified
