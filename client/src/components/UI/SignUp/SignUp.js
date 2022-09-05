@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 // import { FadeLoader } from "react-spinners";
@@ -27,7 +27,7 @@ const SignUp = () => {
   const [passwordValidationMsg, setPasswordValidationMsg] = useState("");
   const [isPasswordError, setIsPasswordError] = useState(false);
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const options = useMemo(() => countryList().getData(), []);

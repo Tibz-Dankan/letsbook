@@ -92,13 +92,13 @@ const ChatMessages = ({ socket }) => {
     });
   };
 
-  // selecting element and giving it a class so
-  // as it can take up styles defined in that class
-  const getElementSetClassName = () => {
-    const element = document.getElementById("message");
-    // element.className = "my__message";
-    element.style.backgroundColor = "hsl(206, 50%, 36%)";
-  };
+  // // selecting element and giving it a class so
+  // // as it can take up styles defined in that class
+  // const getElementSetClassName = () => {
+  //   const element = document.getElementById("message");
+  //   // element.className = "my__message";
+  //   element.style.backgroundColor = "hsl(206, 50%, 36%)";
+  // };
 
   const scrollToBottom = () => {
     // window.scrollTo(0, 0);

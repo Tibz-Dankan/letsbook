@@ -13,8 +13,10 @@ import Booking from "./pages/Booking/Booking";
 import AdminDashBoard from "./pages/AdminDashBoard/AdminDashBoard";
 import Staff from "./pages/Staff/Staff";
 import Payment from "./pages/Payment/Payment";
+import GetRooms from "./components/UI/GetRooms/GetRooms";
 import GeneralHeader from "./components/layouts/GeneralHeader/GeneralHeader";
 import SideBar from "./components/layouts/SideBar/SideBar";
+import Footer from "./components/layouts/Footer/Footer";
 import "./App.scss";
 import { log } from "./utils/consoleLog";
 
@@ -75,7 +77,15 @@ function App() {
         {!isLoggedIn && (
           <Routes>
             <Fragment>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <div>
+                    <Home />
+                    <Footer />
+                  </div>
+                }
+              />
               <Route path="about" element={<About />} />
               <Route path="staff-signup" element={<Staff />} />
               <Route path="login" element={<Navigate to="/" replace />} />
@@ -155,6 +165,15 @@ function App() {
                     <div className="pages__component">
                       <GeneralHeader title={"About"} />
                       <About />
+                    </div>
+                  }
+                />
+                <Route
+                  path="rooms"
+                  element={
+                    <div className="pages__component">
+                      <GeneralHeader title={"Rooms"} />
+                      <GetRooms />
                     </div>
                   }
                 />

@@ -8,14 +8,16 @@ const AdminDashBoard = () => {
   return (
     <Fragment>
       <div className={styles["admin__dashboard__container"]}>
-        <h3>AdminDashBoard</h3>
-        <AddRoom />
+        {/* TODO: Component get all the current bookings */}
+        <GetAllBookings />
         <br /> {/*To be removed*/}
         <br /> {/*To be removed*/}
         <GetStaffTokens />
-        {/* TODO: Component get all the current bookings */}
-        <GetAllBookings />
-        {/* TODO: Component to upload image */}
+        <br /> {/*To be removed*/}
+        <br /> {/*To be removed*/}
+        <AddRoom />
+        <br /> {/*To be removed*/}
+        <br /> {/*To be removed*/}
       </div>
     </Fragment>
   );

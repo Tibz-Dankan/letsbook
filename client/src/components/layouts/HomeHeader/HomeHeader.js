@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { hideLogInForm } from "../../../store/actions/signUpLogInForm";
 import { useDispatch } from "react-redux";
@@ -19,12 +19,12 @@ const HomeHeader = () => {
         <div className={styles["nav__links__container"]}>
           <nav className={styles["nav__links"]}>
             <ul className={styles["ul__list__link"]}>
-              <li className={styles["list__link"]}>
-                {/* TODO: on hovering display message "chat with the customer support personnel" */}
+              {/* <li className={styles["list__link"]}>
+                TODO: on hovering display message "chat with the customer support personnel"
                 <Link to="/chat" className={styles["link"]}>
                   Chat
                 </Link>
-              </li>
+              </li> */}
               <li className={styles["list__link"]}>
                 <Link
                   to="/"
@@ -34,11 +34,11 @@ const HomeHeader = () => {
                   SignUp
                 </Link>
               </li>
-              <li className={styles["list__link"]}>
+              {/* <li className={styles["list__link"]}>
                 <Link to="/about" className={styles["link"]}>
                   About
                 </Link>
-              </li>
+              </li> */}
               <li className={styles["list__link__booking"]}>
                 <Link to="/booking" className={styles["link"]}>
                   Book

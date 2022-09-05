@@ -4,12 +4,13 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./MyBooking.module.scss";
 import { log } from "../../../utils/consoleLog";
+import { generateBookingIdString } from "../../../utils/bookingId";
 import Modal from "../Modal/Modal";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { FadeLoader } from "react-spinners";
 // import Payment from "../Payment/Payment";
 // import { GiMushroomHouse } from "react-icons/gi";
-import { MdOutlineBedroomParent } from "react-icons/md";
+// import { MdOutlineBedroomParent } from "react-icons/md";
 import { GoPerson } from "react-icons/go";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
@@ -85,13 +86,6 @@ const MyBooking = () => {
       minute: "numeric",
       hour12: true,
     });
-  };
-
-  // generate booking id
-  const generateBookingIdString = (bookingIdFromDb) => {
-    const bookingIdString = "#LBR" + bookingIdFromDb;
-    log(bookingIdString);
-    return bookingIdString;
   };
 
   // calculate number of nights

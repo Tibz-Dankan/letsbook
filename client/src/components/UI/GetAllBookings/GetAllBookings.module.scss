@@ -1,0 +1,26 @@
+.get__all__booking {
+  margin-top: 2em;
+  display: grid;
+  place-items: center;
+  //   background-color: var(--color-grey-light-2);
+  //   box-shadow: var(--shadow-dark);
+  .booking__container {
+    table {
+      background-color: var(--color-grey-light-2);
+      box-shadow: var(--shadow-dark);
+      border-radius: 5px;
+      padding: 0.2em 0.5em;
+      th {
+        background-color: var(--color-secondary-light);
+        text-align: center;
+        padding: 0em 0.3em;
+        margin: 0em 0.5em;
+      }
+      td {
+        text-align: center;
+        padding: 0em 0.3em;
+        margin: 0em 0.5em;
+      }
+    }
+  }
+}

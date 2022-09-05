@@ -2,8 +2,9 @@ import React, { Fragment } from "react";
 import styles from "./Home.module.scss";
 import LogIn from "../../components/UI/LogIn/LogIn";
 import SignUp from "../../components/UI/SignUp/SignUp";
-import Footer from "../../components/layouts/Footer/Footer";
+// import Footer from "../../components/layouts/Footer/Footer";
 import HomeHeader from "../../components/layouts/HomeHeader/HomeHeader";
+import GetRooms from "../../components/UI/GetRooms/GetRooms";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -31,9 +32,10 @@ const Home = () => {
             {!showSignUpFormOrLoginForm && <SignUp />}
           </>
         </div>
+        <GetRooms />
         {/* Animated images */}
         {/* Map to show location */}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Fragment>
   );

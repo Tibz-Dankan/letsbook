@@ -101,10 +101,10 @@ const BookRoom = () => {
                 className={styles["rooms__inner__container"]}
                 id={styles["room__container"]}
               >
-                {room.room_image_url ? (
+                {room.room_image_url !== "null" ? (
                   <div className={styles["rooms__image__container"]}>
                     <img
-                      src={room.image_url}
+                      src={room.room_image_url}
                       alt="Room"
                       className={styles["rooms__image"]}
                     />

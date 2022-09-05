@@ -6,6 +6,7 @@ import { baseUrl } from "../../../store/appStore";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { FadeLoader } from "react-spinners";
 import { log } from "../../../utils/consoleLog";
+import { generateBookingIdString } from "../../../utils/bookingId";
 import Modal from "../Modal/Modal";
 
 const GetAllBookings = () => {
@@ -52,6 +53,7 @@ const GetAllBookings = () => {
         effectRan.current = true;
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookings]);
 
   // provides format  -> 7/3/2022;
@@ -80,21 +82,24 @@ const GetAllBookings = () => {
 
   return (
     <Fragment>
-      <div className={styles["get__all__booking__container"]}>
+      <div className={styles["get__all__booking"]}>
         {showAlertModal && <Modal isErrorMessage={isError} />}
         <div className={styles["fade__loader__container"]}>
           {isLoading && <FadeLoader />}
+        </div>
+        <div>
+          <h4>Bookings Made</h4>
         </div>
         <div className={styles["booking__container"]}>
           <table>
             <tbody>
               <tr>
-                <th>Booking ID</th>
-                <th>Booking Date</th>
-                <th>Clients Name </th>
-                <th>No of Clients </th>
-                <th>Room Name</th>
-                <th>No of Nights</th>
+                <th style={{ marginRight: ".8em" }}>ID</th>
+                <th>BookingDate</th>
+                <th>GuestName </th>
+                <th>NoOfGuests</th>
+                <th>Room</th>
+                <th>Nights</th>
                 <th>Country</th>
                 <th>Check-In</th>
                 <th>Check-Out</th>
@@ -102,13 +107,15 @@ const GetAllBookings = () => {
               {bookings.map((booking, index) => {
                 return (
                   <tr key={index}>
-                    <td>{booking.booking_id}</td>
+                    <td style={{ paddingRight: ".5em" }}>
+                      {generateBookingIdString(booking.booking_id)}
+                    </td>
                     <td>
                       <span>{getDateString(booking.booking_date)}</span>{" "}
                       <span>{getTime(booking.booking_date)}</span>
                     </td>
                     <td>{booking.user_name} </td>
-                    <td>{booking.no_of_clients} </td>
+                    <td>{booking.no_of_guests} </td>
                     <td>{booking.room_name}</td>
                     <td>
                       {numberOfDays(

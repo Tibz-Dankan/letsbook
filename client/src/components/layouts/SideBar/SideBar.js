@@ -4,8 +4,8 @@ import { IconContext } from "react-icons";
 import { ImHome } from "react-icons/im";
 import { BsFillChatTextFill, BsBookmarkPlusFill } from "react-icons/bs";
 import { RiAdminFill } from "react-icons/ri";
-import { MdPayment } from "react-icons/md";
-// import {MdOutlineBedroomParent} from "react-icons/md";
+// import { MdPayment } from "react-icons/md";
+import { MdOutlineBedroomParent } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
@@ -83,8 +83,21 @@ const SideBar = () => {
               <span>Chat</span>
             </NavLink>
           </li>
-
           <li className={styles["side-bar__list--item"]}>
+            <NavLink to="/rooms" className={styles["side-bar__list--link"]}>
+              <IconContext.Provider
+                value={{
+                  color: "hsl(0, 0%, 90%)",
+                  size: "1.3em",
+                  className: styles["side-bar__icon"],
+                }}
+              >
+                <MdOutlineBedroomParent />
+              </IconContext.Provider>
+              <span>Rooms</span>
+            </NavLink>
+          </li>
+          {/* <li className={styles["side-bar__list--item"]}>
             <NavLink to="/payment" className={styles["side-bar__list--link"]}>
               <IconContext.Provider
                 value={{
@@ -97,7 +110,7 @@ const SideBar = () => {
               </IconContext.Provider>
               <span>Pay</span>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
     </Fragment>

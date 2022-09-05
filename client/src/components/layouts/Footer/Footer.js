@@ -4,9 +4,11 @@ import styles from "./Footer.module.scss";
 const Footer = () => {
   return (
     <Fragment>
-      <div className={styles["footer"]}>
+      {/* <div className={styles["footer"]}> */}
+      <footer className={styles["footer"]}>
         <p>Copyright &copy; 2022 LetsBook. All rights reserved</p>
-      </div>
+      </footer>
+      {/* </div> */}
     </Fragment>
   );
 };
