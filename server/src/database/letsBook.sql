@@ -83,6 +83,7 @@ CREATE TABLE staff_token (
 -- ALTER TABLE room DROP booking_id; -- DONE(NO ACTION)
 -- ALTER TABLE booking ADD COLUMN no_of_clients INTEGER DEFAULT null; --DONE(NO ACTION)
 -- ALTER TABLE room ADD COLUMN room_name VARCHAR(50) DEFAULT 'Not provided'; --DONE(NO ACTION)
+ALTER TABLE booking RENAME COLUMN no_of_clients TO no_of_guests;
 
 
 -- ALTER TABLE room DROP room_image_url;  --DONE
