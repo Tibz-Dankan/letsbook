@@ -21,7 +21,6 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
-
 const createUserSendResponse = async (
   res,
   name,
@@ -115,14 +114,29 @@ const verifyStaffToken = async (req, res, next) => {
 const generateStaffToken = async (req, res, next) => {
   const token = crypto.randomBytes(16).toString("hex");
   const dateOfGeneration = req.body.dateOfGeneration;
-  const generatedByUserId = req.params.generatedByUserId;
 
+  const generatedByUserId = req.params.generatedByUserId;
+  const usedOnDate = "null";
+  const usedById = null;
+  const isValidToken = true;
   const user = await User.getUserById(generatedByUserId);
+
+  console.log("user generating staff token");
+  console.log(user.rows);
 
   if (user.rows[0].user_role !== "manager") {
     return res.json({ errorMessage: "Not authorized to generate token" });
   }
-  await User.createStaffToken(token, generatedByUserId, dateOfGeneration);
+  const tokenObject = await User.createStaffToken(
+    token,
+    dateOfGeneration,
+    usedOnDate,
+    generatedByUserId,
+    usedById,
+    isValidToken
+  );
+  console.log("token object from database");
+  console.log(tokenObject.rows);
   res.status(200).json({ status: "success" });
 };
 

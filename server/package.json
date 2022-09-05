@@ -16,6 +16,7 @@
     "cloudinary": "^1.30.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "datauri": "^4.1.0",
     "dotenv": "^16.0.1",
     "email-existence": "^0.1.6",
     "express": "^4.18.1",
@@ -27,6 +28,7 @@
     "pg": "^8.7.3",
     "salted-md5": "^4.0.2",
     "socket.io": "^4.5.1",
+    "use-file-picker": "^1.5.1",
     "web-push": "^3.5.0"
   },
   "devDependencies": {
