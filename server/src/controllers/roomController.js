@@ -1,10 +1,9 @@
 const Room = require("../models/room");
 const multer = require("multer");
-const admin = require("../database/firebaseConfig");
-const saltedMd5 = require("salted-md5");
 const path = require("path");
-const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
+const cloudinary = require("../utils/cloudinaryConfig");
+const DatauriParser = require("datauri/parser");
+const parser = new DatauriParser();
 
 const createARoom = async (req, res, next) => {
   if (!req.body) return res.json({ errorMessage: "No room details provided" });
@@ -12,126 +11,95 @@ const createARoom = async (req, res, next) => {
   const roomDescription = req.body.roomDescription;
   const numberOfBeds = req.body.numberOfBeds;
   const roomPrice = req.body.roomPrice;
-  const roomImage = req.body.roomPicture;
+  // const roomImage = req.body.roomPicture;
 
-  await Room.createRoom(
+  const room = await Room.createRoom(
     roomName,
     roomDescription,
     numberOfBeds,
-    roomPrice,
-    roomImage
+    roomPrice
+    // roomImage
   );
-  res.status(200).json({ status: "success" });
+  res.status(200).json({ roomId: room.rows[0].room_id });
 };
 
 // TODO : get room, update(edit) room, Delete room
-
-// const upload = multer({ storage: multer.memoryStorage() });
-
-// Temporary
-
-// const path = "./file.txt";
-
-const createDirectory = (dirName) => {
-  //  dir path
-  try {
-    if (!fs.existsSync(dirName)) {
-      fs.mkdirSync(dirName);
-    }
-  } catch (err) {
-    console.error(err);
-  }
+const getRooms = async (req, res, next) => {
+  const rooms = await Room.getAllRooms();
+  res.status(200).json(rooms.rows);
 };
 
-// const testFolder = './tests/';
-// const fs = require('fs');
-
-const readFile = (filePath) => {
-  fs.readdirSync(filePath).forEach((file) => {
-    console.log(file);
-  });
+const deleteRoom = async (req, res, next) => {
+  const roomId = req.params.roomId;
+  if (!roomId) return res.json({ errorMessage: "No room id provide" });
+  await Room.deleteRoom(roomId);
+  res.status(200).json({ status: "success" });
 };
 
-const removeFile = (imagePath) => {
-  try {
-    fs.unlinkSync(imagePath);
-    //file removed
-    console.log("image removed");
-  } catch (err) {
-    console.error(err);
-  }
+const updateRoom = async (req, res, next) => {
+  if (!req.body) return res.json({ errorMessage: "No room data provided" });
+  const roomId = req.params.roomId;
+  const roomName = req.body.roomName;
+  const roomDescription = req.body.roomDescription;
+  const noOfBeds = req.body.noOfBeds;
+  const price = req.body.price;
+
+  if (!roomId) return res.json({ errorMessage: "No room id provide" });
+  await Room.updateRoom(roomId, roomName, roomDescription, noOfBeds, price);
+  res.status(200).json({ status: "success" });
 };
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./src/images");
-    // console.log(file);
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// // image upload to firebase
-// const uploadImage = async (req, res) => {
-//   const name = saltedMd5(req.file.originalname, "SUPER-S@LT!");
-//   const fileName = name + path.extname(req.file.originalname);
-//   console.log(fileName);
-//   // uploading image file to firebase storage
-//   await admin
-//     .storage()
-//     .bucket()
-//     .file(fileName)
-//     .createWriteStream()
-//     .end(req.file.buffer);
-//   console.log("image uploaded to firebase storage; ");
-//   // TODO: consider saving image file name in the database
-//   res.status(200).json({ status: "" });
-// };
-
-// // get image file from firebase
-// const getImageFromFirebase = async (req, res) => {
-//   // TODO: consider getting an image file name from the database
-//   const fileRef = admin
-//     .storage()
-//     .bucket()
-//     .file("03aead66e97f0d50ce549b6fffc1b6d7.svg");
-//   const hash = await fileRef.download();
-
-//   // TODO: if an image contains https url, then the url or an image file its self
-//   console.log("file from firebase"); // to be removed
-//   console.log(hash); // to be removed
-//   res.contentType(fileRef.metadata.contentType);
-//   res.end(hash[0], "binary");
-// };
-
-// CLOUDINARY_URL=cloudinary://my_key:my_secret@my_cloud_name
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
-
-// image upload to cloudinary
-const uploadImage = async (req, res) => {
-  // const name = saltedMd5(req.file.originalname, "SUPER-S@LT!");
-  // const imageFileName = name + path.extname(req.file.originalname);
-  // const imageFilePath = ``;
-
-  // // uploading image file to cloudinary
-  // cloudinary.uploader.upload(imageFileName, (error, result) => {
-  //   console.log("Image file upload result");
-  //   console.log(result);
-  //   console.log("result error log");
-  //   console.log(result, error);
-  //   // TODO: consider saving image file name in the database
-  // });
-
-  res.status(200).json({ status: "" });
+const formatBufferToBase64String = (file) => {
+  return parser.format(path.extname(file.originalname).toString(), file.buffer);
 };
 
-module.exports = { createARoom, upload, uploadImage };
+// Upload room image to cloudinary to cloudinary
+const uploadRoomImage = async (req, res) => {
+  if (!req.file) return res.json({ errorMessage: "No room photo provided" });
+  const roomId = request.params.roomId;
+  console.log("RoomId: " + roomId);
+  if (!roomId) return res.json({ errorMessage: "No room id provided" });
+  const roomImage = formatBufferToBase64String(req.file);
+
+  const uploadRoomImg = await cloudinary.uploader.upload(roomImage.content);
+  console.log(uploadRoomImg);
+  const roomImageUrl = uploadRoomImg.secure_url;
+  await Room.updateRoomWithImage(roomId, roomImageUrl);
+  return res.status(200).json({ status: "success" });
+};
+
+module.exports = {
+  createARoom,
+  getRooms,
+  deleteRoom,
+  updateRoom,
+  upload,
+  uploadRoomImage,
+};
+
+// // successful upload response from cloudinary
+// {
+// asset_id: '038aca5376144f550e91083c4e1b9a50',
+// public_id: 'k2jn9zahqdzxqma3g4zg',
+// version: 1662218552,
+// version_id: '9d7d5a62aa906121e18de30c22f35fac',
+// signature: '35c32f20bee94b737d28bf25ea255097be199aab',
+// width: 564,
+// height: 752,
+// format: 'jpg',
+// resource_type: 'image',
+// created_at: '2022-09-03T15:22:32Z',
+// tags: [],
+// bytes: 44815,
+// type: 'upload',
+// etag: 'a92c0ef115be66ce425c277386734f83',
+// placeholder: false,
+// url: 'http://res.cloudinary.com/dlmv4ot9h/image/upload/v1662218552/k2jn9zahqdzxqma3g4zg.jpg',
+// secure_url: 'https://res.cloudinary.com/dlmv4ot9h/image/upload/v1662218552/k2jn9zahqdzxqma3g4zg.jpg',
+// folder: '',
+// access_mode: 'public',
+// api_key: 'xxxxxxxxxxxxx'
+// }

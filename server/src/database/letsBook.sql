@@ -16,7 +16,7 @@ CREATE TABLE users (
 CREATE TABLE user_image_urls (
     image_url_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL, 
-    image_url VARCHAR(250) NOT NULL DEFAULT null
+    user_image_url VARCHAR(250) DEFAULT null
 );
 -- TODO: rename column in table user_image_urls image_url to user_image_url
 
@@ -63,7 +63,7 @@ CREATE TABLE room (
     room_description VARCHAR(300) NOT NULL,
     no_of_beds INTEGER NOT NULL,
     price INTEGER NOT NULL,
-    image_url VARCHAR(250) NOT NULL DEFAULT null
+    room_image_url VARCHAR(250) DEFAULT null
 );
 -- TODO: rename column image_url in table room to room_image_url
 
@@ -77,10 +77,13 @@ CREATE TABLE staff_token (
     is_valid BOOLEAN DEFAULT 'true'
 );
 
+-- ALTER TABLE room RENAME COLUMN image_url TO room_image_url;--TO BE DONE IN PRODUCTION
+-- ALTER TABLE user_image_urls RENAME COLUMN image_url TO user_image_url;--TO BE DONE IN PRODUCTION
 -- ALTER TABLE room ADD COLUMN booking_id INTEGER DEFAULT null; -- DONE(NO ACTION)
 -- ALTER TABLE room DROP booking_id; -- DONE(NO ACTION)
 -- ALTER TABLE booking ADD COLUMN no_of_clients INTEGER DEFAULT null; --DONE(NO ACTION)
 -- ALTER TABLE room ADD COLUMN room_name VARCHAR(50) DEFAULT 'Not provided'; --DONE(NO ACTION)
 
 
- 
+-- ALTER TABLE room DROP room_image_url;  --DONE
+--  ALTER TABLE room ADD  room_image_url VARCHAR(250) DEFAULT null; --DONE
