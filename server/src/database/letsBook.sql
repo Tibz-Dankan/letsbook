@@ -83,8 +83,23 @@ CREATE TABLE staff_token (
 -- ALTER TABLE room DROP booking_id; -- DONE(NO ACTION)
 -- ALTER TABLE booking ADD COLUMN no_of_clients INTEGER DEFAULT null; --DONE(NO ACTION)
 -- ALTER TABLE room ADD COLUMN room_name VARCHAR(50) DEFAULT 'Not provided'; --DONE(NO ACTION)
-ALTER TABLE booking RENAME COLUMN no_of_clients TO no_of_guests;
+-- ALTER TABLE booking RENAME COLUMN no_of_clients TO no_of_guests; --DONE(NO ACTION)
+-- ALTER TABLE booking ALTER COLUMN no_of_guests DROP NOT NULL;    --DONE(NO ACTION)
 
 
 -- ALTER TABLE room DROP room_image_url;  --DONE
 --  ALTER TABLE room ADD  room_image_url VARCHAR(250) DEFAULT null; --DONE
+
+ALTER TABLE room ADD COLUMN room_capacity_num INTEGER NOT NULL DEFAULT 2;
+-- TODO: update the room capacity and remove the default constraint (2)
+
+
+-- Adding not null constraint to columns
+-- ALTER TABLE employee ALTER COLUMN email SET NOT NULL;  --one Column
+-- ALTER TABLE employee ALTER COLUMN last_name SET NOT NULL ALTER COLUMN gender SET NOT NULL; --multiple columns
+
+-- Removing the not null constraint from the column
+-- ALTER TABLE employee ALTER COLUMN gender DROP NOT NULL;
+
+--
+

@@ -13,6 +13,8 @@ const createARoom = async (req, res, next) => {
   const roomPrice = req.body.roomPrice;
   // const roomImage = req.body.roomPicture;
 
+  return res.json({message:"roomCapacityNum is not yet added in the database"})
+
   const room = await Room.createRoom(
     roomName,
     roomDescription,
