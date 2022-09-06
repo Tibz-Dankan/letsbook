@@ -59,15 +59,15 @@ const GetRooms = () => {
           return (
             <div key={index} className={styles["rooms"]}>
               <div className={styles["rooms__content"]}>
-                {room.room_image_url === "null" ? (
+                {room.room_image_url ? (
                   <img
-                    src={roomPhoto}
+                    src={room.room_image_url}
                     alt="room"
                     className={styles["rooms__content__image"]}
                   />
                 ) : (
                   <img
-                    src={room.room_image_url}
+                    src={roomPhoto}
                     alt="room"
                     className={styles["rooms__content__image"]}
                   />
