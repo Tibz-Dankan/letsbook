@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import EditRoom from "../EditRoom/EditRoom";
+import DeleteRoom from "../DeleteRoom/DeleteRoom";
 import { baseUrl } from "../../../store/appStore";
 import { log } from "../../../utils/consoleLog";
 import roomPhoto from "../../../assets/room1.jpeg";
@@ -13,6 +15,9 @@ const GetRooms = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userRole = useSelector(
+    (state) => state.auth.isLoggedIn && state.auth.user.userRole
+  );
 
   log("In the get room component");
 
@@ -78,6 +83,12 @@ const GetRooms = () => {
                 <span className={styles["rooms__content__description"]}>
                   {room.room_description}
                 </span>
+                {isLoggedIn && userRole === "manager" && (
+                  <div className={styles["rooms__content__operation"]}>
+                    <EditRoom roomObject={room} />
+                    <DeleteRoom roomObject={room} />
+                  </div>
+                )}
                 {isLoggedIn && (
                   <Link
                     to="/booking"
