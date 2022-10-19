@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
   url = process.env.PRODUCTION_URL;
 } else {
   app.use(cors());
-  url = "http://localhost:3000";
+  url = "http://localhost:5173";
 }
 
 const http = require("http");
