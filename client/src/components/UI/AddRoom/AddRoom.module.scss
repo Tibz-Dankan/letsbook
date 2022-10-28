@@ -1,0 +1,87 @@
+.add-room {
+  width: 100%;
+  margin: 0.5em 0em;
+  display: grid;
+  place-items: center;
+  &__container {
+    width: 50%;
+    @media screen and (min-width: 1030px) {
+      width: 40%;
+    }
+    @media screen and (max-width: 550px) {
+      width: 60%;
+    }
+    @media screen and (max-width: 400px) {
+      width: 80%;
+    }
+    .form {
+      width: 100%;
+      padding: 1.5em;
+      color: var(--color-primary);
+      background-color: var(--color-grey-light-2);
+      box-shadow: var(--shadow-dark);
+      border-radius: 5px;
+      &__heading {
+        color: var(--color-grey-dark-2);
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+
+      &__input__group {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        margin-bottom: 0.5em;
+        label {
+          color: var(--color-grey-dark-2);
+        }
+        &__field {
+          width: 100%;
+          padding: 0.5em;
+          border: 1.5px solid var(--color-primary-light);
+          border-radius: 3px;
+          outline: none;
+        }
+
+        &__field:focus {
+          border: 2px solid var(--color-primary-light);
+        }
+      }
+      &__btn__container {
+        button {
+          width: 100%;
+          color: var(--color-grey-light-1);
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+          border-radius: 3px;
+          padding: 0.6em 0.5em;
+          margin: 0.5em 0;
+          outline: none;
+        }
+        button:hover,
+        button:focus {
+          transition: 0.2s;
+          background-color: var(--color-primary-light);
+          border: 1px solid var(--color-primary-light);
+        }
+        button:disabled {
+          background-color: var(--color-primary-light);
+          border: 1px solid var(--color-primary-light);
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+  &__upload--image {
+    width: 50%;
+    @media screen and (min-width: 1030px) {
+      width: 40%;
+    }
+    @media screen and (max-width: 550px) {
+      width: 60%;
+    }
+    @media screen and (max-width: 400px) {
+      width: 80%;
+    }
+  }
+}
