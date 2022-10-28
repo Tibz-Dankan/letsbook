@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import styles from "./SideBar.module.scss";
 import { IconContext } from "react-icons";
 import { ImHome } from "react-icons/im";
