@@ -1,96 +1,60 @@
 import axios from "axios";
 import React, { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import { baseUrl } from "../../../store/appStore";
 import styles from "./UploadImage.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { FadeLoader } from "react-spinners";
 import Modal from "../Modal/Modal";
+import ImagePicker from "../ImagePicker/ImagePicker";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { disableEnableButton } from "../../../utils/disableEnableButton";
+import { log } from "../../../utils/consoleLog";
 
-const UploadImage = () => {
-  const [image, setImage] = useState({ preview: "", data: "" });
-
+const UploadImage = ({ apiEndpoint, id, category }) => {
+  const [imageSelected, setImageSelected] = useState(null);
+  const [isImageUploadSuccessful, setIsImageUploadSuccessful] = useState(false);
   const token = useSelector((state) => state.auth.token);
-  const [imageErrorMsg, setImageErrorMsg] = useState("");
-  const [isImageError, setIsImageError] = useState(false);
-  let isValidImgType;
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const showAlertModal = useSelector((state) => state.notification.value);
   const [isError, setIsError] = useState(false);
-  const userId = useSelector((state) => state.auth.user.userId);
+  // const userId = useSelector((state) => state.auth.user.userId);
 
-  const handleImageChange = (event) => {
-    const img = {
-      preview: URL.createObjectURL(event.target.files[0]),
-      data: event.target.files[0],
-    };
-    console.log(img);
-    setImage(img);
-  };
-
-  const isValidImageType = (imageType) => {
-    isValidImgType =
-      imageType === "image/jpeg" ||
-      imageType === "image/jpg" ||
-      imageType === "image/png";
-    if (isValidImgType) return true;
-    setImageErrorMsg(
-      "Only accept image files that end with .jpeg, .jpg and .png"
-    );
-    setIsImageError(true);
-    setTimeout(() => {
-      setImageErrorMsg("");
-      setIsImageError(false); // Hide the message after 5 seconds
-    }, 5000);
-    return false;
-  };
-
-  const isValidImageSize = (imageSize) => {
-    const maximumAcceptableImageSize = 5242880; // 5mb
-    if (imageSize < maximumAcceptableImageSize) return true;
-    setIsImageError(true);
-    setImageErrorMsg("Only accept image size less than 5mb");
-    setTimeout(() => {
-      setImageErrorMsg("");
-      setIsImageError(false); // Remove the message after 5 seconds
-    }, 5000);
-    return false;
-  };
-
-  const validateImageFile = () => {
-    console.log(image.data);
-    const imageType = image.data.type;
-    const imageSize = image.data.size;
-    return isValidImageType(imageType) && isValidImageSize(imageSize);
+  const onSelectImage = (image) => {
+    setImageSelected(image);
   };
 
   const uploadImage = () => {
     return async (dispatch) => {
       let formData = new FormData();
-      formData.append("file", image.data);
-      formData.append("userId", userId);
-      formData.append("room_id", 56);
-      const response = await axios.post(`${baseUrl}/upload-image`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer " + token,
-        },
-      });
-      console.log(response);
+      formData.append("image", imageSelected);
+      const response = await axios.post(
+        `${baseUrl}/${apiEndpoint}/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      log(response);
       if (response.data.errorMessage) {
         throw new Error(response.data.errorMessage);
       }
       await dispatch(showNotificationModal("Image upload successful"));
+      setImageSelected("");
     };
   };
 
-  const handleImageSubmit = async (event) => {
+  const uploadImageHandler = async (event) => {
+    event.preventDefault();
     try {
       setIsLoading(true);
       disableEnableButton("submit-image-btn", true);
       await dispatch(uploadImage());
+      setIsImageUploadSuccessful(true);
       setIsLoading(false);
       disableEnableButton("submit-image-btn", false);
     } catch (error) {
@@ -101,49 +65,50 @@ const UploadImage = () => {
     }
   };
 
-  const validateImageSubmit = (event) => {
-    event.preventDefault();
-    validateImageFile() && handleImageSubmit();
-  };
-
   return (
     <Fragment>
-      <div className={styles["image__container"]}>
+      <div className={styles["upload__image"]}>
         {showAlertModal && <Modal isErrorMessage={isError} />}
-        <div className={styles["fade__loader__container"]}>
-          {isLoading && <FadeLoader />}
+        {isLoading && (
+          <div className={styles["upload__image__loader"]}>
+            <FadeLoader />
+          </div>
+        )}
+        <div className={styles["upload__image__picker"]}>
+          <ImagePicker onSave={onSelectImage} category={category} />
         </div>
-        <h1>Upload Image</h1>
-        {isValidImgType && image.preview && (
-          <img src={image.preview} width="100" height="100" alt="room-pic" />
-        )}
-        {isImageError && (
-          <span className={styles["image__error"]}>{imageErrorMsg}</span>
-        )}
-        <div className={styles["form__container"]}>
-          <form
-            onSubmit={(event) => validateImageSubmit(event)}
-            className={styles["form"]}
-          >
-            <div className={styles["input__field__container"]}>
-              <input
-                type="file"
-                name="file"
-                onChange={(event) => handleImageChange(event)}
-                required
+        {imageSelected && (
+          <div className={styles["upload__image__container"]}>
+            <div className={styles["upload__image__container--review"]}>
+              <img
+                src={imageSelected}
+                alt="imageFile To be Uploaded"
+                className={styles["image"]}
               />
             </div>
-            <div className={styles["submit__Image__btn__container"]}>
-              <button
-                type="submit"
-                id="submit-image-btn"
-                className={styles["submit__image__btn btn"]}
-              >
-                Submit
+            <form
+              encType="multipart/form-data"
+              onSubmit={(event) => uploadImageHandler(event)}
+            >
+              <button type="submit" id="submit-image-btn">
+                Upload Image
               </button>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        )}
+        {isImageUploadSuccessful && (
+          <div className={styles["image__upload__successful"]}>
+            <span className={styles["image__upload__successful__msg"]}>
+              Image uploaded successfully
+            </span>
+            <Link
+              to="/rooms"
+              className={styles["image__upload__successful__link"]}
+            >
+              Checkout the newly added room
+            </Link>
+          </div>
+        )}
       </div>
     </Fragment>
   );
