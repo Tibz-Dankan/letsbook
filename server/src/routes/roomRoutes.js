@@ -18,7 +18,7 @@ router.put("/update-room/:roomId", verifyJwtToken, updateRoom);
 router.post(
   "/upload-room-image/:roomId",
   verifyJwtToken,
-  upload.single("file"),
+  upload.none(),
   uploadRoomImage
 );
 

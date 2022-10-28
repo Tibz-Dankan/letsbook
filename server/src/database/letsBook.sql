@@ -63,7 +63,7 @@ CREATE TABLE room (
     room_description VARCHAR(300) NOT NULL,
     no_of_beds INTEGER NOT NULL,
     price INTEGER NOT NULL,
-    room_image_url VARCHAR(250) DEFAULT null
+    room_image_url VARCHAR(250) DEFAULT NULL
 );
 -- TODO: rename column image_url in table room to room_image_url
 

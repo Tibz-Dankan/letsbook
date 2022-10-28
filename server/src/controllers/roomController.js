@@ -6,21 +6,19 @@ const DatauriParser = require("datauri/parser");
 const parser = new DatauriParser();
 
 const createARoom = async (req, res, next) => {
+  console.log(req.body);
   if (!req.body) return res.json({ errorMessage: "No room details provided" });
   const roomName = req.body.roomName;
   const roomDescription = req.body.roomDescription;
   const numberOfBeds = req.body.numberOfBeds;
   const roomPrice = req.body.roomPrice;
-  // const roomImage = req.body.roomPicture;
-
-  return res.json({message:"roomCapacityNum is not yet added in the database"})
+  // TODO: add roomCapacityNum  in the database
 
   const room = await Room.createRoom(
     roomName,
     roomDescription,
     numberOfBeds,
     roomPrice
-    // roomImage
   );
   res.status(200).json({ roomId: room.rows[0].room_id });
 };
@@ -58,15 +56,13 @@ const formatBufferToBase64String = (file) => {
   return parser.format(path.extname(file.originalname).toString(), file.buffer);
 };
 
-// Upload room image to cloudinary to cloudinary
 const uploadRoomImage = async (req, res) => {
-  if (!req.file) return res.json({ errorMessage: "No room photo provided" });
-  const roomId = request.params.roomId;
-  console.log("RoomId: " + roomId);
+  const roomId = req.params.roomId;
+  const roomImage = req.body.image;
+  if (!roomImage) return res.json({ errorMessage: "No Image file uploaded" });
   if (!roomId) return res.json({ errorMessage: "No room id provided" });
-  const roomImage = formatBufferToBase64String(req.file);
-
-  const uploadRoomImg = await cloudinary.uploader.upload(roomImage.content);
+  // upload image to cloudinary
+  const uploadRoomImg = await cloudinary.uploader.upload(roomImage);
   console.log(uploadRoomImg);
   const roomImageUrl = uploadRoomImg.secure_url;
   await Room.updateRoomWithImage(roomId, roomImageUrl);
