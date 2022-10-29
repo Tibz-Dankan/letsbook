@@ -1,0 +1,108 @@
+.edit-room {
+  &__open-modal-btn {
+    --color-edit-button-dark: hsl(70, 50%, 30%);
+    --color-edit-button-light: hsl(70, 50%, 50%);
+    button {
+      width: 100%;
+      background-color: var(--color-edit-button-dark);
+      border: 1px solid var(--color-edit-button-dark);
+      color: var(--color-grey-light-1);
+      border-radius: 3px;
+      padding: 0.6em 0.5em;
+      margin: 0.5em 0;
+      outline: none;
+    }
+    button:hover,
+    button:focus {
+      transition: 0.35s;
+      background-color: var(--color-edit-button-light);
+      border: 1px solid var(--color-edit-button-light);
+    }
+  }
+  &__content {
+    max-height: 400px;
+    position: relative;
+    &-close-modal-btn {
+      position: absolute;
+      top: -0.8em;
+      right: -0.8em;
+      display: grid;
+      place-items: center;
+      background-color: var(--color-grey-light-1);
+      border: 1px solid var(--color-grey-light-3);
+      border-radius: 3px;
+      box-shadow: var(--shadow-dark);
+      box-shadow: var(--shadow-light);
+      padding: 0.2em;
+      color: hsl(0, 100%, 60%);
+      cursor: pointer;
+    }
+    &__loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-primary);
+      background-color: var(--color-grey-light-2);
+      box-shadow: var(--shadow-dark);
+      border-radius: 5px;
+      padding: 0.2em 1em;
+      margin-bottom: 1em;
+    }
+    .form {
+      background-color: var(--color-grey-light-1);
+      border: 1px solid var(--color-grey-light-3);
+      border-radius: 5px;
+      box-shadow: var(--shadow-dark);
+      padding: 1.5em;
+      width: 100%;
+      &__heading {
+        color: var(--color-grey-dark-2);
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+      &__group {
+        font-size: small;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin-bottom: 0.5em;
+        &__label {
+          color: var(--color-grey-dark-2);
+        }
+        &__input {
+          width: 100%;
+          padding: 0.5em;
+          border: 1.5px solid var(--color-primary-light);
+          border-radius: 3px;
+          outline: none;
+        }
+        &__input:focus {
+          border: 2px solid var(--color-primary-light);
+        }
+      }
+      &__btn__container {
+        .btn {
+          width: 100%;
+          color: var(--color-grey-light-1);
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+          border-radius: 3px;
+          padding: 0.6em 0.5em;
+          margin: 0.5em 0;
+          outline: none;
+        }
+        .btn:hover,
+        .btn:focus {
+          transition: 0.2s;
+          background-color: var(--color-primary-light);
+          border: 1px solid var(--color-primary-light);
+        }
+        .btn:disabled {
+          background-color: var(--color-primary-light);
+          border: 1px solid var(--color-primary-light);
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
