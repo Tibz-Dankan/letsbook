@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import EditRoom from "../EditRoom/EditRoom";
 import DeleteRoom from "../DeleteRoom/DeleteRoom";
+import UpdateRoomImage from "../UpdateRoomImage/UpdateRoomImage";
 import { baseUrl } from "../../../store/appStore";
 import { log } from "../../../utils/consoleLog";
 import roomPhoto from "../../../assets/room1.jpeg";
@@ -48,6 +49,9 @@ const GetRooms = () => {
   return (
     <Fragment>
       <div className={styles["get__rooms"]}>
+        <div className={styles["get__rooms__heading"]}>
+          <span> Rooms available for booking</span>
+        </div>
         {isLoading && (
           <div className={styles["get__rooms__spinner__container"]}>
             <FadeLoader
@@ -57,9 +61,6 @@ const GetRooms = () => {
             <span>Fetching rooms...</span>
           </div>
         )}
-        <div className={styles["get__rooms__heading"]}>
-          <span> Rooms available for booking</span>
-        </div>
         {rooms.map((room, index) => {
           return (
             <div key={index} className={styles["rooms"]}>
@@ -85,8 +86,9 @@ const GetRooms = () => {
                 </span>
                 {isLoggedIn && userRole === "manager" && (
                   <div className={styles["rooms__content__operation"]}>
-                    <EditRoom roomObject={room} />
-                    <DeleteRoom roomObject={room} />
+                    <UpdateRoomImage roomDataObject={room} />
+                    <EditRoom roomDataObject={room} />
+                    <DeleteRoom roomDataObject={room} />
                   </div>
                 )}
                 {isLoggedIn && (
