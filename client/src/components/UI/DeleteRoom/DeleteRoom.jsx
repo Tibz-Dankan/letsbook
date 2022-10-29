@@ -3,6 +3,8 @@ import ReactModal from "react-modal";
 import { FadeLoader } from "react-spinners";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteRoom } from "../../../store/actions/room";
+import { RiCloseLine } from "react-icons/ri";
+import { disableEnableButton } from "../../../utils/disableEnableButton";
 import styles from "./DeleteRoom.module.scss";
 
 const customStyles = {
@@ -13,18 +15,18 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    backgroundColor: "lightgrey",
   },
 };
 
 // ReactModal.setAppElement("#yourAppElement");
 
-const DeleteRoom = ({ roomObject }) => {
-  const roomId = roomObject.room_id;
+const DeleteRoom = ({ roomDataObject }) => {
+  const roomId = roomDataObject.room_id;
   const dispatch = useDispatch();
   const authToken = useSelector((state) => state.auth.token);
   const [isLoading, setIsLoading] = useState(false);
 
-  let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -33,7 +35,7 @@ const DeleteRoom = ({ roomObject }) => {
 
   const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
+    // subtitle.style.color = "#f00";
   };
 
   const closeModal = () => {
@@ -45,11 +47,14 @@ const DeleteRoom = ({ roomObject }) => {
     console.log("roomId in handler :" + roomId);
     try {
       setIsLoading(true);
+      disableEnableButton("delete-btn", true);
       await dispatch(deleteRoom(roomId, authToken));
       setIsLoading(false);
+      disableEnableButton("delete-btn", false);
     } catch (error) {
       console.log("error", error.message);
       setIsLoading(false);
+      disableEnableButton("delete-btn", false);
     }
   };
 
@@ -61,7 +66,7 @@ const DeleteRoom = ({ roomObject }) => {
             className={styles["delete-room__open-modal__btn"]}
             onClick={() => openModal()}
           >
-            Delete
+            Delete Room
           </button>
         </div>
         <ReactModal
@@ -72,28 +77,28 @@ const DeleteRoom = ({ roomObject }) => {
           ariaHideApp={false}
           contentLabel="Delete Room"
         >
-          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Delete Room</h2>
-          <button
-            className={styles["delete-room__close-modal-btn"]}
-            onClick={() => closeModal()}
-          >
-            close
-          </button>
           <div className={styles["delete-room__group"]}>
+            <button
+              className={styles["delete-room__group__close-modal-btn"]}
+              onClick={() => closeModal()}
+            >
+              <RiCloseLine />
+            </button>
             {isLoading && (
-              <div className={styles["delete-room__loader"]}>
-                <FadeLoader />
+              <div className={styles["delete-room__group__loader"]}>
+                <FadeLoader color="hsl(0, 100%, 60%)" />
                 <span>Deleting room..</span>
               </div>
             )}
-            <div className={styles["delete-room__heading"]}>
-              <h4>
+            <div className={styles["delete-room__group__heading"]}>
+              <p>
                 Are sure that you <b>Delete</b>{" "}
-                <span>{roomObject.room_name}</span>
-              </h4>
+                <span>{roomDataObject.room_name} ?</span>
+              </p>
             </div>
-            <div className={styles["delete-room__btn__container"]}>
+            <div className={styles["delete-room__group__btn__container"]}>
               <button
+                id="delete-btn"
                 className={styles["btn"]}
                 onClick={() => handleDeleteRoom()}
               >
