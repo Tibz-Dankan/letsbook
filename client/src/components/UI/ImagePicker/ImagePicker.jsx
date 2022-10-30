@@ -29,7 +29,7 @@ const ImagePicker = (props) => {
     <Fragment>
       {!isDoneImageReview && (
         <div className={styles["image__picker"]}>
-          {errors.length && (
+          {!!errors.length && (
             <div className={styles["image__picker__error"]}>
               <span>Error occurred when selecting image</span>
             </div>
