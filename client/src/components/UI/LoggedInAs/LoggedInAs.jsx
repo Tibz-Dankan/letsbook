@@ -1,14 +1,19 @@
 import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { GoChevronDown, GoChevronUp, GoPerson } from "react-icons/go";
+import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { IconContext } from "react-icons";
+// import { useDispatch } from "react-redux";
+import UserImage from "../UserImage/UserImage";
+// import { openUserProfileModal } from "../../../store/actions/users";
 import styles from "./LoggedInAs.module.scss";
 import LogOut from "../LogOut/LogOut";
 
 const LoggedInAs = () => {
   const userName = useSelector((state) => state.auth.user.userName);
-  const userImage = useSelector((state) => state.auth.user.userImageUrl);
+  // const userImage = useSelector((state) => state.auth.user.userImageUrl);
   const [showChevronDownIcon, setShowChevronDownIcon] = useState(true);
+
+  // const dispatch = useDispatch();
 
   const showChevronDownOrUp = () => {
     switch (showChevronDownIcon) {
@@ -28,26 +33,8 @@ const LoggedInAs = () => {
     <Fragment>
       <div className={styles["logged__in__as__container"]}>
         <div className={styles["user__data__container"]}>
-          <div className={styles["user__image__container"]}>
-            {userImage ? (
-              <img
-                src={"some-image-url"}
-                alt="profile-pic"
-                className={styles["user__image"]}
-              />
-            ) : (
-              <IconContext.Provider
-                value={{
-                  color: "hsl(0, 0%, 60%)",
-                  size: "2.5em",
-                  className: styles["image__icon__container"],
-                }}
-              >
-                <div onClick={() => showChevronDownOrUp()}>
-                  <GoPerson className={styles["image__icon"]} />
-                </div>
-              </IconContext.Provider>
-            )}
+          <div id="edit-user-profile">
+            <UserImage />
           </div>
           <div className={styles["user__name__container"]}>
             <span>{userName}</span>
