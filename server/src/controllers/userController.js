@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const emailExistence = require("email-existence");
 const crypto = require("crypto");
 const { AppError } = require("../utils/error");
+const cloudinary = require("../utils/cloudinaryConfig");
 const { json } = require("express");
 require("dotenv").config();
 
@@ -149,10 +150,38 @@ const getAllStaffTokens = async (req, res, next) => {
 
 // TODO: forgot password, update password
 
+// TODO: user image upload to cloudinary
+const uploadUserImage = async (req, res, next) => {
+  const userId = req.params.userId;
+  const userImage = req.body.image;
+  if (!userId) return res.json({ errorMessage: "Unknown user!" });
+  // TODO: consider uploading images in the folder named "users"
+  const uploadUserImg = await cloudinary.uploader.upload(userImage);
+  console.log(uploadUserImg);
+  const userImageUrl = uploadUserImg.secure_url;
+  await User.saveUserImageUrl(userId, userImageUrl);
+  return res.status(200).json({ status: "success" });
+};
+
+const updateUserImage = async (req, res, next) => {
+  const userId = req.params.userId;
+  const userImage = req.body.image;
+  if (!userId) return res.json({ errorMessage: "Unknown user!" });
+  // TODO: consider uploading images in the folder named "users"
+  // TODO: consider deleting an existing image and adding a new one
+  const uploadUserImg = await cloudinary.uploader.upload(userImage);
+  console.log(uploadUserImg);
+  const userImageUrl = uploadUserImg.secure_url;
+  await User.updateUserImageUrl(userId, userImageUrl);
+  return res.status(200).json({ status: "success" });
+};
+
 module.exports = {
   signup,
   login,
   verifyStaffToken,
   generateStaffToken,
   getAllStaffTokens,
+  uploadUserImage,
+  updateUserImage,
 };

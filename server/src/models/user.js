@@ -32,6 +32,7 @@ User.getUserById = (userId) => {
 };
 
 // Get user by Email
+// TODO: consider joining tables in order to include the image url
 User.getUserByEmail = (email) => {
   return db.query("SELECT * FROM users WHERE email =$1", [email]);
 };
@@ -96,6 +97,22 @@ User.invalidateToken = (token) => {
   return db.query(
     "UPDATE staff_token SET is_valid = false WHERE token = $1 RETURNING *",
     [token]
+  );
+};
+
+// Insert user image url
+User.saveUserImageUrl = (userId, imageUrl) => {
+  return db.query(
+    "INSERT INTO user_image_urls(user_image_url, user_id) VALUES($1,$2)",
+    [imageUrl, userId]
+  );
+};
+
+// update user image url
+User.updateUserImageUrl = (userId, imageUrl) => {
+  return db.query(
+    "UPDATE user_image_urls SET user_image_url = $1 WHERE user_id = $2",
+    [imageUrl, userId]
   );
 };
 
