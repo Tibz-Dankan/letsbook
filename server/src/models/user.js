@@ -115,5 +115,9 @@ User.updateUserImageUrl = (userId, imageUrl) => {
     [imageUrl, userId]
   );
 };
+// Get user image url
+User.getUserImageUrl = (userId) => {
+  return db.query("SELECT * FROM user_image_urls WHERE user_id = $1", [userId]);
+};
 
 module.exports = User;

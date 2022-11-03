@@ -75,6 +75,17 @@ const signup = async (req, res, next) => {
   });
 };
 
+const userImageUrl = async (userId) => {
+  let userImageUrl;
+  const imageUrl = await User.getUserImageUrl(userId);
+  if (!imageUrl.rows[0]) {
+    userImageUrl = null;
+    return userImageUrl;
+  }
+  userImageUrl = imageUrl.rows[0].user_image_url;
+  return userImageUrl;
+};
+
 const login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -89,6 +100,7 @@ const login = async (req, res, next) => {
     userName: user.rows[0].user_name,
     email: user.rows[0].email,
     userRole: user.rows[0].user_role,
+    userImageUrl: await userImageUrl(user.rows.user_id),
   };
   createSendToken(userObject, 200, res);
 };
