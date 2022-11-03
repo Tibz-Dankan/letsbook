@@ -1,5 +1,4 @@
 const Room = require("../models/room");
-const multer = require("multer");
 const path = require("path");
 const cloudinary = require("../utils/cloudinaryConfig");
 const DatauriParser = require("datauri/parser");
@@ -49,9 +48,6 @@ const updateRoom = async (req, res, next) => {
   res.status(200).json({ status: "success" });
 };
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
 const formatBufferToBase64String = (file) => {
   return parser.format(path.extname(file.originalname).toString(), file.buffer);
 };
@@ -62,6 +58,7 @@ const uploadRoomImage = async (req, res) => {
   if (!roomImage) return res.json({ errorMessage: "No Image file uploaded" });
   if (!roomId) return res.json({ errorMessage: "No room id provided" });
   // upload image to cloudinary
+  // TODO: consider uploading images in the folder named "rooms"
   const uploadRoomImg = await cloudinary.uploader.upload(roomImage);
   console.log(uploadRoomImg);
   const roomImageUrl = uploadRoomImg.secure_url;
@@ -74,7 +71,6 @@ module.exports = {
   getRooms,
   deleteRoom,
   updateRoom,
-  upload,
   uploadRoomImage,
 };
 

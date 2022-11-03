@@ -4,10 +4,10 @@ const {
   getRooms,
   deleteRoom,
   updateRoom,
-  upload,
   uploadRoomImage,
 } = require("../controllers/roomController");
 const { verifyJwtToken } = require("../utils/verifyJwtToken");
+const { upload } = require("../utils/multer");
 
 const router = express.Router();
 
