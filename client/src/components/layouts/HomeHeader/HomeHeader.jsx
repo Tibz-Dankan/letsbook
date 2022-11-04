@@ -1,15 +1,8 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { hideLogInForm } from "../../../store/actions/signUpLogInForm";
-import { useDispatch } from "react-redux";
 import styles from "./HomeHeader.module.scss";
 
 const HomeHeader = () => {
-  const dispatch = useDispatch();
-
-  const showSignUpForm = () => {
-    dispatch(hideLogInForm());
-  };
   return (
     <Fragment>
       <header className={styles["home__header__container"]}>
@@ -26,11 +19,7 @@ const HomeHeader = () => {
                 </Link>
               </li> */}
               <li className={styles["list__link"]}>
-                <Link
-                  to="/"
-                  onClick={() => showSignUpForm()}
-                  className={styles["link"]}
-                >
+                <Link to="/signup" className={styles["link"]}>
                   SignUp
                 </Link>
               </li>
@@ -40,8 +29,8 @@ const HomeHeader = () => {
                 </Link>
               </li> */}
               <li className={styles["list__link__booking"]}>
-                <Link to="/booking" className={styles["link"]}>
-                  Book
+                <Link to="/login" className={styles["link"]}>
+                  LogIn
                 </Link>
               </li>
             </ul>

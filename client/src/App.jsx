@@ -6,6 +6,8 @@ import { io } from "socket.io-client";
 import { authenticate } from "./store/actions/auth";
 import { baseUrl } from "./store/appStore";
 import Home from "./pages/Home/Home";
+import LogIn from "./pages/LogIn/LogIn";
+import SignUp from "./pages/SignUp/SignUp";
 import Chat from "./pages/Chat/Chat";
 import About from "./pages/About/About";
 import ChatRoom from "./pages/ChatRoom/ChatRoom";
@@ -88,9 +90,29 @@ function App() {
               />
               <Route path="about" element={<About />} />
               <Route path="staff-signup" element={<Staff />} />
-              <Route path="login" element={<Navigate to="/" replace />} />
-              <Route path="signup" element={<Navigate to="/" replace />} />
-              <Route path="login" element={<Navigate to="/" replace />} />
+              <Route
+                path="signup"
+                element={
+                  <div>
+                    <SignUp />
+                    <Footer />
+                  </div>
+                }
+              />
+              <Route
+                path="login"
+                element={
+                  <div>
+                    <LogIn />
+                    <Footer />
+                  </div>
+                }
+              />
+              <Route
+                path="register"
+                element={<Navigate to="/signup" replace />}
+              />
+              <Route path="signin" element={<Navigate to="/login" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Fragment>
           </Routes>

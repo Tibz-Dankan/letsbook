@@ -1,16 +1,15 @@
 import React, { useState, Fragment, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-// import { FadeLoader } from "react-spinners";
-import { signup } from "../../../store/actions/auth";
-import { disableEnableButton } from "../../../utils/disableEnableButton";
+import { FadeLoader } from "react-spinners";
+import { signup } from "../../store/actions/auth";
+import { disableEnableButton } from "../../utils/disableEnableButton";
 import styles from "./SignUp.module.scss";
 import Select from "react-select";
 import countryList from "react-select-country-list";
-import Modal from "../Modal/Modal";
-import { hideSignUpForm } from "../../../store/actions/signUpLogInForm";
+import Modal from "../../components/ui/Modal/Modal";
 
 const SignUp = () => {
   const [userName, setUserName] = useState("");
@@ -27,7 +26,7 @@ const SignUp = () => {
   const [passwordValidationMsg, setPasswordValidationMsg] = useState("");
   const [isPasswordError, setIsPasswordError] = useState(false);
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const options = useMemo(() => countryList().getData(), []);
@@ -64,9 +63,9 @@ const SignUp = () => {
     }
   };
 
-  const showLoginForm = () => {
-    setTimeout(async () => {
-      await dispatch(hideSignUpForm()); //Hiding signup and showing login form
+  const navigateToLogin = () => {
+    setTimeout(() => {
+      navigate("/login", { replace: true });
     }, 2000);
   };
 
@@ -97,7 +96,6 @@ const SignUp = () => {
     return false;
   };
 
-  // Handling signup of a user with role "user"
   const handleSignUpSubmit = async () => {
     if (!userName || !email || !password) return;
     try {
@@ -108,7 +106,7 @@ const SignUp = () => {
       );
       setIsLoading(false);
       disableEnableButton("signup-button", false);
-      showLoginForm();
+      navigateToLogin();
     } catch (error) {
       setIsLoading(false);
       disableEnableButton("signup-button", false);
@@ -137,13 +135,32 @@ const SignUp = () => {
   return (
     <Fragment>
       <div className={styles["signup__container"]}>
+        <header className={styles["signup__container__header"]}>
+          <span className={styles["signup__container__header--logo"]}>
+            LetsBook
+          </span>
+          <nav className={styles["signup__container__header--links"]}>
+            <Link
+              to="/"
+              className={styles["signup__container__header--links-home"]}
+            >
+              Home
+            </Link>
+            <Link
+              to="/login"
+              className={styles["signup__container__header--links-login"]}
+            >
+              LogIn
+            </Link>
+          </nav>
+        </header>
         {showNotificationModal && <Modal isErrorMessage={isError} />}
         {isLoading && (
           <div className={styles["fade__loader__container"]}>
-            {/* <FadeLoader
-            color="hsl(266, 50%, 36%)"
-            className={styles["spinner"]}
-          /> */}
+            <FadeLoader
+              color="hsl(266, 50%, 36%)"
+              className={styles["spinner"]}
+            />
             <span>Signing up...</span>
           </div>
         )}
@@ -274,11 +291,7 @@ const SignUp = () => {
           <div className={styles["have___account__container"]}>
             <p className={styles["have__account"]}>
               Already have account{" "}
-              <Link
-                to="/"
-                onClick={() => dispatch(hideSignUpForm())}
-                className={styles["link"]}
-              >
+              <Link to="/login" className={styles["link"]}>
                 Login
               </Link>
             </p>

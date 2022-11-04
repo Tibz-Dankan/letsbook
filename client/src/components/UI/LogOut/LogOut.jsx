@@ -12,7 +12,7 @@ const LogOut = () => {
 
   const logOutHandler = async () => {
     await dispatch(logOut());
-    navigate("/", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   return (

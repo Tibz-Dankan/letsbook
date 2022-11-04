@@ -1,31 +1,26 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FadeLoader } from "react-spinners";
-import { login } from "../../../store/actions/auth";
-import { disableEnableButton } from "../../../utils/disableEnableButton";
-import { log } from "../../../utils/consoleLog";
-import Modal from "../Modal/Modal";
+import { login } from "../../store/actions/auth";
+import { disableEnableButton } from "../../utils/disableEnableButton";
+import { log } from "../../utils/consoleLog";
+import Modal from "../../components/ui/Modal/Modal";
 import styles from "./LogIn.module.scss";
-import { hideLogInForm } from "../../../store/actions/signUpLogInForm";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // let navigate = useNavigate();
   const dispatch = useDispatch();
   const showNotificationModal = useSelector(
     (state) => state.notification.value
   );
 
-  // const userRole = useSelector(
-  //   (state) => state.auth.user && state.auth.user.userRole
-  // );
   const [isError, setIsError] = useState(false);
 
   const handleEmailChange = (event) => {
@@ -48,23 +43,6 @@ const LogIn = () => {
     }
   };
 
-  // // Navigating a user based on the role
-  // const navigateUser = (role) => {
-  //   console.log(role);
-  //   switch (role) {
-  //     case "user":
-  //       navigate("/booking", { replace: true });
-  //       break;
-  //     case "manager":
-  //       navigate("/admin", { replace: true });
-  //       break;
-  //     case "customer support":
-  //       navigate("/chat", { replace: true });
-  //       break;
-  //     default:
-  //   }
-  // };
-
   const handleLogInSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) return;
@@ -73,8 +51,6 @@ const LogIn = () => {
       disableEnableButton("button", true);
       await dispatch(login(email, password));
       setIsLoading(false);
-      // navigateUser(userRole);
-      // navigate("/chat", { replace: true }); //TODO: navigate according user role (create function to handle the task)
       disableEnableButton("button", false);
     } catch (error) {
       setIsLoading(false);
@@ -87,6 +63,25 @@ const LogIn = () => {
   return (
     <Fragment>
       <div className={styles["login__container"]}>
+        <header className={styles["login__container__header"]}>
+          <span className={styles["login__container__header--logo"]}>
+            LetsBook
+          </span>
+          <nav className={styles["login__container__header--links"]}>
+            <Link
+              to="/"
+              className={styles["login__container__header--links-home"]}
+            >
+              Home
+            </Link>
+            <Link
+              to="/signup"
+              className={styles["login__container__header--links-signup"]}
+            >
+              SignUp
+            </Link>
+          </nav>
+        </header>
         {showNotificationModal && <Modal isErrorMessage={isError} />}
         {isLoading && (
           <div className={styles["fade__loader__container"]}>
@@ -164,8 +159,8 @@ const LogIn = () => {
             <p className={styles["dont__have__account"]}>
               Don't have account{" "}
               <Link
-                onClick={() => dispatch(hideLogInForm())}
-                to="/"
+                // onClick={() => dispatch(hideLogInForm())}
+                to="/signup"
                 className={styles["link"]}
               >
                 SignUp
