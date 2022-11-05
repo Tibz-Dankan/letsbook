@@ -52,14 +52,17 @@ const formatBufferToBase64String = (file) => {
   return parser.format(path.extname(file.originalname).toString(), file.buffer);
 };
 
+// TODO: fix error "Too large image files"
 const uploadRoomImage = async (req, res) => {
   const roomId = req.params.roomId;
   const roomImage = req.body.image;
   if (!roomImage) return res.json({ errorMessage: "No Image file uploaded" });
   if (!roomId) return res.json({ errorMessage: "No room id provided" });
   // upload image to cloudinary
-  // TODO: consider uploading images in the folder named "rooms"
-  const uploadRoomImg = await cloudinary.uploader.upload(roomImage);
+  const uploadRoomImg = await cloudinary.uploader.upload(roomImage, {
+    folder: "rooms",
+    public_id: `room_${roomId}`,
+  });
   console.log(uploadRoomImg);
   const roomImageUrl = uploadRoomImg.secure_url;
   await Room.updateRoomWithImage(roomId, roomImageUrl);

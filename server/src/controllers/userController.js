@@ -100,7 +100,7 @@ const login = async (req, res, next) => {
     userName: user.rows[0].user_name,
     email: user.rows[0].email,
     userRole: user.rows[0].user_role,
-    userImageUrl: await userImageUrl(user.rows.user_id),
+    userImageUrl: await userImageUrl(user.rows[0].user_id),
   };
   createSendToken(userObject, 200, res);
 };
@@ -167,8 +167,13 @@ const uploadUserImage = async (req, res, next) => {
   const userId = req.params.userId;
   const userImage = req.body.image;
   if (!userId) return res.json({ errorMessage: "Unknown user!" });
-  // TODO: consider uploading images in the folder named "users"
-  const uploadUserImg = await cloudinary.uploader.upload(userImage);
+  if (!userImage) {
+    return res.json({ errorMessage: "No Image Uploaded to the server!" });
+  }
+  const uploadUserImg = await cloudinary.uploader.upload(userImage, {
+    folder: "users",
+    public_id: `user_${userId}`,
+  });
   console.log(uploadUserImg);
   const userImageUrl = uploadUserImg.secure_url;
   await User.saveUserImageUrl(userId, userImageUrl);
@@ -179,10 +184,13 @@ const updateUserImage = async (req, res, next) => {
   const userId = req.params.userId;
   const userImage = req.body.image;
   if (!userId) return res.json({ errorMessage: "Unknown user!" });
-  // TODO: consider uploading images in the folder named "users"
-  // TODO: consider deleting an existing image and adding a new one
-  const uploadUserImg = await cloudinary.uploader.upload(userImage);
-  console.log(uploadUserImg);
+  if (!userImage) {
+    return res.json({ errorMessage: "No Image Uploaded to the server!" });
+  }
+  const uploadUserImg = await cloudinary.uploader.upload(userImage, {
+    folder: "users",
+    public_id: `user_${userId}`,
+  });
   const userImageUrl = uploadUserImg.secure_url;
   await User.updateUserImageUrl(userId, userImageUrl);
   return res.status(200).json({ status: "success" });
