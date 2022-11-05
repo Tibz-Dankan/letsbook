@@ -103,8 +103,8 @@ User.invalidateToken = (token) => {
 // Insert user image url
 User.saveUserImageUrl = (userId, imageUrl) => {
   return db.query(
-    "INSERT INTO user_image_urls(user_image_url, user_id) VALUES($1,$2)",
-    [imageUrl, userId]
+    "INSERT INTO user_image_urls( user_id, user_image_url) VALUES($1,$2)",
+    [userId, imageUrl]
   );
 };
 
