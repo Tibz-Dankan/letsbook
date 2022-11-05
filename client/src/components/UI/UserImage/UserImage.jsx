@@ -118,17 +118,17 @@ const UserImage = () => {
               <section className={styles["user-image__content--upload-image"]}>
                 {userImage ? (
                   <UploadImage
-                    apiEndpoint={"upload-user-image"}
+                    apiEndpoint={"update-user-image"}
                     id={userId}
                     category={"User"}
                   />
                 ) : (
-                <UploadImage
-                  apiEndpoint={"update-user-image"}
-                  id={userId}
-                  category={"User"}
-                />
-                 )} 
+                  <UploadImage
+                    apiEndpoint={"upload-user-image"}
+                    id={userId}
+                    category={"User"}
+                  />
+                )}
               </section>
             )}
           </div>
