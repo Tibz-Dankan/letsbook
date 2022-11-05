@@ -17,7 +17,7 @@ Room.updateRoomWithBooking = (roomId, bookingId) => {
 };
 
 Room.getAllRooms = () => {
-  return db.query("SELECT * FROM room");
+  return db.query("SELECT * FROM room ORDER BY room_id ASC");
 };
 
 Room.getRoomByRoomId = (roomId) => {
