@@ -16,7 +16,7 @@ import AdminDashBoard from "./pages/AdminDashBoard/AdminDashBoard";
 import Staff from "./pages/Staff/Staff";
 import Payment from "./pages/Payment/Payment";
 import GetRooms from "./components/UI/GetRooms/GetRooms";
-import GeneralHeader from "./components/layouts/GeneralHeader/GeneralHeader";
+import Header from "./components/layouts/Header/Header";
 import SideBar from "./components/layouts/SideBar/SideBar";
 import Footer from "./components/layouts/Footer/Footer";
 import "./App.scss";
@@ -127,7 +127,7 @@ function App() {
                   path="booking"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader title={"Booking"} />
+                      <Header title={"Booking"} />
                       <Booking />
                     </div>
                   }
@@ -136,9 +136,7 @@ function App() {
                   path="home"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader
-                        title={`Welcome  ${userName ? userName : ""}`}
-                      />
+                      <Header title={`Welcome  ${userName ? userName : ""}`} />
                       <Booking />
                     </div>
                   }
@@ -147,7 +145,7 @@ function App() {
                   path="chat"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader title={"Chat"} />
+                      <Header title={"Chat"} />
                       <Chat socket={socket} />
                     </div>
                   }
@@ -156,7 +154,7 @@ function App() {
                   path="chat-room"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader title={"ChatRoom"} />
+                      <Header title={"ChatRoom"} />
                       <ChatRoom socket={socket} />
                     </div>
                   }
@@ -165,7 +163,7 @@ function App() {
                   path="payment"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader title={"Payment"} />
+                      <Header title={"Payment"} />
                       <Payment />
                     </div>
                   }
@@ -175,7 +173,7 @@ function App() {
                     path="admin"
                     element={
                       <div className="pages__component">
-                        <GeneralHeader title={"Admin"} />
+                        <Header title={"Admin"} />
                         <AdminDashBoard />
                       </div>
                     }
@@ -185,7 +183,7 @@ function App() {
                   path="about"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader title={"About"} />
+                      <Header title={"About"} />
                       <About />
                     </div>
                   }
@@ -194,7 +192,7 @@ function App() {
                   path="rooms"
                   element={
                     <div className="pages__component">
-                      <GeneralHeader title={"Rooms"} />
+                      <Header title={"Rooms"} />
                       <GetRooms />
                     </div>
                   }
