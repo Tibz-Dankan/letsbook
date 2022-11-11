@@ -5,6 +5,7 @@ import axios from "axios";
 import EditRoom from "../EditRoom/EditRoom";
 import DeleteRoom from "../DeleteRoom/DeleteRoom";
 import UpdateRoomImage from "../UpdateRoomImage/UpdateRoomImage";
+import NotLoggedIn from "../NotLoggedIn/NotLoggedIn";
 import { baseUrl } from "../../../store/appStore";
 import { log } from "../../../utils/consoleLog";
 import roomPhoto from "../../../assets/room1.jpeg";
@@ -101,6 +102,7 @@ const GetRooms = () => {
                     </button>
                   </Link>
                 )}
+                {!isLoggedIn && <NotLoggedIn />}
               </div>
             </div>
           );
