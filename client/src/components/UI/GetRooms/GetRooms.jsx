@@ -6,10 +6,10 @@ import EditRoom from "../EditRoom/EditRoom";
 import DeleteRoom from "../DeleteRoom/DeleteRoom";
 import UpdateRoomImage from "../UpdateRoomImage/UpdateRoomImage";
 import NotLoggedIn from "../NotLoggedIn/NotLoggedIn";
+import RoomsLoadingSkeleton from "../RoomsLoadingSkeleton/RoomsLoadingSkeleton";
 import { baseUrl } from "../../../store/appStore";
 import { log } from "../../../utils/consoleLog";
 import roomPhoto from "../../../assets/room1.jpeg";
-import { FadeLoader } from "react-spinners";
 import styles from "./GetRooms.module.scss";
 
 const GetRooms = () => {
@@ -54,12 +54,8 @@ const GetRooms = () => {
           <span> Rooms available for booking</span>
         </div>
         {isLoading && (
-          <div className={styles["get__rooms__spinner__container"]}>
-            <FadeLoader
-              color="hsl(266, 50%, 36%)"
-              className={styles["spinner"]}
-            />
-            <span>Fetching rooms...</span>
+          <div className={styles["get__rooms__rooms-loading-skeleton"]}>
+            <RoomsLoadingSkeleton />
           </div>
         )}
         {rooms.map((room, index) => {
