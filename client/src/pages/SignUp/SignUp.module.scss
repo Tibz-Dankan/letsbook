@@ -4,14 +4,7 @@
   margin-bottom: 2em;
   min-height: 100vh;
   position: relative;
-  // @media screen and (max-width: 500px) {
-  //   margin-bottom: 2em;
-  //   width: 80%;
-  // }
-  // @media screen and (min-width: 501px) and (max-width: 950px) {
-  //   margin-bottom: 2em;
-  //   width: 60%;
-  // }
+
   &__header {
     display: flex;
     align-items: center;
@@ -30,29 +23,31 @@
     }
     &--logo {
       color: var(--color-grey-dark-2);
+      font-weight: bold;
     }
     &--links {
       &-home {
-        color: var(--color-primary);
         text-decoration: none;
-        border: 2px solid var(--color-primary);
-        padding: 0.3em 0.4em 0.4em 0.4em;
-        border-radius: 5px;
-        margin-right: 2em;
+        color: var(--color-grey-dark-2);
+        padding: 0.2em 0.4em 0.3em 0.4em;
+        border-radius: 3px;
       }
       &-home:hover,
       &-home:focus {
         transition: 0.2s;
-        color: var(--color-primary-light);
         border: 2px solid var(--color-primary-light);
-      }
-      &-login {
-        background-color: var(--color-primary);
-        color: var(--color-grey-light-1);
-        text-decoration: none;
-        padding: 0.3em 0.4em 0.4em 0.4em;
         border: 2px solid var(--color-primary);
-        border-radius: 5px;
+      }
+
+      &-login {
+        text-decoration: none;
+        color: var(--color-grey-dark-2);
+        background-color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+        color: var(--color-grey-light-1);
+        padding: 0.2em 0.4em 0.3em 0.4em;
+        border-radius: 3px;
+        margin-left: 1.5em;
       }
       &-login:hover,
       &-login:focus {
