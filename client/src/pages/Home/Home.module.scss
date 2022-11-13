@@ -1,54 +1,180 @@
-.home__page {
-  height: auto;
-  // max-height: auto;
-  background-color: var(--color-grey-light-2);
-}
-
-.room__form__container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  justify-content: space-around;
-  align-items: center;
-  padding: 3em 5em;
-  margin-bottom: 2em;
-
-  .room__image__container {
-    background-color: var(--color-grey-light-1);
-    border: 1px solid var(--color-grey-light-3);
-    border-radius: 5px;
+.home {
+  &__header {
+    position: fixed;
+    top: 0em;
+    width: 100%;
+    color: var(--color-grey-dark-2);
+    background-color: var(--color-grey-light-2);
     box-shadow: var(--shadow-dark);
-    width: 50%;
-    height: 400px;
-    margin-right: 0.5em;
-    padding: 0.5em;
-    display: grid;
-    place-items: center;
-    @media screen and (max-width: 500px) {
-      width: 80%;
-      margin: 2em 0em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 3em;
+    z-index: 1000;
+    @media screen and (max-width: 400px) {
+      padding: 1em 1em;
     }
-    @media screen and (min-width: 501px) and (max-width: 950px) {
-      width: 60%;
-      margin: 2em 0em;
+    &--logo {
+      font-weight: bold;
     }
-    .room__image {
-      width: 100%;
-      height: 100%;
-      border-radius: 3px;
-      background-color: hsl(0, 0%, 100%);
-      object-fit: cover;
+    &--links {
+      &-nav {
+        &-ul {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          &-list {
+            list-style: none;
+            &-login {
+              text-decoration: none;
+              color: var(--color-grey-dark-2);
+              padding: 0.2em 0.4em 0.3em 0.4em;
+              border-radius: 3px;
+            }
+            &-login:hover,
+            &-login:focus {
+              transition: 0.2s;
+              border: 2px solid var(--color-primary-light);
+              border: 2px solid var(--color-primary);
+            }
+            &-signup {
+              text-decoration: none;
+              color: var(--color-grey-dark-2);
+              background-color: var(--color-primary);
+              border: 2px solid var(--color-primary);
+              color: var(--color-grey-light-1);
+              padding: 0.2em 0.4em 0.3em 0.4em;
+              border-radius: 3px;
+              margin-left: 1.5em;
+            }
+            &-signup:hover,
+            &-signup:focus {
+              transition: 0.2s;
+              background-color: var(--color-primary-light);
+              border: 2px solid var(--color-primary-light);
+            }
+          }
+        }
+      }
     }
   }
-  @media screen and (max-width: 950px) {
-    padding: 0em;
+  &__animated {
+    margin-top: 3.6em;
+    overflow: hidden;
+    height: 90vh;
+    &__slider {
+      height: inherit;
+    }
+
+    %parent-element-properties {
+      position: relative;
+      height: 100%;
+      background-size: contain;
+      background-size: cover;
+      display: grid;
+      place-items: center;
+    }
+    %pseudo-element-properties {
+      content: "";
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.55;
+    }
+    %child-element-properties {
+      position: relative;
+      border-radius: 3px;
+      box-shadow: var(--shadow-light);
+      padding: 1em;
+      width: 40%;
+      background-color: var(--color-grey-light-1);
+      span {
+        margin-bottom: 1.5em;
+      }
+      @media screen and (max-width: 800px) {
+        width: 50%;
+      }
+      @media screen and (max-width: 600px) {
+        width: 60%;
+      }
+      @media screen and (max-width: 400px) {
+        width: 80%;
+      }
+    }
+
+    &--bg-image-one {
+      @extend %parent-element-properties;
+      &-content {
+        @extend %child-element-properties;
+      }
+    }
+    &--bg-image-one::before {
+      $bg-room-image-one: url("../../assets/room1.jpeg");
+      background-image: $bg-room-image-one;
+      @extend %pseudo-element-properties;
+    }
+
+    &--bg-image-two {
+      @extend %parent-element-properties;
+      &-content {
+        @extend %child-element-properties;
+      }
+    }
+    &--bg-image-two::before {
+      $bg-room-image-two: url("https://res.cloudinary.com/dlmv4ot9h/image/upload/v1659598762/room-6_ixhjsz.jpg");
+      background-image: $bg-room-image-two;
+      @extend %pseudo-element-properties;
+    }
+
+    &--bg-image-three {
+      @extend %parent-element-properties;
+      &-content {
+        @extend %child-element-properties;
+      }
+    }
+    &--bg-image-three::before {
+      $bg-room-image-one: url("../../assets/room1.jpeg");
+      background-image: $bg-room-image-one;
+      @extend %pseudo-element-properties;
+    }
+  }
+
+  &__map__about {
+    margin-top: 3em;
+    padding: 0em 3em;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-    // .room__image__container {
-    // height: 250px;
-    // }
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
+    }
+    @media screen and (max-width: 400px) {
+      padding: 0em 2em;
+    }
+
+    &--map {
+      padding: 0.5em;
+      width: 150%;
+      border-radius: 3px;
+      box-shadow: var(--shadow-dark);
+      display: grid;
+      place-items: center;
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
+      &-image {
+        width: 100%;
+        height: auto;
+        border-radius: 3px;
+      }
+    }
+    &--about {
+      padding: 0.5em 0em 0em 1em;
+      @media screen and (max-width: 800px) {
+        margin-top: 1em;
+      }
+    }
   }
 }
