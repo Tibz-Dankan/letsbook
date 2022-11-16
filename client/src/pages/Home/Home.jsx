@@ -66,9 +66,9 @@ const Home = () => {
               <div className={styles["home__animated--bg-image-one"]}>
                 <div className={styles["home__animated--bg-image-one-content"]}>
                   <p>
-                    some meaningful text info , some meaningful text info, some
-                    meaningful text info, some meaningful text info, some
-                    meaningful text info
+                    All our guestrooms are elegantly furnished with handmade
+                    furniture include luxury en-suite facilities with
+                    complimentary amenities pack.
                   </p>
                   <NotLoggedIn />
                 </div>
@@ -78,9 +78,8 @@ const Home = () => {
               <div className={styles["home__animated--bg-image-two"]}>
                 <div className={styles["home__animated--bg-image-two-content"]}>
                   <p>
-                    some meaningful text info , some meaningful text info, some
-                    meaningful text info, some meaningful text info, some
-                    meaningful text info
+                    An informal or casual table set up fits perfectly for dinner
+                    parties, casual weddings, and family occasions
                   </p>
                   <NotLoggedIn />
                 </div>
@@ -92,9 +91,8 @@ const Home = () => {
                   className={styles["home__animated--bg-image-three-content"]}
                 >
                   <p>
-                    some meaningful text info , some meaningful text info, some
-                    meaningful text info, some meaningful text info, some
-                    meaningful text info
+                    The pool is spectacular. It is heated year round and
+                    included 2 lap lanes. There are no slides, however
                   </p>
                   <NotLoggedIn />
                 </div>

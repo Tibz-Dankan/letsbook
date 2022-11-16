@@ -112,7 +112,7 @@
       }
     }
     &--bg-image-one::before {
-      $bg-room-image-one: url("../../assets/room1.jpeg");
+      $bg-room-image-one: url("https://res.cloudinary.com/dlmv4ot9h/image/upload/v1668602103/Home-page-images/fantastic-room2_fzsb2q.png");
       background-image: $bg-room-image-one;
       @extend %pseudo-element-properties;
     }
@@ -124,7 +124,7 @@
       }
     }
     &--bg-image-two::before {
-      $bg-room-image-two: url("https://res.cloudinary.com/dlmv4ot9h/image/upload/v1659598762/room-6_ixhjsz.jpg");
+      $bg-room-image-two: url("https://res.cloudinary.com/dlmv4ot9h/image/upload/v1668600972/Home-page-images/restuarant_lxbyih.jpg");
       background-image: $bg-room-image-two;
       @extend %pseudo-element-properties;
     }
@@ -136,8 +136,8 @@
       }
     }
     &--bg-image-three::before {
-      $bg-room-image-one: url("../../assets/room1.jpeg");
-      background-image: $bg-room-image-one;
+      $bg-room-image-three: url("https://res.cloudinary.com/dlmv4ot9h/image/upload/v1668601829/Home-page-images/pool_pgmxr1.jpg");
+      background-image: $bg-room-image-three;
       @extend %pseudo-element-properties;
     }
   }
