@@ -101,7 +101,7 @@ const BookRoom = () => {
                 className={styles["rooms__inner__container"]}
                 id={styles["room__container"]}
               >
-                {room.room_image_url !== "null" ? (
+                {room.room_image_url ? (
                   <div className={styles["rooms__image__container"]}>
                     <img
                       src={room.room_image_url}
@@ -110,21 +110,8 @@ const BookRoom = () => {
                     />
                   </div>
                 ) : (
-                  // <IconContext.Provider
-                  //   value={{
-                  //     color: "hsl(206, 50%, 70%)",
-                  //     className: styles["room__icon__container"],
-                  //     size: "8em",
-                  //   }}
-                  // >
-                  //   {/* <GiMushroomHouse /> */}
-                  //   <MdOutlineBedroomParent />
-                  // </IconContext.Provider>
-                  // <div className={styles["rooms__image__container"]}>
                   <img
                     src={roomPhoto}
-                    // src={bookedRoomPhoto}
-                    // bookedRoomPhoto
                     alt="Room"
                     className={styles["rooms__image"]}
                     style={{
@@ -133,7 +120,6 @@ const BookRoom = () => {
                       objectFit: "cover",
                     }}
                   />
-                  // </div>
                 )}
                 <div className={styles["room__name"]}>{room.room_name}</div>
                 <div className={styles["rooms__price"]}>
