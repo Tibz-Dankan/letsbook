@@ -6,6 +6,7 @@ import styles from "./MyBooking.module.scss";
 import { log } from "../../../utils/consoleLog";
 import { generateBookingIdString } from "../../../utils/bookingId";
 import Modal from "../Modal/Modal";
+import MobileMoney from "../MobileMoney/MobileMoney";
 import { showNotificationModal } from "../../../store/actions/notification";
 import { FadeLoader } from "react-spinners";
 // import Payment from "../Payment/Payment";
@@ -129,6 +130,9 @@ const MyBooking = () => {
               className={styles["user__booking__data__outer__container"]}
               key={booking.booking_id}
             >
+              {booking.has_paid === false && (
+                <MobileMoney roomDataObject={booking} />
+              )}
               <div className={styles["user__booking__data__inner__container"]}>
                 <div className={styles["user__data__container"]}>
                   <div className={styles["user__image"]}>

@@ -4,6 +4,7 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const roomRoutes = require("./routes/roomRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 const compression = require("compression");
 const { chatTextMessages } = require("./controllers/chatController");
 
@@ -49,6 +50,9 @@ app.use("/", bookingRoutes);
 
 // room routes
 app.use("/", roomRoutes);
+
+// payment routes
+app.use("/", paymentRoutes);
 
 const PORT = process.env.PORT || 8000;
 

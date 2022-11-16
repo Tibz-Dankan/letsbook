@@ -13,13 +13,13 @@ CREATE TABLE users (
 );
 -- add column named tel_number to the table users
 
--- TODO: Update table below in production
+-- TODO: Update table below in production(Done)
 CREATE TABLE user_image_urls (
     image_url_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL, 
     user_image_url VARCHAR(250) NOT NULL 
 );
--- TODO: rename column in table user_image_urls image_url to user_image_url (DONE in dev BUT check in PROD)
+-- TODO: rename column in table user_image_urls image_url to user_image_url (DONE in dev BUT check in PROD(Done))
 
 CREATE TABLE chat_messages (
     message_id SERIAL PRIMARY KEY,
