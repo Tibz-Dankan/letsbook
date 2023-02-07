@@ -21,7 +21,8 @@ let baseUrl;
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   baseUrl = "http://localhost:8000";
 } else {
-  baseUrl = "https://letsbook.herokuapp.com";
+  // baseUrl = "https://letsbook.herokuapp.com";
+  baseUrl = " https://letsbook.onrender.com";
 }
 
 export { baseUrl };
