@@ -1,15 +1,15 @@
-const express = require("express");
-const { verifyJwtToken } = require("../utils/verifyJwtToken");
-const {
-  ugMobileMoneyOrAirtelMoney,
-} = require("../controllers/paymentController");
+// const express = require("express");
+// const { verifyJwtToken } = require("../utils/verifyJwtToken");
+// const {
+//   ugMobileMoneyOrAirtelMoney,
+// } = require("../controllers/paymentController");
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post(
-  "/mobile-money-or-airtel-money/:userId/:roomId",
-  verifyJwtToken,
-  ugMobileMoneyOrAirtelMoney
-);
+// router.post(
+//   "/mobile-money-or-airtel-money/:userId/:roomId",
+//   verifyJwtToken,
+//   ugMobileMoneyOrAirtelMoney
+// );
 
-module.exports = router;
+// module.exports = router;

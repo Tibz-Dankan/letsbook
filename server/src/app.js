@@ -51,8 +51,8 @@ app.use("/", bookingRoutes);
 // room routes
 app.use("/", roomRoutes);
 
-// payment routes
-app.use("/", paymentRoutes);
+// // payment routes
+// app.use("/", paymentRoutes);
 
 const PORT = process.env.PORT || 8000;
 
