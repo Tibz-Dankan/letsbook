@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const emailExistence = require("email-existence");
+// const emailExistence = require("email-existence");
 const crypto = require("crypto");
 const { AppError } = require("../utils/error");
 const cloudinary = require("../utils/cloudinaryConfig");
@@ -55,24 +55,24 @@ const signup = async (req, res, next) => {
   const isVerifiedEmail = false;
   const token = crypto.randomBytes(16).toString("hex");
   // check email existence
-  await emailExistence.check(email, async (error, response) => {
-    if (error)
-      return res.json({
-        errorMessage: "An error occurred during email validation",
-      });
-    if (!response) return res.json({ errorMessage: "Invalid email" });
-    createUserSendResponse(
-      res,
-      userName,
-      email,
-      country,
-      hashedPassword,
-      isVerifiedEmail,
-      token,
-      userRole
-    );
-    console.log("Email Validation status: " + response);
-  });
+  // await emailExistence.check(email, async (error, response) => {
+  //   if (error)
+  //     return res.json({
+  //       errorMessage: "An error occurred during email validation",
+  //     });
+  //   if (!response) return res.json({ errorMessage: "Invalid email" });
+  createUserSendResponse(
+    res,
+    userName,
+    email,
+    country,
+    hashedPassword,
+    isVerifiedEmail,
+    token,
+    userRole
+  );
+  console.log("Email Validation status: " + response);
+  // });
 };
 
 const userImageUrl = async (userId) => {
