@@ -71,7 +71,7 @@ const signup = async (req, res, next) => {
     token,
     userRole
   );
-  console.log("Email Validation status: " + response);
+  // console.log("Email Validation status: " + response);
   // });
 };
 
