@@ -7,6 +7,7 @@ const roomRoutes = require("./routes/roomRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const compression = require("compression");
 const { chatTextMessages } = require("./controllers/chatController");
+const { keepActiveController } = require("keep-apps-active");
 
 const app = express();
 
@@ -53,6 +54,8 @@ app.use("/", roomRoutes);
 
 // // payment routes
 // app.use("/", paymentRoutes);
+
+keepActiveController(app);
 
 const PORT = process.env.PORT || 8000;
 
